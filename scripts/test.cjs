@@ -181,7 +181,14 @@ async function run() {
     assert(!galleryAnimationSource.includes('drawTrail'), 'template gallery animation must not draw flowing trails');
     assert(!galleryAnimationSource.includes('particles'), 'template gallery animation must not draw moving particles');
     assert(galleryAnimationSource.includes('drawDecorativeText'), 'template gallery animation missing decorative labels');
-    assert(galleryAnimationSource.includes('drawDecorativeBlocks'), 'template gallery animation missing moving blocks');
+    assert(galleryAnimationSource.includes('createDataPulses'), 'template gallery animation missing overlapping deterministic data pulses');
+    assert(galleryAnimationSource.includes('pulse.position = this.samplePulsePosition'), 'template gallery data pulses must freeze their sampled screen position');
+    assert(galleryAnimationSource.includes('context.fillRect'), 'template gallery data pulses must be square');
+    assert(!galleryAnimationSource.includes('context.roundRect'), 'template gallery data pulses must not be rounded');
+    assert(!galleryAnimationSource.includes('strokeRect'), 'template gallery blocks must not use detached outer frames');
+    assert(!galleryAnimationSource.includes('BLOCK_CYCLE_MS'), 'template gallery blocks must not drift independently');
+    assert(galleryAnimationSource.includes('hyperText'), 'template gallery animation missing hyper-text labels');
+    assert(galleryAnimationSource.includes('drawTextTicker'), 'template gallery animation missing repeated text ticker');
     assert(galleryHtml.includes('data-animation-setting="cycleSpeed"'), 'template gallery missing ring cycle speed control');
     assert(fs.statSync(path.join(galleryDirectory, 'template-gallery-preview.png')).size > 1000, 'template gallery preview missing');
     process.stdout.write(`PASS: ${sceneFiles.length} families, deterministic SVG/PNG, bounds, symmetry, and validation\n`);

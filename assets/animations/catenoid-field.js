@@ -6,7 +6,10 @@
   const PATH_REVEAL_MS = 1200;
   const PATH_STAGGER_MS = 40;
   const RING_CYCLE_MS = 5600;
-  const BLOCK_CYCLE_MS = 4800;
+  const DATA_PULSE_DELAY_MS = 900;
+  const HYPER_CYCLE_MS = 4200;
+  const HYPER_ACTIVE_MS = 650;
+  const HYPER_GLYPHS = '01<>/{}[]+-=';
   const POINTER_EASE = 0.055;
   const ACCENT = '#77e1ca';
   const SECONDARY = '#a98bff';
@@ -23,6 +26,17 @@
   function rgba(hex, alpha) {
     const channels = [1, 3, 5].map(index => parseInt(hex.slice(index, index + 2), 16));
     return `rgba(${channels[0]}, ${channels[1]}, ${channels[2]}, ${alpha})`;
+  }
+
+  function seededRandom(seed) {
+    let state = seed >>> 0;
+    return () => {
+      state += 0x6D2B79F5;
+      let value = state;
+      value = Math.imul(value ^ (value >>> 15), value | 1);
+      value ^= value + Math.imul(value ^ (value >>> 7), value | 61);
+      return ((value ^ (value >>> 14)) >>> 0) / 4294967296;
+    };
   }
 
   function rotate3D(point, rotation) {
@@ -48,7 +62,8 @@
 
       this.preview = canvas.closest('.preview');
       this.workspace = canvas.closest('.workbench') || this.preview;
-      this.reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      this.motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+      this.reduceMotion = this.motionQuery.matches;
       this.finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
       this.abortController = new AbortController();
       this.width = 1;
@@ -67,14 +82,7 @@
         cycleSpeed: 1
       };
       this.paths = this.createPaths();
-      this.blocks = [
-        { x: 0.32, y: 0.09, dx: 0.06, dy: 0.02, phase: 0, size: 5, color: ACCENT },
-        { x: 0.68, y: 0.09, dx: -0.05, dy: 0.02, phase: 0.18, size: 4, color: SECONDARY },
-        { x: 0.16, y: 0.58, dx: 0.04, dy: -0.05, phase: 0.34, size: 4, color: SECONDARY },
-        { x: 0.84, y: 0.58, dx: -0.04, dy: 0.05, phase: 0.52, size: 6, color: ACCENT },
-        { x: 0.34, y: 0.91, dx: 0.07, dy: 0.02, phase: 0.7, size: 4, color: ACCENT },
-        { x: 0.66, y: 0.91, dx: -0.07, dy: -0.02, phase: 0.86, size: 5, color: SECONDARY }
-      ];
+      this.dataPulses = this.createDataPulses();
 
       this.resizeObserver = new ResizeObserver(() => this.resize());
       this.intersectionObserver = new IntersectionObserver(entries => {
@@ -104,6 +112,18 @@
       return [...rings, ...meridians];
     }
 
+    createDataPulses() {
+      const random = seededRandom(1201);
+      return Array.from({ length: 8 }, (_, index) => ({
+        index,
+        period: 1700 + Math.round(random() * 900),
+        visibleFor: 280 + Math.round(random() * 180),
+        offset: Math.round(random() * 1500),
+        activation: -1,
+        position: null
+      }));
+    }
+
     bindEvents() {
       const { signal } = this.abortController;
       this.workspace?.querySelectorAll('[data-animation-setting]').forEach(input => {
@@ -123,6 +143,11 @@
         input.addEventListener('input', updateSetting, { signal });
         updateSetting();
       });
+      this.motionQuery.addEventListener('change', event => {
+        this.reduceMotion = event.matches;
+        this.workspace?.querySelectorAll('[data-animation-setting]').forEach(input => { input.disabled = event.matches; });
+        this.restart();
+      }, { signal });
       if (this.finePointer && !this.reduceMotion) {
         this.canvas.addEventListener('pointermove', event => {
           const bounds = this.canvas.getBoundingClientRect();
@@ -206,6 +231,44 @@
       context.stroke();
     }
 
+    hyperText(label, index) {
+      if (this.reduceMotion) return label;
+      const local = (this.cycleElapsed + index * 940) % HYPER_CYCLE_MS;
+      if (local >= HYPER_ACTIVE_MS) return label;
+      const settled = Math.floor((local / HYPER_ACTIVE_MS) * label.length);
+      return Array.from(label, (character, characterIndex) => {
+        if (characterIndex < settled || character === ' ') return character;
+        const glyphIndex = Math.floor(local / 55 + characterIndex * 3 + index * 5) % HYPER_GLYPHS.length;
+        return HYPER_GLYPHS[glyphIndex];
+      }).join('');
+    }
+
+    drawTextTicker(context, fontSize) {
+      const label = 'SAMPLE · PROJECT · ROTATE · VERIFY · ';
+      if (this.reduceMotion) {
+        context.save();
+        context.translate(this.width * 0.955, this.height * 0.23);
+        context.rotate(Math.PI / 2);
+        context.fillText(label, 0, 0);
+        context.restore();
+        return;
+      }
+      const startY = this.height * 0.2;
+      const trackLength = this.height * 0.6;
+      const repeatWidth = context.measureText(label).width + fontSize * 3;
+      const offset = (this.cycleElapsed * 0.018) % repeatWidth;
+      context.save();
+      context.beginPath();
+      context.rect(this.width * 0.93, startY, this.width * 0.06, trackLength);
+      context.clip();
+      context.translate(this.width * 0.955, startY);
+      context.rotate(Math.PI / 2);
+      for (let position = -offset - repeatWidth; position < trackLength + repeatWidth; position += repeatWidth) {
+        context.fillText(label, position, 0);
+      }
+      context.restore();
+    }
+
     drawDecorativeText() {
       const context = this.context;
       const compact = this.width < 520;
@@ -215,34 +278,48 @@
       context.fillStyle = rgba(ACCENT, 0.4);
       context.textBaseline = 'top';
       ['PARAMETRIC', 'RING / 12', 'SAMPLE / 120', 'CYCLE / ACTIVE'].forEach((label, index) => {
-        context.fillText(label, this.width * (compact ? 0.15 : 0.055), this.height * 0.25 + index * (fontSize + 4));
+        context.fillText(this.hyperText(label, index), this.width * (compact ? 0.15 : 0.055), this.height * 0.25 + index * (fontSize + 4));
       });
       context.fillStyle = rgba(SECONDARY, 0.38);
       context.textAlign = compact ? 'left' : 'right';
       context.fillText('V / -1.00', this.width * (compact ? 0.15 : 0.24), this.height * 0.86);
       context.fillText('V / +1.00', this.width * (compact ? 0.68 : 0.94), this.height * 0.86);
       if (!compact) {
-        context.translate(this.width * 0.955, this.height * 0.23);
-        context.rotate(Math.PI / 2);
         context.textAlign = 'left';
         context.fillStyle = rgba(ACCENT, 0.34);
-        context.fillText('SAMPLE · PROJECT · ROTATE · VERIFY', 0, 0);
+        this.drawTextTicker(context, fontSize);
       }
       context.restore();
     }
 
-    drawDecorativeBlocks() {
+    samplePulsePosition(pulse, activation) {
+      const random = seededRandom(1201 + pulse.index * 4099 + activation * 7919);
+      const rings = this.paths.filter(path => path.type === 'ring' && path.fixedV === undefined);
+      const ring = rings[Math.floor(random() * rings.length)];
+      const meridian = Math.floor(random() * 17);
+      const progress = this.ringProgress(ring);
+      const v = this.ringV(ring, progress);
+      return {
+        ...this.surfacePoint((meridian / 17) * TAU, v),
+        size: [14, 16, 18][Math.floor(random() * 3)]
+      };
+    }
+
+    drawDataPulses(now) {
+      if (this.reduceMotion || this.introStart === null || now - this.introStart < DATA_PULSE_DELAY_MS) return;
       const context = this.context;
-      const motionScale = this.width < 520 ? 0.45 : 1;
       context.save();
-      this.blocks.forEach(block => {
-        const phase = (this.cycleElapsed / BLOCK_CYCLE_MS + block.phase) % 1;
-        const x = (block.x + block.dx * motionScale * Math.sin(phase * TAU)) * this.width;
-        const y = (block.y + block.dy * motionScale * Math.cos(phase * TAU)) * this.height;
-        context.fillStyle = rgba(block.color, 0.68);
-        context.fillRect(x - block.size / 2, y - block.size / 2, block.size, block.size);
-        context.strokeStyle = rgba(block.color, 0.24);
-        context.strokeRect(x - block.size * 1.6, y - block.size * 1.6, block.size * 3.2, block.size * 3.2);
+      context.fillStyle = ACCENT;
+      this.dataPulses.forEach(pulse => {
+        const elapsed = this.cycleElapsed + pulse.offset;
+        const activation = Math.floor(elapsed / pulse.period);
+        if (elapsed % pulse.period >= pulse.visibleFor) return;
+        if (pulse.activation !== activation || !pulse.position) {
+          pulse.activation = activation;
+          pulse.position = this.samplePulsePosition(pulse, activation);
+        }
+        const { x, y, size } = pulse.position;
+        context.fillRect(x - size / 2, y - size / 2, size, size);
       });
       context.restore();
     }
@@ -271,7 +348,7 @@
           : clamp(0.2 + (item.averageDepth + 1) * 0.12, 0.18, 0.46);
         this.drawPath(item.points, item.reveal, depthOpacity * item.edgeOpacity, isRing ? 1.15 : 0.85);
       });
-      this.drawDecorativeBlocks();
+      this.drawDataPulses(now);
     }
 
     tick = now => {
@@ -298,6 +375,7 @@
       this.canvas.width = Math.round(this.width * dpr);
       this.canvas.height = Math.round(this.height * dpr);
       this.context.setTransform(dpr, 0, 0, dpr, 0, 0);
+      this.dataPulses.forEach(pulse => { pulse.activation = -1; pulse.position = null; });
       this.render();
     }
 
@@ -308,6 +386,7 @@
       this.autoYaw = 0;
       this.cycleElapsed = 0;
       this.rotation = { pitch: 0, yaw: 0, targetPitch: 0, targetYaw: 0 };
+      this.dataPulses.forEach(pulse => { pulse.activation = -1; pulse.position = null; });
       this.resize();
       this.render(this.introStart);
       this.start();
