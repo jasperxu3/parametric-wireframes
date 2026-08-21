@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "seed": 8042,
+  "name": "layered-grid",
+  "family": "layered-grid",
+  "viewport": { "width": 1200, "height": 900, "padding": 86, "background": "#353448" },
+  "geometry": { "layers": 3, "width": 1.18, "depth": 0.5, "spacing": 0.78, "nearScale": 1, "farScale": 0.58, "skew": 0, "alternate": true },
+  "projection": { "type": "none", "strength": 0, "rotation": [0, 0, 0] },
+  "sampling": { "rows": 5, "columns": 11 },
+  "style": { "stroke": "#4addad", "strokeWidth": 1.35, "opacity": 0.76, "fill": "none" },
+  "variants": {
+    "count": 6,
+    "includeBase": true,
+    "parameters": {
+      "geometry.spacing": { "min": 0.68, "max": 0.9 },
+      "geometry.farScale": { "min": 0.48, "max": 0.72 },
+      "geometry.skew": { "min": -0.12, "max": 0.12 }
+    }
+  }
+}

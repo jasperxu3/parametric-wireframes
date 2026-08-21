@@ -1,0 +1,77 @@
+{
+  "version": 1,
+  "seed": 1208,
+  "name": "gravity-well",
+  "viewport": {
+    "width": 800,
+    "height": 600,
+    "padding": 52,
+    "background": "#111816"
+  },
+  "projection": {
+    "type": "weak-perspective",
+    "strength": 0.14,
+    "rotation": [
+      0.42,
+      0,
+      0
+    ]
+  },
+  "sampling": {
+    "rows": 14,
+    "columns": 18,
+    "samples": 96
+  },
+  "style": {
+    "stroke": "#59d9bd",
+    "strokeWidth": 1.05,
+    "opacity": 0.68,
+    "fill": "none"
+  },
+  "constraints": {
+    "mirrorX": false
+  },
+  "variants": {
+    "count": 1,
+    "includeBase": true,
+    "parameters": {
+      "geometry.amount": {
+        "relative": [
+          -0.16,
+          0.16
+        ]
+      },
+      "geometry.tilt": {
+        "relative": [
+          -0.15,
+          0.15
+        ]
+      },
+      "geometry.depth": {
+        "relative": [
+          -0.18,
+          0.18
+        ]
+      },
+      "projection.strength": {
+        "relative": [
+          -0.2,
+          0.2
+        ]
+      }
+    },
+    "presets": []
+  },
+  "geometry": {
+    "field": "hourglass",
+    "amount": 0.72,
+    "frequency": 1.9,
+    "tilt": 0.28,
+    "depth": 0.62
+  },
+  "family": "deformation-grid",
+  "variant": {
+    "index": 0,
+    "seed": 2525355368
+  }
+}

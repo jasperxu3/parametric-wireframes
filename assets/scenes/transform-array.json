@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "seed": 3042,
+  "name": "transform-array",
+  "family": "transform-array",
+  "viewport": { "width": 1200, "height": 1200, "padding": 84, "background": "#fbfbfa" },
+  "geometry": {
+    "primitive": "ellipse", "count": 10, "radiusX": 0.58, "radiusY": 0.76,
+    "rotation": -0.3, "rotationStep": 0.065,
+    "translate": [-0.28, 0], "translateStep": [0.062, 0],
+    "scale": [0.88, 0.88], "scaleStep": [0.025, 0.025],
+    "shear": [0, 0], "shearStep": [0.004, 0]
+  },
+  "projection": { "type": "none", "strength": 0, "rotation": [0, 0, 0] },
+  "sampling": { "segments": 160 },
+  "style": { "stroke": "#6c8690", "strokeWidth": 1.25, "opacity": 0.62, "fill": "none" },
+  "variants": { "count": 6, "includeBase": true, "parameters": {
+    "geometry.rotationStep": { "min": 0.035, "max": 0.095 },
+    "geometry.translateStep.0": { "min": 0.045, "max": 0.078 },
+    "geometry.scaleStep.0": { "min": 0.012, "max": 0.038 },
+    "geometry.scaleStep.1": { "min": 0.012, "max": 0.038 }
+  } }
+}

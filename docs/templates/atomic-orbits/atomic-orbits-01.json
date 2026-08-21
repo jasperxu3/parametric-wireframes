@@ -1,0 +1,142 @@
+{
+  "version": 1,
+  "seed": 1204,
+  "name": "atomic-orbits",
+  "viewport": {
+    "width": 800,
+    "height": 600,
+    "padding": 72,
+    "background": "#151515"
+  },
+  "projection": {
+    "type": "weak-perspective",
+    "strength": 0.08,
+    "rotation": [
+      0,
+      0,
+      0
+    ]
+  },
+  "sampling": {
+    "segments": 220,
+    "hubSegments": 96,
+    "markerSegments": 32
+  },
+  "style": {
+    "stroke": "#f2f2f2",
+    "strokeWidth": 1.25,
+    "opacity": 0.92,
+    "fill": "none"
+  },
+  "constraints": {
+    "mirrorX": false
+  },
+  "variants": {
+    "count": 1,
+    "includeBase": true,
+    "parameters": {
+      "projection.strength": {
+        "relative": [
+          -0.2,
+          0.2
+        ]
+      },
+      "geometry.rings.1.rotation.2": {
+        "relative": [
+          -0.14,
+          0.14
+        ]
+      },
+      "geometry.rings.2.rotation.2": {
+        "relative": [
+          -0.14,
+          0.14
+        ]
+      },
+      "geometry.rings.3.rotation.1": {
+        "relative": [
+          -0.12,
+          0.12
+        ]
+      }
+    },
+    "presets": []
+  },
+  "geometry": {
+    "rings": [
+      {
+        "rotation": [
+          0.12,
+          0.08,
+          0.08
+        ],
+        "radius": 1.08,
+        "aspect": 0.68,
+        "strokeWidth": 1.55
+      },
+      {
+        "rotation": [
+          1.08,
+          0.18,
+          0.62
+        ],
+        "radius": 1.02,
+        "aspect": 0.9,
+        "strokeWidth": 1.45
+      },
+      {
+        "rotation": [
+          -0.86,
+          0.36,
+          -0.7
+        ],
+        "radius": 1.04,
+        "aspect": 0.92,
+        "strokeWidth": 1.35
+      },
+      {
+        "rotation": [
+          0.58,
+          0.88,
+          1.08
+        ],
+        "radius": 1.02,
+        "aspect": 0.94,
+        "dash": [
+          7,
+          8
+        ],
+        "strokeWidth": 1.1
+      }
+    ],
+    "hubRadii": [
+      0.11,
+      0.2
+    ],
+    "markers": [
+      {
+        "ring": 0,
+        "phase": 0.08,
+        "radius": 0.025
+      },
+      {
+        "ring": 1,
+        "phase": 0.62,
+        "radius": 0.022
+      }
+    ],
+    "axisLength": 1.45,
+    "axisAngle": 0,
+    "axisArrowSize": 0.07,
+    "axisMarkers": [
+      -0.2,
+      0.2
+    ],
+    "axisMarkerRadius": 0.022
+  },
+  "family": "orbital-rings",
+  "variant": {
+    "index": 0,
+    "seed": 3522718948
+  }
+}

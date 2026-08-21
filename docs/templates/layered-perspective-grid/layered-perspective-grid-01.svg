@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" fill="none" data-family="layered-grid" data-seed="2006210353">
+  <rect width="100%" height="100%" fill="#353448"/>
+  <g stroke="#4addad" stroke-width="1.28" stroke-opacity="0.75" fill="none" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke">
+    <path data-role="layer-row" d="M238.471 58 L561.529 58"/>
+    <path data-role="layer-row" d="M206.742 86.111 L593.258 86.111"/>
+    <path data-role="layer-row" d="M175.013 114.222 L624.987 114.222"/>
+    <path data-role="layer-row" d="M143.284 142.333 L656.716 142.333"/>
+    <path data-role="layer-row" d="M111.556 170.444 L688.444 170.444"/>
+    <path data-role="layer-column" d="M238.471 58 L111.556 170.444"/>
+    <path data-role="layer-column" d="M270.777 58 L169.244 170.444"/>
+    <path data-role="layer-column" d="M303.083 58 L226.933 170.444"/>
+    <path data-role="layer-column" d="M335.388 58 L284.622 170.444"/>
+    <path data-role="layer-column" d="M367.694 58 L342.311 170.444"/>
+    <path data-role="layer-column" d="M400 58 L400 170.444"/>
+    <path data-role="layer-column" d="M432.306 58 L457.689 170.444"/>
+    <path data-role="layer-column" d="M464.612 58 L515.378 170.444"/>
+    <path data-role="layer-column" d="M496.917 58 L573.067 170.444"/>
+    <path data-role="layer-column" d="M529.223 58 L630.756 170.444"/>
+    <path data-role="layer-column" d="M561.529 58 L688.444 170.444"/>
+    <path data-role="layer-row" d="M111.556 243.778 L688.444 243.778"/>
+    <path data-role="layer-row" d="M143.284 271.889 L656.716 271.889"/>
+    <path data-role="layer-row" d="M175.013 300 L624.987 300"/>
+    <path data-role="layer-row" d="M206.742 328.111 L593.258 328.111"/>
+    <path data-role="layer-row" d="M238.471 356.222 L561.529 356.222"/>
+    <path data-role="layer-column" d="M111.556 243.778 L238.471 356.222"/>
+    <path data-role="layer-column" d="M169.244 243.778 L270.777 356.222"/>
+    <path data-role="layer-column" d="M226.933 243.778 L303.083 356.222"/>
+    <path data-role="layer-column" d="M284.622 243.778 L335.388 356.222"/>
+    <path data-role="layer-column" d="M342.311 243.778 L367.694 356.222"/>
+    <path data-role="layer-column" d="M400 243.778 L400 356.222"/>
+    <path data-role="layer-column" d="M457.689 243.778 L432.306 356.222"/>
+    <path data-role="layer-column" d="M515.378 243.778 L464.612 356.222"/>
+    <path data-role="layer-column" d="M573.067 243.778 L496.917 356.222"/>
+    <path data-role="layer-column" d="M630.756 243.778 L529.223 356.222"/>
+    <path data-role="layer-column" d="M688.444 243.778 L561.529 356.222"/>
+    <path data-role="layer-row" d="M238.471 429.556 L561.529 429.556"/>
+    <path data-role="layer-row" d="M206.742 457.667 L593.258 457.667"/>
+    <path data-role="layer-row" d="M175.013 485.778 L624.987 485.778"/>
+    <path data-role="layer-row" d="M143.284 513.889 L656.716 513.889"/>
+    <path data-role="layer-row" d="M111.556 542 L688.444 542"/>
+    <path data-role="layer-column" d="M238.471 429.556 L111.556 542"/>
+    <path data-role="layer-column" d="M270.777 429.556 L169.244 542"/>
+    <path data-role="layer-column" d="M303.083 429.556 L226.933 542"/>
+    <path data-role="layer-column" d="M335.388 429.556 L284.622 542"/>
+    <path data-role="layer-column" d="M367.694 429.556 L342.311 542"/>
+    <path data-role="layer-column" d="M400 429.556 L400 542"/>
+    <path data-role="layer-column" d="M432.306 429.556 L457.689 542"/>
+    <path data-role="layer-column" d="M464.612 429.556 L515.378 542"/>
+    <path data-role="layer-column" d="M496.917 429.556 L573.067 542"/>
+    <path data-role="layer-column" d="M529.223 429.556 L630.756 542"/>
+    <path data-role="layer-column" d="M561.529 429.556 L688.444 542"/>
+  </g>
+</svg>

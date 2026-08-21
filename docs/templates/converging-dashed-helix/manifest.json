@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "name": "converging-dashed-helix",
+  "family": "converging-helix",
+  "sourceFingerprint": 888737624,
+  "viewport": {
+    "width": 800,
+    "height": 600,
+    "padding": 48,
+    "background": "#020912"
+  },
+  "items": [
+    {
+      "index": 0,
+      "seed": 3593177852,
+      "family": "converging-helix",
+      "svg": "converging-dashed-helix-01.svg",
+      "scene": "converging-dashed-helix-01.json",
+      "pathCount": 9,
+      "bounds": {
+        "minX": 62.895,
+        "minY": 48,
+        "maxX": 737.105,
+        "maxY": 552
+      }
+    }
+  ]
+}

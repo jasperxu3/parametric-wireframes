@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "seed": 4042,
+  "name": "deformation-grid",
+  "family": "deformation-grid",
+  "viewport": { "width": 1200, "height": 1200, "padding": 72, "background": "#3b3b50" },
+  "geometry": { "field": "hourglass", "amount": 0.58, "frequency": 1.6, "tilt": 0.36, "depth": 0.42 },
+  "projection": { "type": "weak-perspective", "strength": 0.1, "rotation": [0.28, 0, 0] },
+  "sampling": { "rows": 12, "columns": 16, "samples": 84 },
+  "style": { "stroke": "#48d6ad", "strokeWidth": 1.15, "opacity": 0.7, "fill": "none" },
+  "variants": { "count": 6, "includeBase": true, "parameters": {
+    "geometry.amount": { "min": 0.42, "max": 0.72 },
+    "geometry.tilt": { "min": 0.22, "max": 0.5 },
+    "geometry.depth": { "min": 0.28, "max": 0.55 },
+    "projection.strength": { "min": 0.06, "max": 0.14 }
+  } }
+}

@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "name": "sparse-dipole-field",
+  "family": "dipole-field",
+  "sourceFingerprint": 1829378668,
+  "viewport": {
+    "width": 800,
+    "height": 600,
+    "padding": 62,
+    "background": "#353448"
+  },
+  "items": [
+    {
+      "index": 0,
+      "seed": 2433145514,
+      "family": "dipole-field",
+      "svg": "sparse-dipole-field-01.svg",
+      "scene": "sparse-dipole-field-01.json",
+      "pathCount": 14,
+      "bounds": {
+        "minX": 256.893,
+        "minY": 62,
+        "maxX": 543.107,
+        "maxY": 538
+      }
+    }
+  ]
+}

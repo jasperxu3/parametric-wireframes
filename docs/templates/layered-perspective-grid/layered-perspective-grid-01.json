@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "seed": 1210,
+  "name": "layered-perspective-grid",
+  "viewport": {
+    "width": 800,
+    "height": 600,
+    "padding": 58,
+    "background": "#353448"
+  },
+  "projection": {
+    "type": "none",
+    "strength": 0,
+    "rotation": [
+      0,
+      0,
+      0
+    ]
+  },
+  "sampling": {
+    "rows": 5,
+    "columns": 11
+  },
+  "style": {
+    "stroke": "#4addad",
+    "strokeWidth": 1.28,
+    "opacity": 0.75,
+    "fill": "none"
+  },
+  "constraints": {
+    "mirrorX": false
+  },
+  "variants": {
+    "count": 1,
+    "includeBase": true,
+    "parameters": {
+      "geometry.spacing": {
+        "relative": [
+          -0.12,
+          0.12
+        ]
+      },
+      "geometry.farScale": {
+        "relative": [
+          -0.14,
+          0.14
+        ]
+      },
+      "geometry.skew": {
+        "min": -0.12,
+        "max": 0.12
+      }
+    },
+    "presets": []
+  },
+  "geometry": {
+    "layers": 3,
+    "width": 1.18,
+    "depth": 0.46,
+    "spacing": 0.76,
+    "nearScale": 1,
+    "farScale": 0.56,
+    "skew": 0,
+    "alternate": true
+  },
+  "family": "layered-grid",
+  "variant": {
+    "index": 0,
+    "seed": 2006210353
+  }
+}

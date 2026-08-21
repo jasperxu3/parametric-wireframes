@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "name": "projection-cone",
+  "family": "projection-rays",
+  "sourceFingerprint": 3405521623,
+  "viewport": {
+    "width": 800,
+    "height": 600,
+    "padding": 58,
+    "background": "#f1efe7"
+  },
+  "items": [
+    {
+      "index": 0,
+      "seed": 248799157,
+      "family": "projection-rays",
+      "svg": "projection-cone-01.svg",
+      "scene": "projection-cone-01.json",
+      "pathCount": 14,
+      "bounds": {
+        "minX": 58,
+        "minY": 156.058,
+        "maxX": 742,
+        "maxY": 443.942
+      }
+    }
+  ]
+}

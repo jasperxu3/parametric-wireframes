@@ -1,0 +1,101 @@
+{
+  "version": 1,
+  "seed": 1207,
+  "name": "superellipse-stack",
+  "viewport": {
+    "width": 800,
+    "height": 600,
+    "padding": 58,
+    "background": "#101622"
+  },
+  "projection": {
+    "type": "none",
+    "strength": 0,
+    "rotation": [
+      0,
+      0,
+      0
+    ]
+  },
+  "sampling": {
+    "segments": 200
+  },
+  "style": {
+    "stroke": "#65a7ff",
+    "strokeWidth": 1.08,
+    "opacity": 0.7,
+    "fill": "none"
+  },
+  "constraints": {
+    "mirrorX": false
+  },
+  "variants": {
+    "count": 1,
+    "includeBase": true,
+    "parameters": {
+      "geometry.rotationStep": {
+        "relative": [
+          -0.24,
+          0.24
+        ]
+      },
+      "geometry.translateStep.0": {
+        "relative": [
+          -0.18,
+          0.18
+        ]
+      },
+      "geometry.scaleStep.0": {
+        "relative": [
+          -0.2,
+          0.2
+        ]
+      },
+      "geometry.radiusY": {
+        "relative": [
+          -0.1,
+          0.1
+        ]
+      }
+    },
+    "presets": []
+  },
+  "geometry": {
+    "primitive": "superellipse",
+    "count": 12,
+    "radiusX": 0.5,
+    "radiusY": 0.62,
+    "rotation": -0.32,
+    "rotationStep": 0.058,
+    "translate": [
+      -0.34,
+      -0.14
+    ],
+    "translateStep": [
+      0.063,
+      0.028
+    ],
+    "scale": [
+      0.72,
+      0.72
+    ],
+    "scaleStep": [
+      0.035,
+      0.035
+    ],
+    "shear": [
+      0,
+      0
+    ],
+    "shearStep": [
+      0.008,
+      0
+    ],
+    "exponent": 3.4
+  },
+  "family": "transform-array",
+  "variant": {
+    "index": 0,
+    "seed": 1398867641
+  }
+}

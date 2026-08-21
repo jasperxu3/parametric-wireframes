@@ -1,0 +1,100 @@
+{
+  "version": 1,
+  "seed": 1206,
+  "name": "radial-petals",
+  "viewport": {
+    "width": 800,
+    "height": 600,
+    "padding": 62,
+    "background": "#1a1118"
+  },
+  "projection": {
+    "type": "none",
+    "strength": 0,
+    "rotation": [
+      0,
+      0,
+      0
+    ]
+  },
+  "sampling": {
+    "segments": 200
+  },
+  "style": {
+    "stroke": "#d76b98",
+    "strokeWidth": 1.08,
+    "opacity": 0.72,
+    "fill": "none"
+  },
+  "constraints": {
+    "mirrorX": false
+  },
+  "variants": {
+    "count": 1,
+    "includeBase": true,
+    "parameters": {
+      "geometry.rotationStep": {
+        "relative": [
+          -0.24,
+          0.24
+        ]
+      },
+      "geometry.translateStep.0": {
+        "relative": [
+          -0.18,
+          0.18
+        ]
+      },
+      "geometry.scaleStep.0": {
+        "relative": [
+          -0.2,
+          0.2
+        ]
+      },
+      "geometry.radiusY": {
+        "relative": [
+          -0.1,
+          0.1
+        ]
+      }
+    },
+    "presets": []
+  },
+  "geometry": {
+    "primitive": "ellipse",
+    "count": 14,
+    "radiusX": 0.28,
+    "radiusY": 1,
+    "rotation": 0,
+    "rotationStep": 0.2244,
+    "translate": [
+      0,
+      0
+    ],
+    "translateStep": [
+      0,
+      0
+    ],
+    "scale": [
+      1,
+      1
+    ],
+    "scaleStep": [
+      0,
+      0
+    ],
+    "shear": [
+      0,
+      0
+    ],
+    "shearStep": [
+      0,
+      0
+    ]
+  },
+  "family": "transform-array",
+  "variant": {
+    "index": 0,
+    "seed": 1825802802
+  }
+}

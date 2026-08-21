@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "seed": 1042,
+  "name": "surface-revolution",
+  "family": "surface-revolution",
+  "viewport": { "width": 1200, "height": 1200, "padding": 72, "background": "#07051b" },
+  "geometry": { "profile": "catenoid", "neck": 0.12, "flare": 0.95, "growth": 1.8, "height": 1.18, "twist": 0 },
+  "projection": { "type": "weak-perspective", "strength": 0.08, "rotation": [0.38, 0, 0] },
+  "sampling": { "rings": 11, "meridians": 15, "uSegments": 120, "vSegments": 84 },
+  "style": { "stroke": "#f5f3ff", "strokeWidth": 1.25, "opacity": 0.9, "fill": "none" },
+  "constraints": { "mirrorX": true },
+  "variants": { "count": 6, "includeBase": true, "parameters": {
+    "geometry.neck": { "min": 0.09, "max": 0.17 },
+    "geometry.flare": { "min": 0.82, "max": 1.02 },
+    "geometry.growth": { "min": 1.5, "max": 2.2 },
+    "projection.rotation.0": { "min": 0.3, "max": 0.48 }
+  } }
+}

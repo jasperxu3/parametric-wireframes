@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "name": "superellipse-stack",
+  "family": "transform-array",
+  "sourceFingerprint": 3402607606,
+  "viewport": {
+    "width": 800,
+    "height": 600,
+    "padding": 58,
+    "background": "#101622"
+  },
+  "items": [
+    {
+      "index": 0,
+      "seed": 1398867641,
+      "family": "transform-array",
+      "svg": "superellipse-stack-01.svg",
+      "scene": "superellipse-stack-01.json",
+      "pathCount": 12,
+      "bounds": {
+        "minX": 129.824,
+        "minY": 58,
+        "maxX": 670.176,
+        "maxY": 542
+      }
+    }
+  ]
+}

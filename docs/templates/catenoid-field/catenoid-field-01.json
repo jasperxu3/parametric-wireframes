@@ -1,0 +1,83 @@
+{
+  "version": 1,
+  "seed": 1201,
+  "name": "catenoid-field",
+  "viewport": {
+    "width": 800,
+    "height": 600,
+    "padding": 58,
+    "background": "#10151b"
+  },
+  "projection": {
+    "type": "weak-perspective",
+    "strength": 0.1,
+    "rotation": [
+      0.36,
+      0,
+      0
+    ]
+  },
+  "sampling": {
+    "rings": 12,
+    "meridians": 17,
+    "uSegments": 120,
+    "vSegments": 90
+  },
+  "style": {
+    "stroke": "#77e1ca",
+    "strokeWidth": 1.15,
+    "opacity": 0.82,
+    "fill": "none"
+  },
+  "constraints": {
+    "mirrorX": true
+  },
+  "variants": {
+    "count": 1,
+    "includeBase": true,
+    "parameters": {
+      "geometry.neck": {
+        "relative": [
+          -0.18,
+          0.18
+        ]
+      },
+      "geometry.flare": {
+        "relative": [
+          -0.08,
+          0.08
+        ]
+      },
+      "geometry.exponent": {
+        "relative": [
+          -0.12,
+          0.12
+        ]
+      },
+      "projection.rotation.0": {
+        "relative": [
+          -0.12,
+          0.12
+        ]
+      }
+    },
+    "presets": []
+  },
+  "geometry": {
+    "profile": "catenoid",
+    "axis": "vertical",
+    "neck": 0.11,
+    "flare": 0.94,
+    "radiusStart": 0.12,
+    "radiusEnd": 0.95,
+    "exponent": 1.7,
+    "growth": 1.9,
+    "height": 1.08,
+    "twist": 0
+  },
+  "family": "surface-revolution",
+  "variant": {
+    "index": 0,
+    "seed": 1696781823
+  }
+}

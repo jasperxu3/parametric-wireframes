@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "name": "wave-membrane",
+  "family": "deformation-grid",
+  "sourceFingerprint": 3856817542,
+  "viewport": {
+    "width": 800,
+    "height": 600,
+    "padding": 54,
+    "background": "#15111d"
+  },
+  "items": [
+    {
+      "index": 0,
+      "seed": 2368142039,
+      "family": "deformation-grid",
+      "svg": "wave-membrane-01.svg",
+      "scene": "wave-membrane-01.json",
+      "pathCount": 30,
+      "bounds": {
+        "minX": 124.091,
+        "minY": 54,
+        "maxX": 675.909,
+        "maxY": 546
+      }
+    }
+  ]
+}

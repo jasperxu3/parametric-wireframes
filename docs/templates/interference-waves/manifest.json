@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "name": "interference-waves",
+  "family": "parametric-curves",
+  "sourceFingerprint": 1738393553,
+  "viewport": {
+    "width": 800,
+    "height": 600,
+    "padding": 64,
+    "background": "#f2f0e7"
+  },
+  "items": [
+    {
+      "index": 0,
+      "seed": 3454193019,
+      "family": "parametric-curves",
+      "svg": "interference-waves-01.svg",
+      "scene": "interference-waves-01.json",
+      "pathCount": 9,
+      "bounds": {
+        "minX": 112.303,
+        "minY": 64,
+        "maxX": 687.697,
+        "maxY": 536
+      }
+    }
+  ]
+}

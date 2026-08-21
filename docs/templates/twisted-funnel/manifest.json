@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "name": "twisted-funnel",
+  "family": "surface-revolution",
+  "sourceFingerprint": 253455430,
+  "viewport": {
+    "width": 800,
+    "height": 600,
+    "padding": 58,
+    "background": "#17130f"
+  },
+  "items": [
+    {
+      "index": 0,
+      "seed": 675734318,
+      "family": "surface-revolution",
+      "svg": "twisted-funnel-01.svg",
+      "scene": "twisted-funnel-01.json",
+      "pathCount": 29,
+      "bounds": {
+        "minX": 58,
+        "minY": 72.2,
+        "maxX": 742,
+        "maxY": 527.8
+      }
+    }
+  ]
+}

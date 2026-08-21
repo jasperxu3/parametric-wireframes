@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "name": "layered-perspective-grid",
+  "family": "layered-grid",
+  "sourceFingerprint": 4024911056,
+  "viewport": {
+    "width": 800,
+    "height": 600,
+    "padding": 58,
+    "background": "#353448"
+  },
+  "items": [
+    {
+      "index": 0,
+      "seed": 2006210353,
+      "family": "layered-grid",
+      "svg": "layered-perspective-grid-01.svg",
+      "scene": "layered-perspective-grid-01.json",
+      "pathCount": 48,
+      "bounds": {
+        "minX": 111.556,
+        "minY": 58,
+        "maxX": 688.444,
+        "maxY": 542
+      }
+    }
+  ]
+}

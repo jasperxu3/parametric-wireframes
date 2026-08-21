@@ -1,0 +1,77 @@
+{
+  "version": 1,
+  "seed": 1209,
+  "name": "wave-membrane",
+  "viewport": {
+    "width": 800,
+    "height": 600,
+    "padding": 54,
+    "background": "#15111d"
+  },
+  "projection": {
+    "type": "weak-perspective",
+    "strength": 0.1,
+    "rotation": [
+      0.34,
+      0.08,
+      0
+    ]
+  },
+  "sampling": {
+    "rows": 13,
+    "columns": 17,
+    "samples": 100
+  },
+  "style": {
+    "stroke": "#b084f5",
+    "strokeWidth": 1.05,
+    "opacity": 0.66,
+    "fill": "none"
+  },
+  "constraints": {
+    "mirrorX": false
+  },
+  "variants": {
+    "count": 1,
+    "includeBase": true,
+    "parameters": {
+      "geometry.amount": {
+        "relative": [
+          -0.16,
+          0.16
+        ]
+      },
+      "geometry.tilt": {
+        "relative": [
+          -0.15,
+          0.15
+        ]
+      },
+      "geometry.depth": {
+        "relative": [
+          -0.18,
+          0.18
+        ]
+      },
+      "projection.strength": {
+        "relative": [
+          -0.2,
+          0.2
+        ]
+      }
+    },
+    "presets": []
+  },
+  "geometry": {
+    "field": "wave",
+    "amount": 0.9,
+    "frequency": 1.65,
+    "tilt": 0.22,
+    "depth": 0.36
+  },
+  "family": "deformation-grid",
+  "variant": {
+    "index": 0,
+    "seed": 2368142039
+  }
+}

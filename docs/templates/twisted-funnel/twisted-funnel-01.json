@@ -1,0 +1,83 @@
+{
+  "version": 1,
+  "seed": 1202,
+  "name": "twisted-funnel",
+  "viewport": {
+    "width": 800,
+    "height": 600,
+    "padding": 58,
+    "background": "#17130f"
+  },
+  "projection": {
+    "type": "weak-perspective",
+    "strength": 0.12,
+    "rotation": [
+      0.14,
+      0.22,
+      0
+    ]
+  },
+  "sampling": {
+    "rings": 11,
+    "meridians": 18,
+    "uSegments": 120,
+    "vSegments": 90
+  },
+  "style": {
+    "stroke": "#ffbd70",
+    "strokeWidth": 1.12,
+    "opacity": 0.82,
+    "fill": "none"
+  },
+  "constraints": {
+    "mirrorX": false
+  },
+  "variants": {
+    "count": 1,
+    "includeBase": true,
+    "parameters": {
+      "geometry.neck": {
+        "relative": [
+          -0.18,
+          0.18
+        ]
+      },
+      "geometry.flare": {
+        "relative": [
+          -0.08,
+          0.08
+        ]
+      },
+      "geometry.exponent": {
+        "relative": [
+          -0.12,
+          0.12
+        ]
+      },
+      "projection.rotation.0": {
+        "relative": [
+          -0.12,
+          0.12
+        ]
+      }
+    },
+    "presets": []
+  },
+  "geometry": {
+    "profile": "bell",
+    "axis": "horizontal",
+    "neck": 0.12,
+    "flare": 0.92,
+    "radiusStart": 0.12,
+    "radiusEnd": 0.95,
+    "exponent": 1.7,
+    "growth": 1.55,
+    "height": 1.16,
+    "twist": 1.05
+  },
+  "family": "surface-revolution",
+  "variant": {
+    "index": 0,
+    "seed": 675734318
+  }
+}

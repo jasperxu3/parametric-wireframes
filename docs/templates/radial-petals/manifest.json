@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "name": "radial-petals",
+  "family": "transform-array",
+  "sourceFingerprint": 1189967434,
+  "viewport": {
+    "width": 800,
+    "height": 600,
+    "padding": 62,
+    "background": "#1a1118"
+  },
+  "items": [
+    {
+      "index": 0,
+      "seed": 1825802802,
+      "family": "transform-array",
+      "svg": "radial-petals-01.svg",
+      "scene": "radial-petals-01.json",
+      "pathCount": 14,
+      "bounds": {
+        "minX": 162,
+        "minY": 62,
+        "maxX": 638,
+        "maxY": 538
+      }
+    }
+  ]
+}

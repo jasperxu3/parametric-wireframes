@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "seed": 1203,
+  "name": "projection-cone",
+  "viewport": {
+    "width": 800,
+    "height": 600,
+    "padding": 58,
+    "background": "#f1efe7"
+  },
+  "projection": {
+    "type": "weak-perspective",
+    "strength": 0.18,
+    "rotation": [
+      0.12,
+      0.34,
+      0
+    ]
+  },
+  "sampling": {
+    "rays": 11,
+    "apertureSegments": 180,
+    "markerSegments": 36
+  },
+  "style": {
+    "stroke": "#263f73",
+    "strokeWidth": 1.3,
+    "opacity": 0.82,
+    "fill": "none"
+  },
+  "constraints": {
+    "mirrorX": false,
+    "mirrorY": true
+  },
+  "variants": {
+    "count": 1,
+    "includeBase": true,
+    "parameters": {},
+    "presets": []
+  },
+  "geometry": {
+    "length": 1.55,
+    "apertureRadius": 0.9,
+    "apertureAspect": 0.88,
+    "phase": 0.18,
+    "originMarkerRadius": 0.035,
+    "showOriginMarker": true,
+    "showAxis": true
+  },
+  "family": "projection-rays",
+  "variant": {
+    "index": 0,
+    "seed": 248799157
+  }
+}

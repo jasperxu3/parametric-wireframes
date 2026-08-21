@@ -1,0 +1,112 @@
+{
+  "version": 1,
+  "title": "Parametric Wireframe Atlas",
+  "templateCount": 13,
+  "families": [
+    "surface-revolution",
+    "projection-rays",
+    "orbital-rings",
+    "transform-array",
+    "deformation-grid",
+    "layered-grid",
+    "dipole-field",
+    "parametric-curves",
+    "converging-helix"
+  ],
+  "catalogFingerprint": 4111926465,
+  "html": "index.html",
+  "preview": "template-gallery-preview.png",
+  "templates": [
+    {
+      "id": "catenoid-field",
+      "title": "双曲颈面",
+      "family": "surface-revolution",
+      "scene": "templates/catenoid-field/catenoid-field-01.json",
+      "svg": "templates/catenoid-field/catenoid-field-01.svg"
+    },
+    {
+      "id": "twisted-funnel",
+      "title": "扭转漏斗",
+      "family": "surface-revolution",
+      "scene": "templates/twisted-funnel/twisted-funnel-01.json",
+      "svg": "templates/twisted-funnel/twisted-funnel-01.svg"
+    },
+    {
+      "id": "projection-cone",
+      "title": "焦点投影锥",
+      "family": "projection-rays",
+      "scene": "templates/projection-cone/projection-cone-01.json",
+      "svg": "templates/projection-cone/projection-cone-01.svg"
+    },
+    {
+      "id": "atomic-orbits",
+      "title": "空间轨道核",
+      "family": "orbital-rings",
+      "scene": "templates/atomic-orbits/atomic-orbits-01.json",
+      "svg": "templates/atomic-orbits/atomic-orbits-01.svg"
+    },
+    {
+      "id": "ellipse-reflection",
+      "title": "椭圆反射场",
+      "family": "transform-array",
+      "scene": "templates/ellipse-reflection/ellipse-reflection-01.json",
+      "svg": "templates/ellipse-reflection/ellipse-reflection-01.svg"
+    },
+    {
+      "id": "radial-petals",
+      "title": "径向椭圆瓣",
+      "family": "transform-array",
+      "scene": "templates/radial-petals/radial-petals-01.json",
+      "svg": "templates/radial-petals/radial-petals-01.svg"
+    },
+    {
+      "id": "superellipse-stack",
+      "title": "超椭圆生长阵列",
+      "family": "transform-array",
+      "scene": "templates/superellipse-stack/superellipse-stack-01.json",
+      "svg": "templates/superellipse-stack/superellipse-stack-01.svg"
+    },
+    {
+      "id": "gravity-well",
+      "title": "引力井网格",
+      "family": "deformation-grid",
+      "scene": "templates/gravity-well/gravity-well-01.json",
+      "svg": "templates/gravity-well/gravity-well-01.svg"
+    },
+    {
+      "id": "wave-membrane",
+      "title": "波动膜网格",
+      "family": "deformation-grid",
+      "scene": "templates/wave-membrane/wave-membrane-01.json",
+      "svg": "templates/wave-membrane/wave-membrane-01.svg"
+    },
+    {
+      "id": "layered-perspective-grid",
+      "title": "分层透视网格",
+      "family": "layered-grid",
+      "scene": "templates/layered-perspective-grid/layered-perspective-grid-01.json",
+      "svg": "templates/layered-perspective-grid/layered-perspective-grid-01.svg"
+    },
+    {
+      "id": "sparse-dipole-field",
+      "title": "稀疏双极场线",
+      "family": "dipole-field",
+      "scene": "templates/sparse-dipole-field/sparse-dipole-field-01.json",
+      "svg": "templates/sparse-dipole-field/sparse-dipole-field-01.svg"
+    },
+    {
+      "id": "interference-waves",
+      "title": "干涉波束",
+      "family": "parametric-curves",
+      "scene": "templates/interference-waves/interference-waves-01.json",
+      "svg": "templates/interference-waves/interference-waves-01.svg"
+    },
+    {
+      "id": "converging-dashed-helix",
+      "title": "收束编织螺旋",
+      "family": "converging-helix",
+      "scene": "templates/converging-dashed-helix/converging-dashed-helix-01.json",
+      "svg": "templates/converging-dashed-helix/converging-dashed-helix-01.svg"
+    }
+  ]
+}

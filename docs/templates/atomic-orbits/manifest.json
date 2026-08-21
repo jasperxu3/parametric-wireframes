@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "name": "atomic-orbits",
+  "family": "orbital-rings",
+  "sourceFingerprint": 162859104,
+  "viewport": {
+    "width": 800,
+    "height": 600,
+    "padding": 72,
+    "background": "#151515"
+  },
+  "items": [
+    {
+      "index": 0,
+      "seed": 3522718948,
+      "family": "orbital-rings",
+      "svg": "atomic-orbits-01.svg",
+      "scene": "atomic-orbits-01.json",
+      "pathCount": 12,
+      "bounds": {
+        "minX": 72,
+        "minY": 88.677,
+        "maxX": 728,
+        "maxY": 511.323
+      }
+    }
+  ]
+}

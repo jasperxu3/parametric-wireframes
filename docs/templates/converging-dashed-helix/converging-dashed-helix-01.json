@@ -1,0 +1,81 @@
+{
+  "version": 1,
+  "seed": 1213,
+  "name": "converging-dashed-helix",
+  "viewport": {
+    "width": 800,
+    "height": 600,
+    "padding": 48,
+    "background": "#020912"
+  },
+  "projection": {
+    "type": "weak-perspective",
+    "strength": 0.03,
+    "rotation": [
+      0,
+      0.01,
+      0
+    ]
+  },
+  "sampling": {
+    "strands": 7,
+    "segments": 380
+  },
+  "style": {
+    "stroke": "#83c9ff",
+    "strokeWidth": 1,
+    "opacity": 1,
+    "fill": "none",
+    "lineCap": "round"
+  },
+  "constraints": {
+    "mirrorX": false
+  },
+  "variants": {
+    "count": 1,
+    "includeBase": true,
+    "parameters": {
+      "geometry.turns": {
+        "relative": [
+          -0.14,
+          0.14
+        ]
+      },
+      "geometry.decay": {
+        "relative": [
+          -0.12,
+          0.12
+        ]
+      },
+      "geometry.compression": {
+        "relative": [
+          -0.1,
+          0.1
+        ]
+      }
+    },
+    "presets": []
+  },
+  "geometry": {
+    "turns": 2.25,
+    "amplitude": 0.52,
+    "decay": 1.05,
+    "compression": 1.22,
+    "convergeX": 0.2,
+    "tailLength": 0.25,
+    "phaseSpan": 4.8,
+    "turnSpread": 0.42,
+    "amplitudeSpread": 0.15,
+    "dashLength": 5,
+    "dashGap": 8,
+    "strandWidth": 3.1,
+    "tailWidth": 1.5,
+    "axisWidth": 1,
+    "axisOpacity": 0.42
+  },
+  "family": "converging-helix",
+  "variant": {
+    "index": 0,
+    "seed": 3593177852
+  }
+}

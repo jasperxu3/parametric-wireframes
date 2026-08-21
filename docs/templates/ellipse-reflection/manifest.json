@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "name": "ellipse-reflection",
+  "family": "transform-array",
+  "sourceFingerprint": 2633613981,
+  "viewport": {
+    "width": 800,
+    "height": 600,
+    "padding": 56,
+    "background": "#f3f0e7"
+  },
+  "items": [
+    {
+      "index": 0,
+      "seed": 2846850307,
+      "family": "transform-array",
+      "svg": "ellipse-reflection-01.svg",
+      "scene": "ellipse-reflection-01.json",
+      "pathCount": 13,
+      "bounds": {
+        "minX": 134.966,
+        "minY": 56,
+        "maxX": 665.034,
+        "maxY": 544
+      }
+    }
+  ]
+}

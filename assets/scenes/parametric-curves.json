@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "seed": 6042,
+  "name": "parametric-curves",
+  "family": "parametric-curves",
+  "viewport": { "width": 1200, "height": 1200, "padding": 90, "background": "#f5f2e9" },
+  "geometry": {
+    "curve": "lissajous",
+    "a": 3,
+    "b": 2,
+    "k": 5,
+    "delta": 0.52,
+    "turns": 1,
+    "innerRadius": 0.25,
+    "penOffset": 0.7,
+    "spread": 0.08,
+    "amplitude": 0.62,
+    "frequency": 2.5
+  },
+  "projection": { "type": "none", "strength": 0, "rotation": [0, 0, 0] },
+  "sampling": { "curves": 9, "segments": 520 },
+  "style": { "stroke": "#1c4b91", "strokeWidth": 1.35, "opacity": 0.78, "fill": "none" },
+  "variants": {
+    "count": 6,
+    "includeBase": true,
+    "parameters": {
+      "geometry.delta": { "min": 0.3, "max": 1.1 },
+      "geometry.spread": { "min": 0.04, "max": 0.14 }
+    }
+  }
+}

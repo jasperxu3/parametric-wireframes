@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "name": "catenoid-field",
+  "family": "surface-revolution",
+  "sourceFingerprint": 72487394,
+  "viewport": {
+    "width": 800,
+    "height": 600,
+    "padding": 58,
+    "background": "#10151b"
+  },
+  "items": [
+    {
+      "index": 0,
+      "seed": 1696781823,
+      "family": "surface-revolution",
+      "svg": "catenoid-field-01.svg",
+      "scene": "catenoid-field-01.json",
+      "pathCount": 29,
+      "bounds": {
+        "minX": 223.444,
+        "minY": 58,
+        "maxX": 576.556,
+        "maxY": 542
+      }
+    }
+  ]
+}

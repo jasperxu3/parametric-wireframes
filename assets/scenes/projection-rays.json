@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "seed": 5042,
+  "name": "projection-rays",
+  "family": "projection-rays",
+  "viewport": { "width": 1600, "height": 1000, "padding": 90, "background": "#f4f3ee" },
+  "geometry": {
+    "length": 1.45,
+    "apertureRadius": 0.9,
+    "apertureAspect": 1,
+    "phase": 0,
+    "originMarkerRadius": 0.025,
+    "showOriginMarker": true,
+    "showAxis": true
+  },
+  "projection": { "type": "weak-perspective", "strength": 0.14, "rotation": [0, 0.3, 0] },
+  "sampling": { "rays": 8, "apertureSegments": 160, "markerSegments": 36 },
+  "style": { "stroke": "#293a52", "strokeWidth": 1.35, "opacity": 0.82, "fill": "none" },
+  "constraints": { "mirrorX": false, "mirrorY": true },
+  "variants": {
+    "count": 6,
+    "includeBase": false,
+    "parameters": {},
+    "presets": [
+      { "geometry.length": 1.3, "geometry.apertureRadius": 0.82, "geometry.apertureAspect": 1, "sampling.rays": 6, "projection.rotation.1": 0.24, "projection.strength": 0.12 },
+      { "geometry.length": 1.65, "geometry.apertureRadius": 0.76, "geometry.apertureAspect": 0.82, "sampling.rays": 8, "projection.rotation.1": 0.34, "projection.strength": 0.16 },
+      { "geometry.length": 1.2, "geometry.apertureRadius": 1.04, "geometry.apertureAspect": 1.08, "sampling.rays": 10, "projection.rotation.1": 0.2, "projection.strength": 0.13 },
+      { "geometry.length": 1.8, "geometry.apertureRadius": 0.7, "geometry.apertureAspect": 1.18, "sampling.rays": 5, "projection.rotation.1": 0.42, "projection.strength": 0.2 },
+      { "geometry.length": 1.38, "geometry.apertureRadius": 0.94, "geometry.apertureAspect": 0.72, "sampling.rays": 12, "projection.rotation.1": 0.3, "projection.strength": 0.18 },
+      { "geometry.length": 1.55, "geometry.apertureRadius": 1.08, "geometry.apertureAspect": 0.94, "sampling.rays": 7, "projection.rotation.1": 0.38, "projection.strength": 0.19 }
+    ]
+  }
+}
