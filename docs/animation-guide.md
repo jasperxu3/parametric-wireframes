@@ -238,4 +238,4 @@ restart() {
 - 鼠标、触摸和 reduced-motion 三种环境均可用。
 - 从动态图形切换到静态图形再切回时，Canvas 恢复正确尺寸。
 - 刷新按钮会重置时间状态并从入场动画开始重播。
-- 重新运行 `npm run gallery` 后动画资源仍被复制到 `docs/animations/`。
+- 重新运行 `pnpm gallery` 后动画资源仍被复制到 `docs/animations/`。

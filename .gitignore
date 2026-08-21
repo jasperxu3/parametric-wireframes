@@ -1,5 +1,11 @@
 node_modules/
 output/
 .amp/portals/*
+.output/
+.nitro/
+.tanstack/
+.wrangler/
+test-results/
+playwright-report/
 .DS_Store
 *.log

@@ -423,6 +423,15 @@
     });
   }
 
+  window.__parametricWireframesAnimations = {
+    initialize,
+    destroy(canvas) {
+      canvas.__catenoidFieldAnimation?.destroy();
+      delete canvas.__catenoidFieldAnimation;
+      delete canvas.dataset.animationReady;
+    }
+  };
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initialize, { once: true });
   } else {

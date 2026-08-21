@@ -4,7 +4,23 @@
 
 ![13 个参数化模板](docs/template-gallery-preview.png)
 
-## 在线图集
+## Web App
+
+项目现已使用 TanStack Start、React、TypeScript、Vite、Tailwind CSS 与 Nitro 构建交互式 Web App，同时保留原有 Node.js 参数化生成器。开发环境使用 pnpm：
+
+```bash
+pnpm install
+pnpm dev
+```
+
+生产构建面向 Cloudflare Workers：
+
+```bash
+pnpm generate-routes
+pnpm build
+```
+
+## 静态图集
 
 打开 [`docs/index.html`](docs/index.html) 可浏览 13 个模板，并一键复制每个模板的 SVG 或场景参数。
 
@@ -24,10 +40,10 @@
 
 ## 使用
 
-需要 Node.js 18 或更高版本。只有 PNG 导出与预览图生成依赖 `sharp`。
+需要 Node.js 22.12 或更高版本。只有 PNG 导出与预览图生成依赖 `sharp`。
 
 ```bash
-npm install
+pnpm install
 node scripts/render.cjs --scene assets/scenes/converging-helix.json --out output
 node scripts/export-png.cjs --manifest output/manifest.json
 node scripts/build-contact-sheet.cjs --manifest output/manifest.json
@@ -36,13 +52,14 @@ node scripts/build-contact-sheet.cjs --manifest output/manifest.json
 重建完整图集：
 
 ```bash
-npm run gallery
+pnpm gallery
 ```
 
 运行验证：
 
 ```bash
-npm test
+pnpm test
+pnpm test:e2e
 ```
 
 ## 作为 Codex Skill 安装
