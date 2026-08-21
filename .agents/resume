@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$repo_root"
+
+command -v node >/dev/null 2>&1 || {
+  printf '[resume] Node.js is missing; run .agents/setup\n' >&2
+  exit 1
+}
+
+command -v npm >/dev/null 2>&1 || {
+  printf '[resume] npm is missing; run .agents/setup\n' >&2
+  exit 1
+}
+
+node -e "require('sharp')" 2>/dev/null || {
+  printf '[resume] npm dependencies are missing or invalid; run .agents/setup\n' >&2
+  exit 1
+}
+
+printf '[resume] Node.js %s and npm dependencies are ready\n' "$(node --version)"
