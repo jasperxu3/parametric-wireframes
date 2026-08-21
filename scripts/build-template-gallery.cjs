@@ -22,8 +22,9 @@ function escapeHtml(value) {
   return String(value).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
-function inlineSvg(svg) {
-  return svg.replace(/^<\?xml[^>]*>\s*/i, '');
+function inlineSvg(svg, className) {
+  const markup = svg.replace(/^<\?xml[^>]*>\s*/i, '');
+  return className ? markup.replace('<svg ', `<svg class="${className}" preserveAspectRatio="xMidYMid meet" `) : markup;
 }
 
 function safeJson(value) {
@@ -31,20 +32,17 @@ function safeJson(value) {
 }
 
 function buildHtml(catalog, templates) {
-  const cards = templates.map((template, index) => `
-      <article class="card" style="--accent:${escapeHtml(template.accent)}">
-        <div class="preview">${inlineSvg(template.svg)}</div>
-        <div class="card-body">
-          <div class="eyebrow"><span>${String(index + 1).padStart(2, '0')}</span>${escapeHtml(template.familyLabel)}</div>
-          <h2>${escapeHtml(template.title)}</h2>
-          <code class="formula">${escapeHtml(template.formula)}</code>
-          <div class="actions">
-            <button type="button" data-id="${escapeHtml(template.id)}" data-kind="svg">复制 SVG</button>
-            <button class="secondary" type="button" data-id="${escapeHtml(template.id)}" data-kind="scene">复制参数</button>
-          </div>
-        </div>
-      </article>`).join('');
-  const payload = Object.fromEntries(templates.map(template => [template.id, { svg: template.svg, scene: JSON.stringify(template.scene, null, 2) }]));
+  const initialTemplate = templates[0];
+  const templateButtons = templates.map((template, index) => `
+        <button class="template-option${index === 0 ? ' is-active' : ''}" style="--template-accent:${escapeHtml(template.accent)}" type="button" data-template-id="${escapeHtml(template.id)}" aria-label="${escapeHtml(template.title)}" title="${escapeHtml(template.title)}" aria-pressed="${index === 0}">${inlineSvg(template.svg, 'template-thumbnail')}</button>`).join('');
+  const payload = Object.fromEntries(templates.map(template => [template.id, {
+    svg: template.svg,
+    scene: JSON.stringify(template.scene, null, 2),
+    title: template.title,
+    familyLabel: template.familyLabel,
+    formula: template.formula,
+    accent: template.accent
+  }]));
   return `<!doctype html>
 <html lang="zh-CN">
 <head>
@@ -52,38 +50,87 @@ function buildHtml(catalog, templates) {
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>${escapeHtml(catalog.title)}</title>
   <style>
-    :root{color-scheme:dark;--bg:#0d0f14;--panel:#151821;--line:#292e3b;--text:#f4f5f8;--muted:#9299a8}
-    *{box-sizing:border-box}html{background:var(--bg)}body{margin:0;color:var(--text);background:radial-gradient(circle at 50% -20%,#252b3a 0,transparent 38rem),var(--bg);font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-    header{max-width:1480px;margin:auto;padding:72px 28px 42px;border-bottom:1px solid var(--line)}
-    .kicker{margin:0 0 16px;color:#8fa1c6;font:600 12px/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.16em;text-transform:uppercase}
-    h1{max-width:900px;margin:0;font-size:clamp(38px,6vw,78px);line-height:.96;letter-spacing:-.055em}
-    header p{max-width:720px;margin:24px 0 0;color:var(--muted);font-size:16px;line-height:1.7}
-    .legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}.legend span{padding:7px 10px;border:1px solid var(--line);border-radius:999px;color:#bbc1cc;font-size:12px}
-    main{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;max-width:1480px;margin:auto;padding:28px 28px 80px}
-    .card{overflow:hidden;border:1px solid var(--line);border-radius:18px;background:linear-gradient(180deg,#171a23,#12151c);box-shadow:0 18px 48px rgba(0,0,0,.16)}
-    .preview{aspect-ratio:4/3;background:#0b0d12;border-bottom:1px solid var(--line)}.preview svg{display:block;width:100%;height:100%}
-    .card-body{padding:20px}.eyebrow{display:flex;justify-content:space-between;color:var(--accent);font:600 11px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.1em;text-transform:uppercase}.eyebrow span{color:#697182}
-    h2{margin:14px 0 8px;font-size:22px;letter-spacing:-.025em}.formula{display:block;min-height:42px;color:#a8afbd;background:transparent;white-space:normal;font:12px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace}
-    .actions{display:flex;gap:8px;margin-top:18px}button{flex:1;min-height:42px;border:1px solid color-mix(in srgb,var(--accent) 55%,#283040);border-radius:10px;color:#091014;background:var(--accent);font:650 13px/1 inherit;cursor:pointer;transition:transform .15s ease,filter .15s ease}button:hover{filter:brightness(1.08);transform:translateY(-1px)}button:active{transform:translateY(0)}button.secondary{color:#dce1ea;background:#202530;border-color:#343b4a}button.copied{color:#08110e;background:#72e3b9;border-color:#72e3b9}
-    .toast{position:fixed;right:22px;bottom:22px;z-index:3;padding:12px 15px;border:1px solid #3b4557;border-radius:11px;color:#eef1f7;background:#1a202b;box-shadow:0 12px 40px rgba(0,0,0,.35);opacity:0;transform:translateY(10px);pointer-events:none;transition:.2s ease}.toast.show{opacity:1;transform:none}
-    footer{max-width:1480px;margin:auto;padding:0 28px 48px;color:#676e7d;font:12px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace}
-    @media(max-width:1000px){main{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:640px){header{padding-top:48px}main{grid-template-columns:1fr;padding-inline:16px}header,footer{padding-inline:20px}.card-body{padding:18px}}
+    :root{color-scheme:dark;--page:#090c10;--surface:#11161c;--surface-raised:#171d25;--stage:#0f141a;--line:#252d37;--text:#f4f7f9;--muted:#87919e;--ease-out:cubic-bezier(.23,1,.32,1)}
+    *{box-sizing:border-box}html,body{min-height:100%;background:var(--page)}body{margin:0;overflow:hidden;color:var(--text);font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,input{font:inherit}
+    .workbench{--left-width:224px;--right-width:300px;--active-accent:${escapeHtml(initialTemplate.accent)};display:grid;grid-template-columns:var(--left-width) minmax(0,1fr) var(--right-width);gap:12px;height:100dvh;padding:12px;background:radial-gradient(circle at 50% 0,color-mix(in srgb,var(--active-accent) 7%,transparent),transparent 42%),var(--page);transition:grid-template-columns 220ms var(--ease-out)}.workbench.left-collapsed{--left-width:62px}.workbench.right-collapsed{--right-width:62px}
+    .sidebar,.workspace{min-width:0;overflow:hidden;border:1px solid var(--line);border-radius:20px;background:var(--surface);box-shadow:0 18px 55px rgba(0,0,0,.24)}.sidebar{display:flex;min-height:0;flex-direction:column}.panel-header{display:flex;min-height:64px;align-items:center;justify-content:space-between;gap:10px;padding:12px 12px 12px 16px;border-bottom:1px solid var(--line)}.library-panel>.panel-header{justify-content:flex-end;padding-left:12px}.panel-title{min-width:0}.panel-title p{margin:0 0 4px;color:var(--muted);font:600 9px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.14em;text-transform:uppercase}.panel-title h1,.panel-title h2{margin:0;overflow:hidden;font-size:15px;line-height:1.2;letter-spacing:-.015em;white-space:nowrap;text-overflow:ellipsis}
+    .icon-button{display:grid;width:40px;height:40px;flex:none;place-items:center;border:1px solid var(--line);border-radius:11px;color:#cbd3dc;background:#171d24;cursor:pointer;touch-action:manipulation;transition:transform 140ms var(--ease-out),border-color 140ms ease,background-color 140ms ease}.icon-button svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;transition:transform 180ms var(--ease-out)}.icon-button:active{transform:scale(.96)}.icon-button:focus-visible,.template-option:focus-visible,.action-button:focus-visible{outline:2px solid var(--active-accent);outline-offset:2px}.library-panel.is-collapsed .icon-button svg,.inspector-panel.is-collapsed .icon-button svg{transform:rotate(180deg)}
+    .template-list{display:grid;min-height:0;flex:1;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:max-content;align-content:start;gap:8px;overflow:auto;padding:10px}.template-option{position:relative;display:block;width:100%;aspect-ratio:1;overflow:hidden;padding:0;border:1px solid var(--line);border-radius:12px;background:var(--stage);cursor:pointer;touch-action:manipulation;transition:transform 140ms var(--ease-out),border-color 140ms ease,box-shadow 140ms ease}.template-option svg{display:block;width:100%;height:100%;pointer-events:none}.template-option svg>rect:first-child{fill:var(--stage)}.template-option svg path{stroke:color-mix(in srgb,var(--template-accent) 82%,white)}.template-option.is-active{border-color:color-mix(in srgb,var(--template-accent) 72%,white);box-shadow:0 0 0 2px color-mix(in srgb,var(--template-accent) 18%,transparent),0 8px 24px rgba(0,0,0,.24)}.template-option:active{transform:scale(.97)}
+    .sidebar.is-collapsed .panel-header{justify-content:center;padding:11px}.sidebar.is-collapsed .panel-title,.sidebar.is-collapsed .template-list,.sidebar.is-collapsed .inspector-scroll,.sidebar.is-collapsed .inspector-footer{display:none}
+    .workspace{display:grid;grid-template-rows:auto minmax(0,1fr) auto;background:var(--stage)}.stage-header,.stage-footer{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 18px}.stage-header{border-bottom:1px solid var(--line)}.stage-heading{min-width:0}.stage-heading p{margin:0 0 5px;color:var(--active-accent);font:650 9px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.14em;text-transform:uppercase}.stage-heading h2{margin:0;overflow:hidden;font-size:18px;letter-spacing:-.025em;white-space:nowrap;text-overflow:ellipsis}.stage-status{display:flex;align-items:center;gap:7px;color:#88939f;font:600 10px/1 ui-monospace,SFMono-Regular,Menlo,monospace}.stage-status::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--active-accent);box-shadow:0 0 9px var(--active-accent)}
+    .stage-shell{position:relative;display:grid;min-height:0;overflow:hidden;place-items:center;padding:clamp(18px,4vw,52px);background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:32px 32px}.stage-shell::before,.stage-shell::after{content:"";position:absolute;z-index:0;background:rgba(255,255,255,.055);pointer-events:none}.stage-shell::before{top:50%;left:0;width:100%;height:1px}.stage-shell::after{top:0;left:50%;width:1px;height:100%}.stage-render{position:relative;z-index:1;width:min(100%,920px);max-height:100%;aspect-ratio:4/3;overflow:hidden;border:1px solid color-mix(in srgb,var(--active-accent) 24%,var(--line));border-radius:18px;background:var(--stage);box-shadow:0 24px 80px rgba(0,0,0,.34)}.stage-svg,.stage-svg svg,.mini-preview svg{display:block;width:100%;height:100%}.stage-svg svg>rect:first-child,.mini-preview svg>rect:first-child{fill:var(--stage)}.stage-svg svg path,.mini-preview svg path{stroke:color-mix(in srgb,var(--active-accent) 82%,white)}.stage-render.is-restarting .stage-svg{animation:preview-enter 520ms var(--ease-out) both}.stage-refresh{position:absolute;top:12px;right:12px;z-index:3;width:38px;height:38px;border-color:color-mix(in srgb,var(--active-accent) 30%,var(--line));background:rgba(15,20,26,.82);backdrop-filter:blur(10px)}.parametric-animation{position:absolute;inset:0;display:block;width:100%;height:100%;opacity:0}.parametric-animation[hidden]{display:none}.preview.is-animated.show-animation .stage-svg{visibility:hidden}.preview.is-animated.show-animation .parametric-animation{opacity:1}.stage-footer{min-height:56px;border-top:1px solid var(--line);color:#7f8995}.stage-footer code{overflow:hidden;color:#adb6c1;font:11px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;white-space:nowrap;text-overflow:ellipsis}.stage-zoom{flex:none;padding:6px 9px;border:1px solid var(--line);border-radius:8px;color:#7f8995;font:600 10px/1 ui-monospace,SFMono-Regular,Menlo,monospace;background:#151b22}@keyframes preview-enter{from{opacity:0;transform:scale(.975)}to{opacity:1;transform:none}}
+    .inspector-scroll{min-height:0;overflow:auto;padding:14px}.section-label{margin:0 0 8px;color:#75818e;font:650 9px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.14em;text-transform:uppercase}.mini-preview{aspect-ratio:4/3;overflow:hidden;border:1px solid var(--line);border-radius:14px;background:var(--stage)}.inspector-block{margin-top:14px;padding:13px;border:1px solid var(--line);border-radius:14px;background:#141a21}.meta-row{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}.meta-row+.meta-row{margin-top:10px}.meta-row span{color:#77828f;font-size:11px}.meta-row strong,.meta-row code{max-width:65%;color:#d9dee4;font-size:11px;text-align:right}.meta-row strong{overflow:hidden;white-space:nowrap;text-overflow:ellipsis}.meta-row code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;line-height:1.45;overflow-wrap:anywhere}
+    .animation-settings{display:grid;gap:12px;margin:0;padding:0;border:0}.animation-settings legend{margin:0 0 2px;padding:0;color:#75818e;font:650 9px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.14em;text-transform:uppercase}.toggle-setting,.animation-setting{color:#cbd1db;font-size:12px}.toggle-setting{display:flex;min-height:30px;align-items:center;justify-content:space-between;gap:12px;cursor:pointer}.toggle-setting input{position:absolute;width:1px;height:1px;opacity:0}.switch{position:relative;width:34px;height:20px;flex:none;border:1px solid #485361;border-radius:999px;background:#262d36;transition:background-color 160ms ease,border-color 160ms ease}.switch::after{content:"";position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:#aeb7c2;transition:transform 180ms var(--ease-out),background-color 160ms ease}.toggle-setting input:checked+.switch{border-color:var(--active-accent);background:color-mix(in srgb,var(--active-accent) 22%,#222932)}.toggle-setting input:checked+.switch::after{background:var(--active-accent);transform:translateX(14px)}.toggle-setting input:focus-visible+.switch,.animation-setting input:focus-visible{outline:2px solid var(--active-accent);outline-offset:2px}.toggle-setting input:disabled+.switch{opacity:.45}.animation-setting{display:grid;gap:7px}.animation-setting>span{display:flex;justify-content:space-between}.animation-setting output{color:var(--active-accent);font:600 11px/1 ui-monospace,SFMono-Regular,Menlo,monospace}.animation-setting input{width:100%;height:18px;margin:0;accent-color:var(--active-accent);cursor:pointer}.static-notice{margin:0;color:#7f8a96;font-size:11px;line-height:1.6}.inspector-footer{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:12px;border-top:1px solid var(--line)}.action-button{min-height:42px;padding:0 12px;border:1px solid color-mix(in srgb,var(--active-accent) 40%,var(--line));border-radius:11px;color:#08110e;background:var(--active-accent);font-weight:700;cursor:pointer;touch-action:manipulation;transition:transform 140ms var(--ease-out),filter 140ms ease}.action-button.secondary{color:#dce2e8;background:#1b222b;border-color:#303945}.action-button:active{transform:scale(.98)}.action-button.copied{background:#72e3b9;border-color:#72e3b9}.toast{position:fixed;right:24px;bottom:24px;z-index:30;padding:11px 14px;border:1px solid #374250;border-radius:10px;color:#eef2f6;background:#171e27;box-shadow:0 14px 42px rgba(0,0,0,.38);opacity:0;transform:translateY(8px);pointer-events:none;transition:opacity 180ms var(--ease-out),transform 180ms var(--ease-out)}.toast.show{opacity:1;transform:none}
+    @media(hover:hover) and (pointer:fine){.icon-button:hover{border-color:#3a4552;background:#1a212a}.template-option:hover{border-color:color-mix(in srgb,var(--template-accent) 48%,white)}.action-button:hover{filter:brightness(1.08)}}
+    @media(max-width:1080px){.workbench{--left-width:190px;--right-width:274px}.template-list{gap:7px;padding:8px}}
+    @media(max-width:760px){body{overflow:auto}.workbench{display:block;min-height:100dvh;height:auto;padding:8px}.workspace{min-height:calc(100dvh - 16px)}.sidebar{position:fixed;z-index:20;top:8px;bottom:8px;width:min(300px,calc(100vw - 16px));transition:transform 220ms var(--ease-out)}.library-panel{left:8px}.inspector-panel{right:8px}.library-panel.is-collapsed{transform:translateX(calc(-100% + 52px))}.inspector-panel.is-collapsed{transform:translateX(calc(100% - 52px))}.sidebar.is-collapsed .panel-title,.sidebar.is-collapsed .template-list,.sidebar.is-collapsed .inspector-scroll,.sidebar.is-collapsed .inspector-footer{display:none}.sidebar.is-collapsed .panel-header{justify-content:flex-end}.inspector-panel.is-collapsed .panel-header{justify-content:flex-start}.stage-header,.stage-footer{padding-inline:60px}.stage-status,.stage-zoom{display:none}.stage-shell{min-height:62vh;padding:20px}.stage-render{width:100%}.stage-refresh{right:52px}}
+    @media(prefers-reduced-motion:reduce){.workbench,.sidebar,.icon-button,.template-option,.action-button,.toast,.switch,.switch::after{transition-duration:0ms}.stage-render.is-restarting .stage-svg{animation:none}}
   </style>
 </head>
 <body>
-  <header>
-    <p class="kicker">Deterministic SVG / ${templates.length} base systems</p>
-    <h1>${escapeHtml(catalog.title)}</h1>
-    <p>${escapeHtml(catalog.description)}。每张图都由明确公式和参数生成；点击按钮可直接复制完整 SVG 或对应场景 JSON。</p>
-    <div class="legend"><span>旋转曲面</span><span>投影射线</span><span>三维轨道</span><span>矩阵重复</span><span>解析形变网格</span><span>分层网格</span><span>向量场线</span><span>参数曲线</span><span>三维螺旋</span></div>
-  </header>
-  <main>${cards}
-  </main>
-  <footer>Same scene JSON + same seed = byte-identical SVG. No raster tracing and no image-generation model.</footer>
+  <div class="workbench" style="--active-accent:${escapeHtml(initialTemplate.accent)}">
+    <aside class="sidebar library-panel" aria-label="图形库">
+      <div class="panel-header">
+        <button class="icon-button" type="button" data-panel-toggle="library" aria-label="折叠图形库" title="折叠图形库" aria-expanded="true"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m12 5-5 5 5 5"/></svg></button>
+      </div>
+      <nav class="template-list" aria-label="选择参数化图形">${templateButtons}
+      </nav>
+    </aside>
+    <main class="workspace">
+      <header class="stage-header">
+        <div class="stage-heading"><p data-active-family>${escapeHtml(initialTemplate.familyLabel)}</p><h2 data-active-title>${escapeHtml(initialTemplate.title)}</h2></div>
+        <span class="stage-status">LIVE CANVAS</span>
+      </header>
+      <section class="stage-shell" aria-label="参数化图形调试区域">
+        <div class="stage-render preview show-animation" data-stage>
+          <div class="stage-svg" data-stage-svg>${inlineSvg(initialTemplate.svg)}</div>
+          <canvas class="parametric-animation" data-animation="catenoid-field" aria-hidden="true"></canvas>
+          <button class="icon-button stage-refresh" type="button" data-refresh-preview aria-label="重新播放入场动画" title="重新播放入场动画"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M16 7a6.5 6.5 0 1 0 .2 5.5M16 3v4h-4"/></svg></button>
+        </div>
+      </section>
+      <footer class="stage-footer"><code data-active-formula>${escapeHtml(initialTemplate.formula)}</code><span class="stage-zoom">FIT · 100%</span></footer>
+    </main>
+    <aside class="sidebar inspector-panel" aria-label="图形调试面板">
+      <div class="panel-header">
+        <div class="panel-title"><p>Inspector</p><h2>预览与参数</h2></div>
+        <button class="icon-button" type="button" data-panel-toggle="inspector" aria-label="折叠调试面板" title="折叠调试面板" aria-expanded="true"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m8 5 5 5-5 5"/></svg></button>
+      </div>
+      <div class="inspector-scroll">
+        <p class="section-label">当前图形</p>
+        <div class="mini-preview" data-mini-preview>${inlineSvg(initialTemplate.svg)}</div>
+        <div class="inspector-block">
+          <div class="meta-row"><span>名称</span><strong data-meta-title>${escapeHtml(initialTemplate.title)}</strong></div>
+          <div class="meta-row"><span>家族</span><strong data-meta-family>${escapeHtml(initialTemplate.familyLabel)}</strong></div>
+          <div class="meta-row"><span>公式</span><code data-meta-formula>${escapeHtml(initialTemplate.formula)}</code></div>
+        </div>
+        <div class="inspector-block" data-animation-only>
+          <fieldset class="animation-settings">
+            <legend>动画调试</legend>
+            <label class="toggle-setting"><span>自动旋转</span><input type="checkbox" data-animation-setting="autoRotate" checked><span class="switch" aria-hidden="true"></span></label>
+            <label class="toggle-setting"><span>鼠标跟随</span><input type="checkbox" data-animation-setting="pointerFollow" checked><span class="switch" aria-hidden="true"></span></label>
+            <label class="animation-setting"><span>旋转速度 <output>1.0×</output></span><input type="range" data-animation-setting="rotationSpeed" min="0" max="200" step="10" value="100"></label>
+            <label class="animation-setting"><span>圆环速度 <output>1.0×</output></span><input type="range" data-animation-setting="cycleSpeed" min="0" max="200" step="10" value="100"></label>
+          </fieldset>
+        </div>
+        <div class="inspector-block" data-static-only hidden><p class="static-notice">该图形当前使用确定性 SVG 预览。动画调试参数将在支持该图形后显示。</p></div>
+      </div>
+      <footer class="inspector-footer">
+        <button class="action-button secondary" type="button" data-copy-kind="scene">复制参数</button>
+        <button class="action-button" type="button" data-copy-kind="svg">复制 SVG</button>
+      </footer>
+    </aside>
+  </div>
   <div class="toast" role="status" aria-live="polite">已复制</div>
+  <script src="animations/catenoid-field.js" defer></script>
   <script>
     const templates = ${safeJson(payload)};
+    const workbench = document.querySelector('.workbench');
+    const stage = document.querySelector('[data-stage]');
+    const stageSvg = document.querySelector('[data-stage-svg]');
+    const animationCanvas = document.querySelector('[data-animation]');
+    const miniPreview = document.querySelector('[data-mini-preview]');
     const toast = document.querySelector('.toast');
+    let activeTemplateId = ${safeJson(initialTemplate.id)};
     let toastTimer;
     async function copyText(text) {
       if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(text);
@@ -93,15 +140,81 @@ function buildHtml(catalog, templates) {
       const ok = document.execCommand('copy'); area.remove();
       if (!ok) throw new Error('copy failed');
     }
+    function restartPreview() {
+      const template = templates[activeTemplateId];
+      stageSvg.innerHTML = template.svg;
+      stage.classList.remove('is-restarting');
+      void stage.offsetWidth;
+      stage.classList.add('is-restarting');
+      if (activeTemplateId === 'catenoid-field') {
+        animationCanvas.__catenoidFieldAnimation?.restart();
+      }
+    }
+    function selectTemplate(id) {
+      const template = templates[id];
+      if (!template) return;
+      activeTemplateId = id;
+      const animated = id === 'catenoid-field';
+      workbench.style.setProperty('--active-accent', template.accent);
+      stageSvg.innerHTML = template.svg;
+      miniPreview.innerHTML = template.svg;
+      stage.classList.toggle('show-animation', animated);
+      animationCanvas.hidden = !animated;
+      document.querySelector('[data-animation-only]').hidden = !animated;
+      document.querySelector('[data-static-only]').hidden = animated;
+      document.querySelector('[data-active-title]').textContent = template.title;
+      document.querySelector('[data-active-family]').textContent = template.familyLabel;
+      document.querySelector('[data-active-formula]').textContent = template.formula;
+      document.querySelector('[data-meta-title]').textContent = template.title;
+      document.querySelector('[data-meta-family]').textContent = template.familyLabel;
+      document.querySelector('[data-meta-formula]').textContent = template.formula;
+      document.querySelectorAll('[data-template-id]').forEach(button => {
+        const selected = button.dataset.templateId === id;
+        button.classList.toggle('is-active', selected);
+        button.setAttribute('aria-pressed', String(selected));
+      });
+      if (animated) animationCanvas.__catenoidFieldAnimation?.restart();
+    }
+    function setPanelCollapsed(name, collapsed) {
+      const panel = document.querySelector(name === 'library' ? '.library-panel' : '.inspector-panel');
+      panel.classList.toggle('is-collapsed', collapsed);
+      workbench.classList.toggle(name === 'library' ? 'left-collapsed' : 'right-collapsed', collapsed);
+      const toggle = panel.querySelector('[data-panel-toggle]');
+      toggle.setAttribute('aria-expanded', String(!collapsed));
+      toggle.setAttribute('aria-label', collapsed ? '展开面板' : '折叠面板');
+      toggle.setAttribute('title', collapsed ? '展开面板' : '折叠面板');
+    }
     document.addEventListener('click', async event => {
-      const button = event.target.closest('button[data-id]');
+      if (event.target.closest('[data-refresh-preview]')) {
+        restartPreview();
+        return;
+      }
+      const templateButton = event.target.closest('[data-template-id]');
+      if (templateButton) {
+        selectTemplate(templateButton.dataset.templateId);
+        if (window.matchMedia('(max-width: 760px)').matches) setPanelCollapsed('library', true);
+        return;
+      }
+      const panelToggle = event.target.closest('[data-panel-toggle]');
+      if (panelToggle) {
+        const name = panelToggle.dataset.panelToggle;
+        const panel = panelToggle.closest('.sidebar');
+        const willCollapse = !panel.classList.contains('is-collapsed');
+        setPanelCollapsed(name, willCollapse);
+        if (!willCollapse && window.matchMedia('(max-width: 760px)').matches) {
+          setPanelCollapsed(name === 'library' ? 'inspector' : 'library', true);
+        }
+        return;
+      }
+      const button = event.target.closest('[data-copy-kind]');
       if (!button) return;
-      const value = templates[button.dataset.id][button.dataset.kind];
+      const kind = button.dataset.copyKind;
+      const value = templates[activeTemplateId][kind];
       try {
         await copyText(value);
         const original = button.textContent;
         button.textContent = '已复制'; button.classList.add('copied');
-        toast.textContent = button.dataset.kind === 'svg' ? 'SVG 代码已复制' : '参数 JSON 已复制';
+        toast.textContent = kind === 'svg' ? 'SVG 代码已复制' : '参数 JSON 已复制';
         toast.classList.add('show'); clearTimeout(toastTimer);
         toastTimer = setTimeout(() => toast.classList.remove('show'), 1600);
         setTimeout(() => { button.textContent = original; button.classList.remove('copied'); }, 1200);
@@ -109,6 +222,10 @@ function buildHtml(catalog, templates) {
         toast.textContent = '复制失败，请在浏览器中打开'; toast.classList.add('show');
       }
     });
+    if (window.matchMedia('(max-width: 760px)').matches) {
+      setPanelCollapsed('library', true);
+      setPanelCollapsed('inspector', true);
+    }
   </script>
 </body>
 </html>
@@ -151,6 +268,10 @@ async function buildGallery(catalogPath, outputDirectory) {
   });
   const htmlPath = path.join(outputDirectory, 'index.html');
   const previewPath = path.join(outputDirectory, 'template-gallery-preview.png');
+  const animationDirectory = path.join(outputDirectory, 'animations');
+  const animationSource = path.resolve(__dirname, '..', 'assets', 'animations', 'catenoid-field.js');
+  fs.mkdirSync(animationDirectory, { recursive: true });
+  fs.copyFileSync(animationSource, path.join(animationDirectory, 'catenoid-field.js'));
   fs.writeFileSync(htmlPath, buildHtml(catalog, templates));
   await buildPreview(catalog, templates, previewPath);
   const manifest = {
