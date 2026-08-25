@@ -1,0 +1,66 @@
+{
+  "version": 1,
+  "seed": 1309,
+  "name": "magnetic-eye-field",
+  "viewport": {
+    "width": 800,
+    "height": 600,
+    "padding": 68,
+    "background": "#0e1007"
+  },
+  "projection": {
+    "type": "none",
+    "strength": 0,
+    "rotation": [
+      0,
+      0,
+      0
+    ]
+  },
+  "sampling": {
+    "lines": 23,
+    "steps": 980,
+    "markerSegments": 44
+  },
+  "style": {
+    "stroke": "#d9e875",
+    "strokeWidth": 0.96,
+    "opacity": 0.64,
+    "fill": "none"
+  },
+  "constraints": {
+    "mirrorX": false
+  },
+  "variants": {
+    "count": 1,
+    "includeBase": true,
+    "parameters": {
+      "geometry.separation": {
+        "relative": [
+          -0.14,
+          0.14
+        ]
+      },
+      "geometry.stepSize": {
+        "relative": [
+          -0.1,
+          0.1
+        ]
+      }
+    },
+    "presets": []
+  },
+  "geometry": {
+    "separation": 1.52,
+    "startRadius": 0.082,
+    "stepSize": 0.012,
+    "poleRadius": 0.052,
+    "axisLength": 1.3,
+    "maxRadius": 3.6
+  },
+  "family": "dipole-field",
+  "variant": {
+    "index": 0,
+    "seed": 2865372256
+  }
+}

@@ -11,9 +11,11 @@
   const HYPER_ACTIVE_MS = 650;
   const HYPER_GLYPHS = '01<>/{}[]+-=';
   const POINTER_EASE = 0.055;
-  const ACCENT = '#77e1ca';
-  const SECONDARY = '#a98bff';
-  const BACKGROUND = '#0f141a';
+  const DEFAULT_COLORS = {
+    accent: '#77e1ca',
+    secondary: '#a98bff',
+    background: '#0f141a'
+  };
 
   function clamp(value, min = 0, max = 1) {
     return Math.max(min, Math.min(max, value));
@@ -69,6 +71,7 @@
       this.width = 1;
       this.height = 1;
       this.frame = 0;
+      this.viewRotation = null;
       this.visible = false;
       this.introStart = null;
       this.lastFrameTime = null;
@@ -81,6 +84,7 @@
         rotationSpeed: 1,
         cycleSpeed: 1
       };
+      this.colors = { ...DEFAULT_COLORS };
       this.paths = this.createPaths();
       this.dataPulses = this.createDataPulses();
 
@@ -176,11 +180,8 @@
     surfacePoint(u, v) {
       const radius = this.profileRadius(v);
       const point = [radius * Math.cos(u), 1.08 * v, radius * Math.sin(u)];
-      const rotation = [
-        0.36 + this.rotation.pitch,
-        this.autoYaw + this.rotation.yaw,
-        0
-      ];
+      const rotation = this.viewRotation
+        ?? [0.36 + this.rotation.pitch, this.autoYaw + this.rotation.yaw, 0];
       const [x, y, z] = rotate3D(point, rotation);
       const perspective = 1 + z * 0.1;
       const scale = Math.min(this.width, this.height) * 0.29;
@@ -227,7 +228,7 @@
         context.lineTo(points[index].x, points[index].y);
       }
       context.lineWidth = lineWidth;
-      context.strokeStyle = rgba(ACCENT, opacity);
+      context.strokeStyle = rgba(this.colors.accent, opacity);
       context.stroke();
     }
 
@@ -275,18 +276,18 @@
       const fontSize = compact ? 7 : 8;
       context.save();
       context.font = `600 ${fontSize}px ui-monospace, SFMono-Regular, Menlo, monospace`;
-      context.fillStyle = rgba(ACCENT, 0.4);
+      context.fillStyle = rgba(this.colors.accent, 0.4);
       context.textBaseline = 'top';
       ['PARAMETRIC', 'RING / 12', 'SAMPLE / 120', 'CYCLE / ACTIVE'].forEach((label, index) => {
         context.fillText(this.hyperText(label, index), this.width * (compact ? 0.15 : 0.055), this.height * 0.25 + index * (fontSize + 4));
       });
-      context.fillStyle = rgba(SECONDARY, 0.38);
+      context.fillStyle = rgba(this.colors.secondary, 0.38);
       context.textAlign = compact ? 'left' : 'right';
       context.fillText('V / -1.00', this.width * (compact ? 0.15 : 0.24), this.height * 0.86);
       context.fillText('V / +1.00', this.width * (compact ? 0.68 : 0.94), this.height * 0.86);
       if (!compact) {
         context.textAlign = 'left';
-        context.fillStyle = rgba(ACCENT, 0.34);
+        context.fillStyle = rgba(this.colors.accent, 0.34);
         this.drawTextTicker(context, fontSize);
       }
       context.restore();
@@ -309,7 +310,7 @@
       if (this.reduceMotion || this.introStart === null || now - this.introStart < DATA_PULSE_DELAY_MS) return;
       const context = this.context;
       context.save();
-      context.fillStyle = ACCENT;
+      context.fillStyle = this.colors.accent;
       this.dataPulses.forEach(pulse => {
         const elapsed = this.cycleElapsed + pulse.offset;
         const activation = Math.floor(elapsed / pulse.period);
@@ -327,7 +328,7 @@
     render(now = performance.now()) {
       const context = this.context;
       context.clearRect(0, 0, this.width, this.height);
-      context.fillStyle = BACKGROUND;
+      context.fillStyle = this.colors.background;
       context.fillRect(0, 0, this.width, this.height);
       this.drawDecorativeText();
 
@@ -390,6 +391,28 @@
       this.resize();
       this.render(this.introStart);
       this.start();
+    }
+
+    setFrontView(enabled) {
+      this.setViewRotation(enabled ? [0, 0, 0] : null);
+    }
+
+    setViewRotation(rotation) {
+      this.viewRotation = rotation ? rotation.map(Number) : null;
+      this.rotation = { pitch: 0, yaw: 0, targetPitch: 0, targetYaw: 0 };
+      this.dataPulses.forEach(pulse => { pulse.activation = -1; pulse.position = null; });
+      this.render();
+    }
+
+    setOptions(options = {}) {
+      ['accent', 'secondary', 'background'].forEach(key => {
+        if (typeof options[key] === 'string' && options[key]) this.colors[key] = options[key];
+      });
+      ['rotationSpeed', 'cycleSpeed'].forEach(key => {
+        const value = Number(options[key]);
+        if (Number.isFinite(value)) this.settings[key] = clamp(value, 0, 4);
+      });
+      this.render();
     }
 
     start() {

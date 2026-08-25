@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "seed": 1308,
+  "name": "skewed-projection-gate",
+  "viewport": {
+    "width": 800,
+    "height": 600,
+    "padding": 62,
+    "background": "#130b08"
+  },
+  "projection": {
+    "type": "weak-perspective",
+    "strength": 0.22,
+    "rotation": [
+      0.29,
+      -0.51,
+      0.2
+    ]
+  },
+  "sampling": {
+    "rays": 19,
+    "apertureSegments": 220,
+    "markerSegments": 28
+  },
+  "style": {
+    "stroke": "#ff9f80",
+    "strokeWidth": 1.02,
+    "opacity": 0.67,
+    "fill": "none"
+  },
+  "constraints": {
+    "mirrorX": false,
+    "mirrorY": true
+  },
+  "variants": {
+    "count": 1,
+    "includeBase": true,
+    "parameters": {},
+    "presets": []
+  },
+  "geometry": {
+    "length": 1.72,
+    "apertureRadius": 0.82,
+    "apertureAspect": 0.34,
+    "phase": 0.31,
+    "originMarkerRadius": 0.018,
+    "showOriginMarker": true,
+    "showAxis": true
+  },
+  "family": "projection-rays",
+  "variant": {
+    "index": 0,
+    "seed": 2708158927
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "name": "folded-wave-membrane",
+  "family": "deformation-grid",
+  "sourceFingerprint": 3206076208,
+  "viewport": {
+    "width": 800,
+    "height": 600,
+    "padding": 54,
+    "background": "#071014"
+  },
+  "items": [
+    {
+      "index": 0,
+      "seed": 954961249,
+      "family": "deformation-grid",
+      "svg": "folded-wave-membrane-01.svg",
+      "scene": "folded-wave-membrane-01.json",
+      "pathCount": 28,
+      "bounds": {
+        "minX": 54.963,
+        "minY": 54,
+        "maxX": 745.037,
+        "maxY": 546
+      }
+    }
+  ]
+}

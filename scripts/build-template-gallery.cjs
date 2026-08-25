@@ -58,12 +58,12 @@ function buildHtml(catalog, templates) {
     .template-list{display:grid;min-height:0;flex:1;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:max-content;align-content:start;gap:8px;overflow:auto;padding:10px}.template-option{position:relative;display:block;width:100%;aspect-ratio:1;overflow:hidden;padding:0;border:1px solid var(--line);border-radius:12px;background:var(--stage);cursor:pointer;touch-action:manipulation;transition:transform 140ms var(--ease-out),border-color 140ms ease,box-shadow 140ms ease}.template-option svg{display:block;width:100%;height:100%;pointer-events:none}.template-option svg>rect:first-child{fill:var(--stage)}.template-option svg path{stroke:color-mix(in srgb,var(--template-accent) 82%,white)}.template-option.is-active{border-color:color-mix(in srgb,var(--template-accent) 72%,white);box-shadow:0 0 0 2px color-mix(in srgb,var(--template-accent) 18%,transparent),0 8px 24px rgba(0,0,0,.24)}.template-option:active{transform:scale(.97)}
     .sidebar.is-collapsed .panel-header{justify-content:center;padding:11px}.sidebar.is-collapsed .panel-title,.sidebar.is-collapsed .template-list,.sidebar.is-collapsed .inspector-scroll,.sidebar.is-collapsed .inspector-footer{display:none}
     .workspace{display:grid;grid-template-rows:auto minmax(0,1fr) auto;background:var(--stage)}.stage-header,.stage-footer{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 18px}.stage-header{border-bottom:1px solid var(--line)}.stage-heading{min-width:0}.stage-heading p{margin:0 0 5px;color:var(--active-accent);font:650 9px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.14em;text-transform:uppercase}.stage-heading h2{margin:0;overflow:hidden;font-size:18px;letter-spacing:-.025em;white-space:nowrap;text-overflow:ellipsis}.stage-status{display:flex;align-items:center;gap:7px;color:#88939f;font:600 10px/1 ui-monospace,SFMono-Regular,Menlo,monospace}.stage-status::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--active-accent);box-shadow:0 0 9px var(--active-accent)}
-    .stage-shell{position:relative;display:grid;min-height:0;overflow:hidden;place-items:center;padding:clamp(18px,4vw,52px);background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:32px 32px}.stage-shell::before,.stage-shell::after{content:"";position:absolute;z-index:0;background:rgba(255,255,255,.055);pointer-events:none}.stage-shell::before{top:50%;left:0;width:100%;height:1px}.stage-shell::after{top:0;left:50%;width:1px;height:100%}.stage-render{position:relative;z-index:1;width:min(100%,920px);max-height:100%;aspect-ratio:4/3;overflow:hidden;border:1px solid color-mix(in srgb,var(--active-accent) 24%,var(--line));border-radius:18px;background:var(--stage);box-shadow:0 24px 80px rgba(0,0,0,.34)}.stage-svg,.stage-svg svg,.mini-preview svg{display:block;width:100%;height:100%}.stage-svg svg>rect:first-child,.mini-preview svg>rect:first-child{fill:var(--stage)}.stage-svg svg path,.mini-preview svg path{stroke:color-mix(in srgb,var(--active-accent) 82%,white)}.stage-render.is-restarting .stage-svg{animation:preview-enter 520ms var(--ease-out) both}.stage-refresh{position:absolute;top:12px;right:12px;z-index:3;width:38px;height:38px;border-color:color-mix(in srgb,var(--active-accent) 30%,var(--line));background:rgba(15,20,26,.82);backdrop-filter:blur(10px)}.parametric-animation{position:absolute;inset:0;display:block;width:100%;height:100%;opacity:0}.parametric-animation[hidden]{display:none}.preview.is-animated.show-animation .stage-svg{visibility:hidden}.preview.is-animated.show-animation .parametric-animation{opacity:1}.stage-footer{min-height:56px;border-top:1px solid var(--line);color:#7f8995}.stage-footer code{overflow:hidden;color:#adb6c1;font:11px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;white-space:nowrap;text-overflow:ellipsis}.stage-zoom{flex:none;padding:6px 9px;border:1px solid var(--line);border-radius:8px;color:#7f8995;font:600 10px/1 ui-monospace,SFMono-Regular,Menlo,monospace;background:#151b22}@keyframes preview-enter{from{opacity:0;transform:scale(.975)}to{opacity:1;transform:none}}
-    .inspector-scroll{min-height:0;overflow:auto;padding:14px}.section-label{margin:0 0 8px;color:#75818e;font:650 9px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.14em;text-transform:uppercase}.mini-preview{aspect-ratio:4/3;overflow:hidden;border:1px solid var(--line);border-radius:14px;background:var(--stage)}.inspector-block{margin-top:14px;padding:13px;border:1px solid var(--line);border-radius:14px;background:#141a21}.meta-row{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}.meta-row+.meta-row{margin-top:10px}.meta-row span{color:#77828f;font-size:11px}.meta-row strong,.meta-row code{max-width:65%;color:#d9dee4;font-size:11px;text-align:right}.meta-row strong{overflow:hidden;white-space:nowrap;text-overflow:ellipsis}.meta-row code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;line-height:1.45;overflow-wrap:anywhere}
-    .animation-settings{display:grid;gap:12px;margin:0;padding:0;border:0}.animation-settings legend{margin:0 0 2px;padding:0;color:#75818e;font:650 9px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.14em;text-transform:uppercase}.toggle-setting,.animation-setting{color:#cbd1db;font-size:12px}.toggle-setting{display:flex;min-height:30px;align-items:center;justify-content:space-between;gap:12px;cursor:pointer}.toggle-setting input{position:absolute;width:1px;height:1px;opacity:0}.switch{position:relative;width:34px;height:20px;flex:none;border:1px solid #485361;border-radius:999px;background:#262d36;transition:background-color 160ms ease,border-color 160ms ease}.switch::after{content:"";position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:#aeb7c2;transition:transform 180ms var(--ease-out),background-color 160ms ease}.toggle-setting input:checked+.switch{border-color:var(--active-accent);background:color-mix(in srgb,var(--active-accent) 22%,#222932)}.toggle-setting input:checked+.switch::after{background:var(--active-accent);transform:translateX(14px)}.toggle-setting input:focus-visible+.switch,.animation-setting input:focus-visible{outline:2px solid var(--active-accent);outline-offset:2px}.toggle-setting input:disabled+.switch{opacity:.45}.animation-setting{display:grid;gap:7px}.animation-setting>span{display:flex;justify-content:space-between}.animation-setting output{color:var(--active-accent);font:600 11px/1 ui-monospace,SFMono-Regular,Menlo,monospace}.animation-setting input{width:100%;height:18px;margin:0;accent-color:var(--active-accent);cursor:pointer}.static-notice{margin:0;color:#7f8a96;font-size:11px;line-height:1.6}.inspector-footer{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:12px;border-top:1px solid var(--line)}.action-button{min-height:42px;padding:0 12px;border:1px solid color-mix(in srgb,var(--active-accent) 40%,var(--line));border-radius:11px;color:#08110e;background:var(--active-accent);font-weight:700;cursor:pointer;touch-action:manipulation;transition:transform 140ms var(--ease-out),filter 140ms ease}.action-button.secondary{color:#dce2e8;background:#1b222b;border-color:#303945}.action-button:active{transform:scale(.98)}.action-button.copied{background:#72e3b9;border-color:#72e3b9}.toast{position:fixed;right:24px;bottom:24px;z-index:30;padding:11px 14px;border:1px solid #374250;border-radius:10px;color:#eef2f6;background:#171e27;box-shadow:0 14px 42px rgba(0,0,0,.38);opacity:0;transform:translateY(8px);pointer-events:none;transition:opacity 180ms var(--ease-out),transform 180ms var(--ease-out)}.toast.show{opacity:1;transform:none}
+    .stage-shell{position:relative;display:grid;min-height:0;overflow:hidden;place-items:center;padding:clamp(18px,4vw,52px);background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:32px 32px}.stage-shell::before,.stage-shell::after{content:"";position:absolute;z-index:0;background:rgba(255,255,255,.055);pointer-events:none}.stage-shell::before{top:50%;left:0;width:100%;height:1px}.stage-shell::after{top:0;left:50%;width:1px;height:100%}.stage-render{position:relative;z-index:1;width:min(100%,920px);max-height:100%;aspect-ratio:4/3;overflow:hidden;border:1px solid color-mix(in srgb,var(--active-accent) 24%,var(--line));border-radius:18px;background:var(--stage);box-shadow:0 24px 80px rgba(0,0,0,.34)}.stage-svg,.stage-svg svg,.mini-preview svg{display:block;width:100%;height:100%}.stage-svg svg>rect:first-child,.mini-preview svg>rect:first-child{fill:var(--stage)}.stage-svg svg path,.mini-preview svg path{stroke:color-mix(in srgb,var(--active-accent) 82%,white)}.stage-render.is-restarting .stage-svg{animation:preview-enter 520ms var(--ease-out) both}.stage-controls{position:absolute;top:12px;right:12px;z-index:3;display:flex;align-items:center;gap:8px}.stage-refresh{width:38px;height:38px;border-color:color-mix(in srgb,var(--active-accent) 30%,var(--line));background:rgba(15,20,26,.82);backdrop-filter:blur(10px)}.stage-view-button{min-height:38px;padding:0 12px;border:1px solid color-mix(in srgb,var(--active-accent) 30%,var(--line));border-radius:10px;color:#cbd3dc;background:rgba(15,20,26,.82);font:600 11px/1 ui-monospace,SFMono-Regular,Menlo,monospace;cursor:pointer;backdrop-filter:blur(10px)}.stage-view-button.is-active{border-color:var(--active-accent);color:#08110e;background:var(--active-accent)}.stage-view-button:focus-visible{outline:2px solid var(--active-accent);outline-offset:2px}.parametric-animation{position:absolute;inset:0;display:block;width:100%;height:100%;opacity:0}.parametric-animation[hidden]{display:none}.preview.is-animated.show-animation .stage-svg{visibility:hidden}.preview.is-animated.show-animation .parametric-animation{opacity:1}.stage-footer{min-height:56px;border-top:1px solid var(--line);color:#7f8995}.stage-footer code{overflow:hidden;color:#adb6c1;font:11px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;white-space:nowrap;text-overflow:ellipsis}.stage-zoom{flex:none;padding:6px 9px;border:1px solid var(--line);border-radius:8px;color:#7f8995;font:600 10px/1 ui-monospace,SFMono-Regular,Menlo,monospace;background:#151b22}@keyframes preview-enter{from{opacity:0;transform:scale(.975)}to{opacity:1;transform:none}}
+    .inspector-scroll{min-height:0;flex:1;overflow:auto;padding:14px}.section-label{margin:0 0 8px;color:#75818e;font:650 9px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.14em;text-transform:uppercase}.mini-preview{aspect-ratio:4/3;overflow:hidden;border:1px solid var(--line);border-radius:14px;background:var(--stage)}.inspector-block{margin-top:14px;padding:13px;border:1px solid var(--line);border-radius:14px;background:#141a21}.meta-row{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}.meta-row+.meta-row{margin-top:10px}.meta-row span{color:#77828f;font-size:11px}.meta-row strong,.meta-row code{max-width:65%;color:#d9dee4;font-size:11px;text-align:right}.meta-row strong{overflow:hidden;white-space:nowrap;text-overflow:ellipsis}.meta-row code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;line-height:1.45;overflow-wrap:anywhere}
+    .animation-settings{display:grid;gap:12px;margin:0;padding:0;border:0}.animation-settings legend{margin:0 0 2px;padding:0;color:#75818e;font:650 9px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.14em;text-transform:uppercase}.toggle-setting,.animation-setting{color:#cbd1db;font-size:12px}.toggle-setting{display:flex;min-height:30px;align-items:center;justify-content:space-between;gap:12px;cursor:pointer}.toggle-setting input{position:absolute;width:1px;height:1px;opacity:0}.switch{position:relative;width:34px;height:20px;flex:none;border:1px solid #485361;border-radius:999px;background:#262d36;transition:background-color 160ms ease,border-color 160ms ease}.switch::after{content:"";position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:#aeb7c2;transition:transform 180ms var(--ease-out),background-color 160ms ease}.toggle-setting input:checked+.switch{border-color:var(--active-accent);background:color-mix(in srgb,var(--active-accent) 22%,#222932)}.toggle-setting input:checked+.switch::after{background:var(--active-accent);transform:translateX(14px)}.toggle-setting input:focus-visible+.switch,.animation-setting input:focus-visible{outline:2px solid var(--active-accent);outline-offset:2px}.toggle-setting input:disabled+.switch{opacity:.45}.animation-setting{display:grid;gap:7px}.animation-setting>span{display:flex;justify-content:space-between}.animation-setting output{color:var(--active-accent);font:600 11px/1 ui-monospace,SFMono-Regular,Menlo,monospace}.animation-setting input{width:100%;height:18px;margin:0;accent-color:var(--active-accent);cursor:pointer}.view-reset-button{min-height:34px;border:1px solid #303945;border-radius:9px;color:#cbd3dc;background:#1b222b;font-size:11px;cursor:pointer}.view-reset-button:disabled{opacity:.42;cursor:default}.view-reset-button:focus-visible{outline:2px solid var(--active-accent);outline-offset:2px}.static-notice{margin:0;color:#7f8a96;font-size:11px;line-height:1.6}.inspector-footer{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:12px;border-top:1px solid var(--line)}.action-button{min-height:42px;padding:0 12px;border:1px solid color-mix(in srgb,var(--active-accent) 40%,var(--line));border-radius:11px;color:#08110e;background:var(--active-accent);font-weight:700;cursor:pointer;touch-action:manipulation;transition:transform 140ms var(--ease-out),filter 140ms ease}.action-button.secondary{color:#dce2e8;background:#1b222b;border-color:#303945}.action-button:active{transform:scale(.98)}.action-button.copied{background:#72e3b9;border-color:#72e3b9}.toast{position:fixed;right:24px;bottom:24px;z-index:30;padding:11px 14px;border:1px solid #374250;border-radius:10px;color:#eef2f6;background:#171e27;box-shadow:0 14px 42px rgba(0,0,0,.38);opacity:0;transform:translateY(8px);pointer-events:none;transition:opacity 180ms var(--ease-out),transform 180ms var(--ease-out)}.toast.show{opacity:1;transform:none}
     @media(hover:hover) and (pointer:fine){.icon-button:hover{border-color:#3a4552;background:#1a212a}.template-option:hover{border-color:color-mix(in srgb,var(--template-accent) 48%,white)}.action-button:hover{filter:brightness(1.08)}}
     @media(max-width:1080px){.workbench{--left-width:190px;--right-width:274px}.template-list{gap:7px;padding:8px}}
-    @media(max-width:760px){body{overflow:auto}.workbench{display:block;min-height:100dvh;height:auto;padding:8px}.workspace{min-height:calc(100dvh - 16px)}.sidebar{position:fixed;z-index:20;top:8px;bottom:8px;width:min(300px,calc(100vw - 16px));transition:transform 220ms var(--ease-out)}.library-panel{left:8px}.inspector-panel{right:8px}.library-panel.is-collapsed{transform:translateX(calc(-100% + 52px))}.inspector-panel.is-collapsed{transform:translateX(calc(100% - 52px))}.sidebar.is-collapsed .panel-title,.sidebar.is-collapsed .template-list,.sidebar.is-collapsed .inspector-scroll,.sidebar.is-collapsed .inspector-footer{display:none}.sidebar.is-collapsed .panel-header{justify-content:flex-end}.inspector-panel.is-collapsed .panel-header{justify-content:flex-start}.stage-header,.stage-footer{padding-inline:60px}.stage-status,.stage-zoom{display:none}.stage-shell{min-height:62vh;padding:20px}.stage-render{width:100%}.stage-refresh{right:52px}}
+    @media(max-width:760px){body{overflow:auto}.workbench{display:block;min-height:100dvh;height:auto;padding:8px}.workspace{min-height:calc(100dvh - 16px)}.sidebar{position:fixed;z-index:20;top:8px;bottom:8px;width:min(300px,calc(100vw - 16px));transition:transform 220ms var(--ease-out)}.library-panel{left:8px}.inspector-panel{right:8px}.library-panel.is-collapsed{transform:translateX(calc(-100% + 52px))}.inspector-panel.is-collapsed{transform:translateX(calc(100% - 52px))}.sidebar.is-collapsed .panel-title,.sidebar.is-collapsed .template-list,.sidebar.is-collapsed .inspector-scroll,.sidebar.is-collapsed .inspector-footer{display:none}.sidebar.is-collapsed .panel-header{justify-content:flex-end}.inspector-panel.is-collapsed .panel-header{justify-content:flex-start}.stage-header,.stage-footer{padding-inline:60px}.stage-status,.stage-zoom{display:none}.stage-shell{min-height:62vh;padding:20px}.stage-render{width:100%}.stage-controls{right:52px}}
     @media(prefers-reduced-motion:reduce){.workbench,.sidebar,.icon-button,.template-option,.action-button,.toast,.switch,.switch::after{transition-duration:0ms}.stage-render.is-restarting .stage-svg{animation:none}}
   </style>
 </head>
@@ -85,7 +85,7 @@ function buildHtml(catalog, templates) {
         <div class="stage-render preview show-animation" data-stage>
           <div class="stage-svg" data-stage-svg>${inlineSvg(initialTemplate.svg)}</div>
           <canvas class="parametric-animation" data-animation="catenoid-field" aria-hidden="true"></canvas>
-          <button class="icon-button stage-refresh" type="button" data-refresh-preview aria-label="重新播放入场动画" title="重新播放入场动画"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M16 7a6.5 6.5 0 1 0 .2 5.5M16 3v4h-4"/></svg></button>
+          <div class="stage-controls"><button class="stage-view-button" type="button" data-front-view aria-pressed="false">正视图</button><button class="icon-button stage-refresh" type="button" data-refresh-preview aria-label="重新播放入场动画" title="重新播放入场动画"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M16 7a6.5 6.5 0 1 0 .2 5.5M16 3v4h-4"/></svg></button></div>
         </div>
       </section>
       <footer class="stage-footer"><code data-active-formula>${escapeHtml(initialTemplate.formula)}</code><span class="stage-zoom">FIT · 100%</span></footer>
@@ -103,6 +103,15 @@ function buildHtml(catalog, templates) {
           <div class="meta-row"><span>家族</span><strong data-meta-family>${escapeHtml(initialTemplate.familyLabel)}</strong></div>
           <div class="meta-row"><span>公式</span><code data-meta-formula>${escapeHtml(initialTemplate.formula)}</code></div>
         </div>
+        <div class="inspector-block">
+          <fieldset class="animation-settings view-settings">
+            <legend>视角参数</legend>
+            <label class="animation-setting"><span>俯仰 X <output data-view-output="0">默认</output></span><input type="range" data-view-axis="0" aria-label="俯仰 X" min="-90" max="90" step="1" value="0"></label>
+            <label class="animation-setting"><span>水平 Y <output data-view-output="1">默认</output></span><input type="range" data-view-axis="1" aria-label="水平 Y" min="-180" max="180" step="1" value="0"></label>
+            <label class="animation-setting"><span>滚转 Z <output data-view-output="2">默认</output></span><input type="range" data-view-axis="2" aria-label="滚转 Z" min="-180" max="180" step="1" value="0"></label>
+            <button class="view-reset-button" type="button" data-reset-view disabled>恢复默认视角</button>
+          </fieldset>
+        </div>
         <div class="inspector-block" data-animation-only>
           <fieldset class="animation-settings">
             <legend>动画调试</legend>
@@ -112,7 +121,7 @@ function buildHtml(catalog, templates) {
             <label class="animation-setting"><span>圆环速度 <output>1.0×</output></span><input type="range" data-animation-setting="cycleSpeed" min="0" max="200" step="10" value="100"></label>
           </fieldset>
         </div>
-        <div class="inspector-block" data-static-only hidden><p class="static-notice">该图形当前使用确定性 SVG 预览。动画调试参数将在支持该图形后显示。</p></div>
+        <div class="inspector-block" data-generic-animation hidden><p class="static-notice">该动态图形根据自身几何家族使用确定性的运动与文字编排；刷新按钮可重新播放入场。</p></div>
       </div>
       <footer class="inspector-footer">
         <button class="action-button secondary" type="button" data-copy-kind="scene">复制参数</button>
@@ -121,6 +130,11 @@ function buildHtml(catalog, templates) {
     </aside>
   </div>
   <div class="toast" role="status" aria-live="polite">已复制</div>
+  <script src="animations/definitions/spatial.js" defer></script>
+  <script src="animations/definitions/arrays-grids.js" defer></script>
+  <script src="animations/definitions/fields-curves.js" defer></script>
+  <script src="animations/definitions/generated-shapes.js" defer></script>
+  <script src="animations/wireframe-runtime.js" defer></script>
   <script src="animations/catenoid-field.js" defer></script>
   <script>
     const templates = ${safeJson(payload)};
@@ -131,6 +145,7 @@ function buildHtml(catalog, templates) {
     const miniPreview = document.querySelector('[data-mini-preview]');
     const toast = document.querySelector('.toast');
     let activeTemplateId = ${safeJson(initialTemplate.id)};
+    let viewRotation = null;
     let toastTimer;
     async function copyText(text) {
       if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(text);
@@ -140,28 +155,65 @@ function buildHtml(catalog, templates) {
       const ok = document.execCommand('copy'); area.remove();
       if (!ok) throw new Error('copy failed');
     }
+    function destroyAnimation() {
+      window.__parametricWireframesAnimations?.destroy(animationCanvas);
+      window.__parametricWireframeRuntime?.destroy(animationCanvas);
+    }
+    function initializeAnimation(id, restart = false) {
+      animationCanvas.dataset.animation = id;
+      if (id === 'catenoid-field') {
+        window.__parametricWireframesAnimations?.initialize();
+        if (restart) animationCanvas.__catenoidFieldAnimation?.restart();
+        animationCanvas.__catenoidFieldAnimation?.setViewRotation(viewRotation?.map(value => value * Math.PI / 180) ?? null);
+      } else {
+        window.__parametricWireframeRuntime?.initialize(animationCanvas);
+        if (restart) animationCanvas.__wireframeAnimation?.restart();
+        animationCanvas.__wireframeAnimation?.setViewRotation(viewRotation?.map(value => value * Math.PI / 180) ?? null);
+      }
+    }
+    function applyViewRotation() {
+      const radians = viewRotation?.map(value => value * Math.PI / 180) ?? null;
+      if (activeTemplateId === 'catenoid-field') animationCanvas.__catenoidFieldAnimation?.setViewRotation(radians);
+      else animationCanvas.__wireframeAnimation?.setViewRotation(radians);
+      const button = document.querySelector('[data-front-view]');
+      const frontView = viewRotation?.every(value => value === 0) ?? false;
+      button.classList.toggle('is-active', frontView);
+      button.setAttribute('aria-pressed', String(frontView));
+      document.querySelector('[data-reset-view]').disabled = !viewRotation;
+      document.querySelectorAll('[data-view-output]').forEach((output, index) => {
+        output.value = viewRotation ? viewRotation[index] + '°' : '默认';
+      });
+      document.querySelectorAll('[data-animation-setting="autoRotate"],[data-animation-setting="pointerFollow"],[data-animation-setting="rotationSpeed"]').forEach(input => {
+        input.disabled = Boolean(viewRotation);
+      });
+    }
+    function toggleFrontView() {
+      const frontView = viewRotation?.every(value => value === 0) ?? false;
+      viewRotation = frontView ? null : [0, 0, 0];
+      document.querySelectorAll('[data-view-axis]').forEach(input => { input.value = '0'; });
+      applyViewRotation();
+    }
     function restartPreview() {
       const template = templates[activeTemplateId];
       stageSvg.innerHTML = template.svg;
       stage.classList.remove('is-restarting');
       void stage.offsetWidth;
       stage.classList.add('is-restarting');
-      if (activeTemplateId === 'catenoid-field') {
-        animationCanvas.__catenoidFieldAnimation?.restart();
-      }
+      if (activeTemplateId === 'catenoid-field') animationCanvas.__catenoidFieldAnimation?.restart();
+      else animationCanvas.__wireframeAnimation?.restart();
     }
     function selectTemplate(id) {
       const template = templates[id];
       if (!template) return;
+      destroyAnimation();
       activeTemplateId = id;
-      const animated = id === 'catenoid-field';
       workbench.style.setProperty('--active-accent', template.accent);
       stageSvg.innerHTML = template.svg;
       miniPreview.innerHTML = template.svg;
-      stage.classList.toggle('show-animation', animated);
-      animationCanvas.hidden = !animated;
-      document.querySelector('[data-animation-only]').hidden = !animated;
-      document.querySelector('[data-static-only]').hidden = animated;
+      stage.classList.add('show-animation');
+      animationCanvas.hidden = false;
+      document.querySelector('[data-animation-only]').hidden = id !== 'catenoid-field';
+      document.querySelector('[data-generic-animation]').hidden = id === 'catenoid-field';
       document.querySelector('[data-active-title]').textContent = template.title;
       document.querySelector('[data-active-family]').textContent = template.familyLabel;
       document.querySelector('[data-active-formula]').textContent = template.formula;
@@ -173,7 +225,7 @@ function buildHtml(catalog, templates) {
         button.classList.toggle('is-active', selected);
         button.setAttribute('aria-pressed', String(selected));
       });
-      if (animated) animationCanvas.__catenoidFieldAnimation?.restart();
+      initializeAnimation(id, true);
     }
     function setPanelCollapsed(name, collapsed) {
       const panel = document.querySelector(name === 'library' ? '.library-panel' : '.inspector-panel');
@@ -185,8 +237,18 @@ function buildHtml(catalog, templates) {
       toggle.setAttribute('title', collapsed ? '展开面板' : '折叠面板');
     }
     document.addEventListener('click', async event => {
+      if (event.target.closest('[data-front-view]')) {
+        toggleFrontView();
+        return;
+      }
       if (event.target.closest('[data-refresh-preview]')) {
         restartPreview();
+        return;
+      }
+      if (event.target.closest('[data-reset-view]')) {
+        viewRotation = null;
+        document.querySelectorAll('[data-view-axis]').forEach(input => { input.value = '0'; });
+        applyViewRotation();
         return;
       }
       const templateButton = event.target.closest('[data-template-id]');
@@ -221,6 +283,13 @@ function buildHtml(catalog, templates) {
       } catch (error) {
         toast.textContent = '复制失败，请在浏览器中打开'; toast.classList.add('show');
       }
+    });
+    document.addEventListener('input', event => {
+      const input = event.target.closest('[data-view-axis]');
+      if (!input) return;
+      viewRotation ||= [0, 0, 0];
+      viewRotation[Number(input.dataset.viewAxis)] = Number(input.value);
+      applyViewRotation();
     });
     if (window.matchMedia('(max-width: 760px)').matches) {
       setPanelCollapsed('library', true);
@@ -259,6 +328,8 @@ async function buildGallery(catalogPath, outputDirectory) {
   if (ids.size !== catalog.templates.length) throw new Error('Template IDs must be unique');
   fs.mkdirSync(outputDirectory, { recursive: true });
   const templateRoot = path.join(outputDirectory, 'templates');
+  fs.rmSync(templateRoot, { recursive: true, force: true });
+  fs.mkdirSync(templateRoot, { recursive: true });
   const templates = catalog.templates.map(item => {
     if (item.scene.variants?.count !== 1) throw new Error(`${item.id}: gallery template must render exactly one variant`);
     const directory = path.join(templateRoot, item.id);
@@ -269,9 +340,9 @@ async function buildGallery(catalogPath, outputDirectory) {
   const htmlPath = path.join(outputDirectory, 'index.html');
   const previewPath = path.join(outputDirectory, 'template-gallery-preview.png');
   const animationDirectory = path.join(outputDirectory, 'animations');
-  const animationSource = path.resolve(__dirname, '..', 'assets', 'animations', 'catenoid-field.js');
-  fs.mkdirSync(animationDirectory, { recursive: true });
-  fs.copyFileSync(animationSource, path.join(animationDirectory, 'catenoid-field.js'));
+  const animationSource = path.resolve(__dirname, '..', 'assets', 'animations');
+  fs.rmSync(animationDirectory, { recursive: true, force: true });
+  fs.cpSync(animationSource, animationDirectory, { recursive: true });
   fs.writeFileSync(htmlPath, buildHtml(catalog, templates));
   await buildPreview(catalog, templates, previewPath);
   const manifest = {

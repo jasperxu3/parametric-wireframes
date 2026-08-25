@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "name": "rose-curve-choir",
+  "family": "parametric-curves",
+  "sourceFingerprint": 3704349330,
+  "viewport": {
+    "width": 800,
+    "height": 600,
+    "padding": 70,
+    "background": "#100d07"
+  },
+  "items": [
+    {
+      "index": 0,
+      "seed": 234620331,
+      "family": "parametric-curves",
+      "svg": "rose-curve-choir-01.svg",
+      "scene": "rose-curve-choir-01.json",
+      "pathCount": 11,
+      "bounds": {
+        "minX": 172.601,
+        "minY": 70,
+        "maxX": 627.399,
+        "maxY": 530
+      }
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 {
   "version": 1,
   "title": "Parametric Wireframe Atlas",
-  "templateCount": 13,
+  "templateCount": 22,
   "families": [
     "surface-revolution",
     "projection-rays",
@@ -13,7 +13,7 @@
     "parametric-curves",
     "converging-helix"
   ],
-  "catalogFingerprint": 4111926465,
+  "catalogFingerprint": 3450249020,
   "html": "index.html",
   "preview": "template-gallery-preview.png",
   "templates": [
@@ -107,6 +107,69 @@
       "family": "converging-helix",
       "scene": "templates/converging-dashed-helix/converging-dashed-helix-01.json",
       "svg": "templates/converging-dashed-helix/converging-dashed-helix-01.svg"
+    },
+    {
+      "id": "nested-lens-tunnel",
+      "title": "嵌套透镜隧道",
+      "family": "transform-array",
+      "scene": "templates/nested-lens-tunnel/nested-lens-tunnel-01.json",
+      "svg": "templates/nested-lens-tunnel/nested-lens-tunnel-01.svg"
+    },
+    {
+      "id": "orbital-halo-weave",
+      "title": "轨道光环编织",
+      "family": "orbital-rings",
+      "scene": "templates/orbital-halo-weave/orbital-halo-weave-01.json",
+      "svg": "templates/orbital-halo-weave/orbital-halo-weave-01.svg"
+    },
+    {
+      "id": "offset-superellipse-echo",
+      "title": "偏移超椭圆回声",
+      "family": "transform-array",
+      "scene": "templates/offset-superellipse-echo/offset-superellipse-echo-01.json",
+      "svg": "templates/offset-superellipse-echo/offset-superellipse-echo-01.svg"
+    },
+    {
+      "id": "rose-curve-choir",
+      "title": "玫瑰曲线合唱",
+      "family": "parametric-curves",
+      "scene": "templates/rose-curve-choir/rose-curve-choir-01.json",
+      "svg": "templates/rose-curve-choir/rose-curve-choir-01.svg"
+    },
+    {
+      "id": "hypotrochoid-knot",
+      "title": "内旋轮结",
+      "family": "parametric-curves",
+      "scene": "templates/hypotrochoid-knot/hypotrochoid-knot-01.json",
+      "svg": "templates/hypotrochoid-knot/hypotrochoid-knot-01.svg"
+    },
+    {
+      "id": "folded-wave-membrane",
+      "title": "折叠波膜",
+      "family": "deformation-grid",
+      "scene": "templates/folded-wave-membrane/folded-wave-membrane-01.json",
+      "svg": "templates/folded-wave-membrane/folded-wave-membrane-01.svg"
+    },
+    {
+      "id": "pinched-saddle-grid",
+      "title": "收缩鞍面网格",
+      "family": "deformation-grid",
+      "scene": "templates/pinched-saddle-grid/pinched-saddle-grid-01.json",
+      "svg": "templates/pinched-saddle-grid/pinched-saddle-grid-01.svg"
+    },
+    {
+      "id": "skewed-projection-gate",
+      "title": "偏斜投影门",
+      "family": "projection-rays",
+      "scene": "templates/skewed-projection-gate/skewed-projection-gate-01.json",
+      "svg": "templates/skewed-projection-gate/skewed-projection-gate-01.svg"
+    },
+    {
+      "id": "magnetic-eye-field",
+      "title": "磁性眼场",
+      "family": "dipole-field",
+      "scene": "templates/magnetic-eye-field/magnetic-eye-field-01.json",
+      "svg": "templates/magnetic-eye-field/magnetic-eye-field-01.svg"
     }
   ]
 }

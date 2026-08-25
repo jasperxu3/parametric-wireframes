@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "name": "pinched-saddle-grid",
+  "family": "deformation-grid",
+  "sourceFingerprint": 3834337524,
+  "viewport": {
+    "width": 800,
+    "height": 600,
+    "padding": 58,
+    "background": "#07110e"
+  },
+  "items": [
+    {
+      "index": 0,
+      "seed": 1381896410,
+      "family": "deformation-grid",
+      "svg": "pinched-saddle-grid-01.svg",
+      "scene": "pinched-saddle-grid-01.json",
+      "pathCount": 30,
+      "bounds": {
+        "minX": 205.258,
+        "minY": 58,
+        "maxX": 594.742,
+        "maxY": 542
+      }
+    }
+  ]
+}

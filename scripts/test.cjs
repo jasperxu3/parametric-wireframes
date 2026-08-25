@@ -159,21 +159,41 @@ async function run() {
     await buildGallery(path.join(skillRoot, 'assets', 'template-library', 'catalog.json'), galleryDirectory);
     const galleryHtml = fs.readFileSync(path.join(galleryDirectory, 'index.html'), 'utf8');
     const galleryManifest = JSON.parse(fs.readFileSync(path.join(galleryDirectory, 'manifest.json'), 'utf8'));
-    assert.strictEqual(galleryManifest.templateCount, 13, 'template gallery count');
+    assert.strictEqual(galleryManifest.templateCount, 22, 'template gallery count');
     assert.strictEqual(galleryManifest.families.length, 9, 'template gallery family count');
-    assert.strictEqual((galleryHtml.match(/class="template-option/g) || []).length, 13, 'template gallery selector count');
-    assert.strictEqual((galleryHtml.match(/class="template-thumbnail"/g) || []).length, 13, 'template gallery thumbnail count');
-    assert.strictEqual((galleryHtml.match(/preserveAspectRatio="xMidYMid meet"/g) || []).length, 13, 'template gallery thumbnail aspect-ratio policy');
+    assert.strictEqual((galleryHtml.match(/class="template-option/g) || []).length, 22, 'template gallery selector count');
+    assert.strictEqual((galleryHtml.match(/class="template-thumbnail"/g) || []).length, 22, 'template gallery thumbnail count');
+    assert.strictEqual((galleryHtml.match(/data-animation-thumbnail=/g) || []).length, 0, 'template gallery must not include animation-only thumbnails');
+    assert.strictEqual((galleryHtml.match(/preserveAspectRatio="xMidYMid meet"/g) || []).length, 22, 'template gallery thumbnail aspect-ratio policy');
     assert(!galleryHtml.includes('class="template-index"'), 'template gallery must not show template numbers');
     assert(!galleryHtml.includes('class="template-copy"'), 'template gallery must not show template labels');
     assert.strictEqual((galleryHtml.match(/data-copy-kind=/g) || []).length, 2, 'template gallery copy-button count');
-    assert.strictEqual((galleryHtml.match(/<svg[^>]+data-family=/g) || []).length, 15, 'template gallery inline artwork count');
+    assert.strictEqual((galleryHtml.match(/<svg[^>]+data-family=/g) || []).length, 24, 'template gallery inline artwork count');
     assert.strictEqual((galleryHtml.match(/data-panel-toggle=/g) || []).length, 2, 'template gallery collapsible-panel count');
-    assert.strictEqual((galleryHtml.match(/data-animation-setting=/g) || []).length, 4, 'template gallery animation-setting count');
+    assert.strictEqual((galleryHtml.match(/<input[^>]+data-animation-setting=/g) || []).length, 4, 'template gallery animation-setting count');
     assert.strictEqual((galleryHtml.match(/data-animation="catenoid-field"/g) || []).length, 1, 'template gallery catenoid animation canvas');
     assert.strictEqual((galleryHtml.match(/data-refresh-preview/g) || []).length, 2, 'template gallery refresh control and handler');
+    assert.strictEqual((galleryHtml.match(/class="stage-view-button"/g) || []).length, 1, 'template gallery front-view control');
+    assert.strictEqual((galleryHtml.match(/data-view-axis="/g) || []).length, 3, 'template gallery view-axis control count');
+    assert(galleryHtml.includes('setViewRotation(radians)'), 'template gallery view controls are not wired to animations');
+    assert(galleryHtml.includes('__parametricWireframeRuntime'), 'template gallery missing generic animation runtime integration');
+    assert(!galleryHtml.includes('drawAnimationThumbnails'), 'template gallery includes obsolete animation thumbnail renderer');
+    assert(galleryHtml.includes('data-generic-animation'), 'template gallery missing generic animation status');
     const galleryAnimation = path.join(galleryDirectory, 'animations', 'catenoid-field.js');
     assert.strictEqual(digest(galleryAnimation), digest(path.join(skillRoot, 'assets', 'animations', 'catenoid-field.js')), 'template gallery animation asset differs from source');
+    [
+      'wireframe-runtime.js',
+      'definitions/spatial.js',
+      'definitions/arrays-grids.js',
+      'definitions/fields-curves.js',
+      'definitions/generated-shapes.js'
+    ].forEach(relativePath => {
+      assert.strictEqual(
+        digest(path.join(galleryDirectory, 'animations', relativePath)),
+        digest(path.join(skillRoot, 'assets', 'animations', relativePath)),
+        `template gallery animation asset differs from source: ${relativePath}`
+      );
+    });
     const galleryAnimationSource = fs.readFileSync(galleryAnimation, 'utf8');
     assert(galleryAnimationSource.includes('RING_CYCLE_MS'), 'template gallery animation missing ring cycle');
     assert(galleryAnimationSource.includes('Array.from({ length: 12 }'), 'template gallery animation must preserve all 12 rings');
@@ -189,6 +209,7 @@ async function run() {
     assert(!galleryAnimationSource.includes('BLOCK_CYCLE_MS'), 'template gallery blocks must not drift independently');
     assert(galleryAnimationSource.includes('hyperText'), 'template gallery animation missing hyper-text labels');
     assert(galleryAnimationSource.includes('drawTextTicker'), 'template gallery animation missing repeated text ticker');
+    assert(galleryAnimationSource.includes('this.viewRotation'), 'template gallery animation missing parameterized view projection');
     assert(galleryHtml.includes('data-animation-setting="cycleSpeed"'), 'template gallery missing ring cycle speed control');
     assert(fs.statSync(path.join(galleryDirectory, 'template-gallery-preview.png')).size > 1000, 'template gallery preview missing');
     process.stdout.write(`PASS: ${sceneFiles.length} families, deterministic SVG/PNG, bounds, symmetry, and validation\n`);

@@ -1,0 +1,77 @@
+{
+  "version": 1,
+  "seed": 1306,
+  "name": "folded-wave-membrane",
+  "viewport": {
+    "width": 800,
+    "height": 600,
+    "padding": 54,
+    "background": "#071014"
+  },
+  "projection": {
+    "type": "weak-perspective",
+    "strength": 0.17,
+    "rotation": [
+      0.62,
+      -0.2,
+      0.42
+    ]
+  },
+  "sampling": {
+    "rows": 11,
+    "columns": 17,
+    "samples": 120
+  },
+  "style": {
+    "stroke": "#74d8ff",
+    "strokeWidth": 0.92,
+    "opacity": 0.58,
+    "fill": "none"
+  },
+  "constraints": {
+    "mirrorX": false
+  },
+  "variants": {
+    "count": 1,
+    "includeBase": true,
+    "parameters": {
+      "geometry.amount": {
+        "relative": [
+          -0.16,
+          0.16
+        ]
+      },
+      "geometry.tilt": {
+        "relative": [
+          -0.15,
+          0.15
+        ]
+      },
+      "geometry.depth": {
+        "relative": [
+          -0.18,
+          0.18
+        ]
+      },
+      "projection.strength": {
+        "relative": [
+          -0.2,
+          0.2
+        ]
+      }
+    },
+    "presets": []
+  },
+  "geometry": {
+    "field": "wave",
+    "amount": 0.98,
+    "frequency": 1.72,
+    "tilt": 0.32,
+    "depth": 0.66
+  },
+  "family": "deformation-grid",
+  "variant": {
+    "index": 0,
+    "seed": 954961249
+  }
+}

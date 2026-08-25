@@ -1,0 +1,164 @@
+{
+  "version": 1,
+  "seed": 1302,
+  "name": "orbital-halo-weave",
+  "viewport": {
+    "width": 800,
+    "height": 600,
+    "padding": 76,
+    "background": "#080b13"
+  },
+  "projection": {
+    "type": "weak-perspective",
+    "strength": 0.11,
+    "rotation": [
+      0.18,
+      -0.12,
+      0.08
+    ]
+  },
+  "sampling": {
+    "segments": 240,
+    "hubSegments": 80,
+    "markerSegments": 28
+  },
+  "style": {
+    "stroke": "#9fb6ff",
+    "strokeWidth": 1.02,
+    "opacity": 0.72,
+    "fill": "none"
+  },
+  "constraints": {
+    "mirrorX": false
+  },
+  "variants": {
+    "count": 1,
+    "includeBase": true,
+    "parameters": {
+      "projection.strength": {
+        "relative": [
+          -0.2,
+          0.2
+        ]
+      },
+      "geometry.rings.1.rotation.2": {
+        "relative": [
+          -0.14,
+          0.14
+        ]
+      },
+      "geometry.rings.2.rotation.2": {
+        "relative": [
+          -0.14,
+          0.14
+        ]
+      },
+      "geometry.rings.3.rotation.1": {
+        "relative": [
+          -0.12,
+          0.12
+        ]
+      }
+    },
+    "presets": []
+  },
+  "geometry": {
+    "rings": [
+      {
+        "rotation": [
+          0.16,
+          0.42,
+          0.06
+        ],
+        "radius": 1.08,
+        "aspect": 0.58
+      },
+      {
+        "rotation": [
+          0.72,
+          -0.18,
+          0.48
+        ],
+        "radius": 1.02,
+        "aspect": 0.82
+      },
+      {
+        "rotation": [
+          -0.64,
+          0.5,
+          -0.54
+        ],
+        "radius": 1.12,
+        "aspect": 0.7
+      },
+      {
+        "rotation": [
+          1.12,
+          0.24,
+          0.98
+        ],
+        "radius": 0.94,
+        "aspect": 0.9
+      },
+      {
+        "rotation": [
+          -1.02,
+          -0.3,
+          0.74
+        ],
+        "radius": 1,
+        "aspect": 0.76,
+        "dash": [
+          5,
+          9
+        ]
+      },
+      {
+        "rotation": [
+          0.38,
+          1.04,
+          -1.08
+        ],
+        "radius": 0.88,
+        "aspect": 0.64
+      },
+      {
+        "rotation": [
+          -0.24,
+          0.82,
+          1.3
+        ],
+        "radius": 1.05,
+        "aspect": 0.86,
+        "opacity": 0.56
+      }
+    ],
+    "hubRadii": [
+      0.075
+    ],
+    "markers": [
+      {
+        "ring": 1,
+        "phase": 0.18,
+        "radius": 0.018
+      },
+      {
+        "ring": 4,
+        "phase": 0.73,
+        "radius": 0.018
+      }
+    ],
+    "axisLength": 1.22,
+    "axisAngle": 0.34,
+    "axisArrowSize": 0.045,
+    "axisMarkers": [
+      0
+    ],
+    "axisMarkerRadius": 0.016
+  },
+  "family": "orbital-rings",
+  "variant": {
+    "index": 0,
+    "seed": 1952324829
+  }
+}

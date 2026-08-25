@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "name": "magnetic-eye-field",
+  "family": "dipole-field",
+  "sourceFingerprint": 1583207491,
+  "viewport": {
+    "width": 800,
+    "height": 600,
+    "padding": 68,
+    "background": "#0e1007"
+  },
+  "items": [
+    {
+      "index": 0,
+      "seed": 2865372256,
+      "family": "dipole-field",
+      "svg": "magnetic-eye-field-01.svg",
+      "scene": "magnetic-eye-field-01.json",
+      "pathCount": 26,
+      "bounds": {
+        "minX": 261.186,
+        "minY": 68,
+        "maxX": 538.814,
+        "maxY": 532
+      }
+    }
+  ]
+}

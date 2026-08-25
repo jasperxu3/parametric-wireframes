@@ -1,7 +1,7 @@
 {
   "version": 1,
   "title": "Parametric Wireframe Atlas",
-  "description": "13 个可复现的数学工程线框与技术纹理起始模板",
+  "description": "22 个可复现的数学工程线框与技术纹理起始模板",
   "templates": [
     {
       "id": "catenoid-field",
@@ -10,13 +10,54 @@
       "formula": "p(u,v) = [r(v)cos u, hv, r(v)sin u]",
       "accent": "#77e1ca",
       "scene": {
-        "version": 1, "seed": 1201, "name": "catenoid-field", "family": "surface-revolution",
-        "viewport": { "width": 800, "height": 600, "padding": 58, "background": "#10151b" },
-        "geometry": { "profile": "catenoid", "axis": "vertical", "neck": 0.11, "flare": 0.94, "growth": 1.9, "height": 1.08, "twist": 0 },
-        "projection": { "type": "weak-perspective", "strength": 0.1, "rotation": [0.36, 0, 0] },
-        "sampling": { "rings": 12, "meridians": 17, "uSegments": 120, "vSegments": 90 },
-        "style": { "stroke": "#77e1ca", "strokeWidth": 1.15, "opacity": 0.82, "fill": "none" },
-        "constraints": { "mirrorX": true }, "variants": { "count": 1, "includeBase": true, "parameters": {} }
+        "version": 1,
+        "seed": 1201,
+        "name": "catenoid-field",
+        "family": "surface-revolution",
+        "viewport": {
+          "width": 800,
+          "height": 600,
+          "padding": 58,
+          "background": "#10151b"
+        },
+        "geometry": {
+          "profile": "catenoid",
+          "axis": "vertical",
+          "neck": 0.11,
+          "flare": 0.94,
+          "growth": 1.9,
+          "height": 1.08,
+          "twist": 0
+        },
+        "projection": {
+          "type": "weak-perspective",
+          "strength": 0.1,
+          "rotation": [
+            0.36,
+            0,
+            0
+          ]
+        },
+        "sampling": {
+          "rings": 12,
+          "meridians": 17,
+          "uSegments": 120,
+          "vSegments": 90
+        },
+        "style": {
+          "stroke": "#77e1ca",
+          "strokeWidth": 1.15,
+          "opacity": 0.82,
+          "fill": "none"
+        },
+        "constraints": {
+          "mirrorX": true
+        },
+        "variants": {
+          "count": 1,
+          "includeBase": true,
+          "parameters": {}
+        }
       }
     },
     {
@@ -26,14 +67,54 @@
       "formula": "u' = u + τv, r(v) = r₀ + Δr·s(v)",
       "accent": "#ffbd70",
       "scene": {
-        "version": 1, "seed": 1202, "name": "twisted-funnel", "family": "surface-revolution",
-        "viewport": { "width": 800, "height": 600, "padding": 58, "background": "#17130f" },
-        "geometry": { "profile": "bell", "axis": "horizontal", "neck": 0.12, "flare": 0.92, "growth": 1.55, "height": 1.16, "twist": 1.05 },
-        "projection": { "type": "weak-perspective", "strength": 0.12, "rotation": [0.14, 0.22, 0] },
-        "sampling": { "rings": 11, "meridians": 18, "uSegments": 120, "vSegments": 90 },
-        "style": { "stroke": "#ffbd70", "strokeWidth": 1.12, "opacity": 0.82, "fill": "none" },
-        "constraints": { "mirrorX": false },
-        "variants": { "count": 1, "includeBase": true, "parameters": {} }
+        "version": 1,
+        "seed": 1202,
+        "name": "twisted-funnel",
+        "family": "surface-revolution",
+        "viewport": {
+          "width": 800,
+          "height": 600,
+          "padding": 58,
+          "background": "#17130f"
+        },
+        "geometry": {
+          "profile": "bell",
+          "axis": "horizontal",
+          "neck": 0.12,
+          "flare": 0.92,
+          "growth": 1.55,
+          "height": 1.16,
+          "twist": 1.05
+        },
+        "projection": {
+          "type": "weak-perspective",
+          "strength": 0.12,
+          "rotation": [
+            0.14,
+            0.22,
+            0
+          ]
+        },
+        "sampling": {
+          "rings": 11,
+          "meridians": 18,
+          "uSegments": 120,
+          "vSegments": 90
+        },
+        "style": {
+          "stroke": "#ffbd70",
+          "strokeWidth": 1.12,
+          "opacity": 0.82,
+          "fill": "none"
+        },
+        "constraints": {
+          "mirrorX": false
+        },
+        "variants": {
+          "count": 1,
+          "includeBase": true,
+          "parameters": {}
+        }
       }
     },
     {
@@ -43,13 +124,50 @@
       "formula": "Lᵢ(t) = (1−t)o + tqᵢ",
       "accent": "#263f73",
       "scene": {
-        "version": 1, "seed": 1203, "name": "projection-cone", "family": "projection-rays",
-        "viewport": { "width": 800, "height": 600, "padding": 58, "background": "#f1efe7" },
-        "geometry": { "length": 1.55, "apertureRadius": 0.9, "apertureAspect": 0.88, "phase": 0.18, "originMarkerRadius": 0.035, "showOriginMarker": true, "showAxis": true },
-        "projection": { "type": "weak-perspective", "strength": 0.18, "rotation": [0.12, 0.34, 0] },
-        "sampling": { "rays": 11, "apertureSegments": 180, "markerSegments": 36 },
-        "style": { "stroke": "#263f73", "strokeWidth": 1.3, "opacity": 0.82, "fill": "none" },
-        "variants": { "count": 1, "includeBase": true, "parameters": {} }
+        "version": 1,
+        "seed": 1203,
+        "name": "projection-cone",
+        "family": "projection-rays",
+        "viewport": {
+          "width": 800,
+          "height": 600,
+          "padding": 58,
+          "background": "#f1efe7"
+        },
+        "geometry": {
+          "length": 1.55,
+          "apertureRadius": 0.9,
+          "apertureAspect": 0.88,
+          "phase": 0.18,
+          "originMarkerRadius": 0.035,
+          "showOriginMarker": true,
+          "showAxis": true
+        },
+        "projection": {
+          "type": "weak-perspective",
+          "strength": 0.18,
+          "rotation": [
+            0.12,
+            0.34,
+            0
+          ]
+        },
+        "sampling": {
+          "rays": 11,
+          "apertureSegments": 180,
+          "markerSegments": 36
+        },
+        "style": {
+          "stroke": "#263f73",
+          "strokeWidth": 1.3,
+          "opacity": 0.82,
+          "fill": "none"
+        },
+        "variants": {
+          "count": 1,
+          "includeBase": true,
+          "parameters": {}
+        }
       }
     },
     {
@@ -59,22 +177,113 @@
       "formula": "q(t) = P·RₓRᵧR_z[cos t, a sin t, 0]",
       "accent": "#f2f2f2",
       "scene": {
-        "version": 1, "seed": 1204, "name": "atomic-orbits", "family": "orbital-rings",
-        "viewport": { "width": 800, "height": 600, "padding": 72, "background": "#151515" },
+        "version": 1,
+        "seed": 1204,
+        "name": "atomic-orbits",
+        "family": "orbital-rings",
+        "viewport": {
+          "width": 800,
+          "height": 600,
+          "padding": 72,
+          "background": "#151515"
+        },
         "geometry": {
           "rings": [
-            { "rotation": [0.12, 0.08, 0.08], "radius": 1.08, "aspect": 0.68, "strokeWidth": 1.55 },
-            { "rotation": [1.08, 0.18, 0.62], "radius": 1.02, "aspect": 0.9, "strokeWidth": 1.45 },
-            { "rotation": [-0.86, 0.36, -0.7], "radius": 1.04, "aspect": 0.92, "strokeWidth": 1.35 },
-            { "rotation": [0.58, 0.88, 1.08], "radius": 1.02, "aspect": 0.94, "dash": [7, 8], "strokeWidth": 1.1 }
+            {
+              "rotation": [
+                0.12,
+                0.08,
+                0.08
+              ],
+              "radius": 1.08,
+              "aspect": 0.68,
+              "strokeWidth": 1.55
+            },
+            {
+              "rotation": [
+                1.08,
+                0.18,
+                0.62
+              ],
+              "radius": 1.02,
+              "aspect": 0.9,
+              "strokeWidth": 1.45
+            },
+            {
+              "rotation": [
+                -0.86,
+                0.36,
+                -0.7
+              ],
+              "radius": 1.04,
+              "aspect": 0.92,
+              "strokeWidth": 1.35
+            },
+            {
+              "rotation": [
+                0.58,
+                0.88,
+                1.08
+              ],
+              "radius": 1.02,
+              "aspect": 0.94,
+              "dash": [
+                7,
+                8
+              ],
+              "strokeWidth": 1.1
+            }
           ],
-          "hubRadii": [0.11, 0.2], "markers": [{ "ring": 0, "phase": 0.08, "radius": 0.025 }, { "ring": 1, "phase": 0.62, "radius": 0.022 }],
-          "axisLength": 1.45, "axisAngle": 0, "axisArrowSize": 0.07, "axisMarkers": [-0.2, 0.2], "axisMarkerRadius": 0.022
+          "hubRadii": [
+            0.11,
+            0.2
+          ],
+          "markers": [
+            {
+              "ring": 0,
+              "phase": 0.08,
+              "radius": 0.025
+            },
+            {
+              "ring": 1,
+              "phase": 0.62,
+              "radius": 0.022
+            }
+          ],
+          "axisLength": 1.45,
+          "axisAngle": 0,
+          "axisArrowSize": 0.07,
+          "axisMarkers": [
+            -0.2,
+            0.2
+          ],
+          "axisMarkerRadius": 0.022
         },
-        "projection": { "type": "weak-perspective", "strength": 0.08, "rotation": [0, 0, 0] },
-        "sampling": { "segments": 220, "hubSegments": 96, "markerSegments": 32 },
-        "style": { "stroke": "#f2f2f2", "strokeWidth": 1.25, "opacity": 0.92, "fill": "none" },
-        "variants": { "count": 1, "includeBase": true, "parameters": {} }
+        "projection": {
+          "type": "weak-perspective",
+          "strength": 0.08,
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        "sampling": {
+          "segments": 220,
+          "hubSegments": 96,
+          "markerSegments": 32
+        },
+        "style": {
+          "stroke": "#f2f2f2",
+          "strokeWidth": 1.25,
+          "opacity": 0.92,
+          "fill": "none"
+        },
+        "variants": {
+          "count": 1,
+          "includeBase": true,
+          "parameters": {}
+        }
       }
     },
     {
@@ -84,13 +293,71 @@
       "formula": "qᵢ(t) = Sᵢ[cos t, sin t]",
       "accent": "#283c66",
       "scene": {
-        "version": 1, "seed": 1205, "name": "ellipse-reflection", "family": "transform-array",
-        "viewport": { "width": 800, "height": 600, "padding": 56, "background": "#f3f0e7" },
-        "geometry": { "primitive": "ellipse", "count": 13, "radiusX": 0.92, "radiusY": 0.92, "rotation": 0, "rotationStep": 0, "translate": [0, 0], "translateStep": [0, 0], "scale": [0.48, 1.16], "scaleStep": [0.065, -0.055], "shear": [0, 0], "shearStep": [0, 0] },
-        "projection": { "type": "none", "strength": 0, "rotation": [0, 0, 0] },
-        "sampling": { "segments": 220 },
-        "style": { "stroke": "#283c66", "strokeWidth": 1.15, "opacity": 0.78, "fill": "none" },
-        "variants": { "count": 1, "includeBase": true, "parameters": {} }
+        "version": 1,
+        "seed": 1205,
+        "name": "ellipse-reflection",
+        "family": "transform-array",
+        "viewport": {
+          "width": 800,
+          "height": 600,
+          "padding": 56,
+          "background": "#f3f0e7"
+        },
+        "geometry": {
+          "primitive": "ellipse",
+          "count": 13,
+          "radiusX": 0.92,
+          "radiusY": 0.92,
+          "rotation": 0,
+          "rotationStep": 0,
+          "translate": [
+            0,
+            0
+          ],
+          "translateStep": [
+            0,
+            0
+          ],
+          "scale": [
+            0.48,
+            1.16
+          ],
+          "scaleStep": [
+            0.065,
+            -0.055
+          ],
+          "shear": [
+            0,
+            0
+          ],
+          "shearStep": [
+            0,
+            0
+          ]
+        },
+        "projection": {
+          "type": "none",
+          "strength": 0,
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        "sampling": {
+          "segments": 220
+        },
+        "style": {
+          "stroke": "#283c66",
+          "strokeWidth": 1.15,
+          "opacity": 0.78,
+          "fill": "none"
+        },
+        "variants": {
+          "count": 1,
+          "includeBase": true,
+          "parameters": {}
+        }
       }
     },
     {
@@ -100,13 +367,71 @@
       "formula": "qᵢ(t) = R(iθ)[a cos t, b sin t]",
       "accent": "#d76b98",
       "scene": {
-        "version": 1, "seed": 1206, "name": "radial-petals", "family": "transform-array",
-        "viewport": { "width": 800, "height": 600, "padding": 62, "background": "#1a1118" },
-        "geometry": { "primitive": "ellipse", "count": 14, "radiusX": 0.28, "radiusY": 1, "rotation": 0, "rotationStep": 0.2244, "translate": [0, 0], "translateStep": [0, 0], "scale": [1, 1], "scaleStep": [0, 0], "shear": [0, 0], "shearStep": [0, 0] },
-        "projection": { "type": "none", "strength": 0, "rotation": [0, 0, 0] },
-        "sampling": { "segments": 200 },
-        "style": { "stroke": "#d76b98", "strokeWidth": 1.08, "opacity": 0.72, "fill": "none" },
-        "variants": { "count": 1, "includeBase": true, "parameters": {} }
+        "version": 1,
+        "seed": 1206,
+        "name": "radial-petals",
+        "family": "transform-array",
+        "viewport": {
+          "width": 800,
+          "height": 600,
+          "padding": 62,
+          "background": "#1a1118"
+        },
+        "geometry": {
+          "primitive": "ellipse",
+          "count": 14,
+          "radiusX": 0.28,
+          "radiusY": 1,
+          "rotation": 0,
+          "rotationStep": 0.2244,
+          "translate": [
+            0,
+            0
+          ],
+          "translateStep": [
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "scaleStep": [
+            0,
+            0
+          ],
+          "shear": [
+            0,
+            0
+          ],
+          "shearStep": [
+            0,
+            0
+          ]
+        },
+        "projection": {
+          "type": "none",
+          "strength": 0,
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        "sampling": {
+          "segments": 200
+        },
+        "style": {
+          "stroke": "#d76b98",
+          "strokeWidth": 1.08,
+          "opacity": 0.72,
+          "fill": "none"
+        },
+        "variants": {
+          "count": 1,
+          "includeBase": true,
+          "parameters": {}
+        }
       }
     },
     {
@@ -116,13 +441,72 @@
       "formula": "|x/a|ⁿ + |y/b|ⁿ = 1; qᵢ = TᵢRᵢSᵢq",
       "accent": "#65a7ff",
       "scene": {
-        "version": 1, "seed": 1207, "name": "superellipse-stack", "family": "transform-array",
-        "viewport": { "width": 800, "height": 600, "padding": 58, "background": "#101622" },
-        "geometry": { "primitive": "superellipse", "exponent": 3.4, "count": 12, "radiusX": 0.5, "radiusY": 0.62, "rotation": -0.32, "rotationStep": 0.058, "translate": [-0.34, -0.14], "translateStep": [0.063, 0.028], "scale": [0.72, 0.72], "scaleStep": [0.035, 0.035], "shear": [0, 0], "shearStep": [0.008, 0] },
-        "projection": { "type": "none", "strength": 0, "rotation": [0, 0, 0] },
-        "sampling": { "segments": 200 },
-        "style": { "stroke": "#65a7ff", "strokeWidth": 1.08, "opacity": 0.7, "fill": "none" },
-        "variants": { "count": 1, "includeBase": true, "parameters": {} }
+        "version": 1,
+        "seed": 1207,
+        "name": "superellipse-stack",
+        "family": "transform-array",
+        "viewport": {
+          "width": 800,
+          "height": 600,
+          "padding": 58,
+          "background": "#101622"
+        },
+        "geometry": {
+          "primitive": "superellipse",
+          "exponent": 3.4,
+          "count": 12,
+          "radiusX": 0.5,
+          "radiusY": 0.62,
+          "rotation": -0.32,
+          "rotationStep": 0.058,
+          "translate": [
+            -0.34,
+            -0.14
+          ],
+          "translateStep": [
+            0.063,
+            0.028
+          ],
+          "scale": [
+            0.72,
+            0.72
+          ],
+          "scaleStep": [
+            0.035,
+            0.035
+          ],
+          "shear": [
+            0,
+            0
+          ],
+          "shearStep": [
+            0.008,
+            0
+          ]
+        },
+        "projection": {
+          "type": "none",
+          "strength": 0,
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        "sampling": {
+          "segments": 200
+        },
+        "style": {
+          "stroke": "#65a7ff",
+          "strokeWidth": 1.08,
+          "opacity": 0.7,
+          "fill": "none"
+        },
+        "variants": {
+          "count": 1,
+          "includeBase": true,
+          "parameters": {}
+        }
       }
     },
     {
@@ -132,13 +516,48 @@
       "formula": "x' = x[1 − a·exp(−fv²)]",
       "accent": "#59d9bd",
       "scene": {
-        "version": 1, "seed": 1208, "name": "gravity-well", "family": "deformation-grid",
-        "viewport": { "width": 800, "height": 600, "padding": 52, "background": "#111816" },
-        "geometry": { "field": "hourglass", "amount": 0.72, "frequency": 1.9, "tilt": 0.28, "depth": 0.62 },
-        "projection": { "type": "weak-perspective", "strength": 0.14, "rotation": [0.42, 0, 0] },
-        "sampling": { "rows": 14, "columns": 18, "samples": 96 },
-        "style": { "stroke": "#59d9bd", "strokeWidth": 1.05, "opacity": 0.68, "fill": "none" },
-        "variants": { "count": 1, "includeBase": true, "parameters": {} }
+        "version": 1,
+        "seed": 1208,
+        "name": "gravity-well",
+        "family": "deformation-grid",
+        "viewport": {
+          "width": 800,
+          "height": 600,
+          "padding": 52,
+          "background": "#111816"
+        },
+        "geometry": {
+          "field": "hourglass",
+          "amount": 0.72,
+          "frequency": 1.9,
+          "tilt": 0.28,
+          "depth": 0.62
+        },
+        "projection": {
+          "type": "weak-perspective",
+          "strength": 0.14,
+          "rotation": [
+            0.42,
+            0,
+            0
+          ]
+        },
+        "sampling": {
+          "rows": 14,
+          "columns": 18,
+          "samples": 96
+        },
+        "style": {
+          "stroke": "#59d9bd",
+          "strokeWidth": 1.05,
+          "opacity": 0.68,
+          "fill": "none"
+        },
+        "variants": {
+          "count": 1,
+          "includeBase": true,
+          "parameters": {}
+        }
       }
     },
     {
@@ -148,13 +567,48 @@
       "formula": "Δx,Δy,Δz ∝ sin(πf·x,y)",
       "accent": "#b084f5",
       "scene": {
-        "version": 1, "seed": 1209, "name": "wave-membrane", "family": "deformation-grid",
-        "viewport": { "width": 800, "height": 600, "padding": 54, "background": "#15111d" },
-        "geometry": { "field": "wave", "amount": 0.9, "frequency": 1.65, "tilt": 0.22, "depth": 0.36 },
-        "projection": { "type": "weak-perspective", "strength": 0.1, "rotation": [0.34, 0.08, 0] },
-        "sampling": { "rows": 13, "columns": 17, "samples": 100 },
-        "style": { "stroke": "#b084f5", "strokeWidth": 1.05, "opacity": 0.66, "fill": "none" },
-        "variants": { "count": 1, "includeBase": true, "parameters": {} }
+        "version": 1,
+        "seed": 1209,
+        "name": "wave-membrane",
+        "family": "deformation-grid",
+        "viewport": {
+          "width": 800,
+          "height": 600,
+          "padding": 54,
+          "background": "#15111d"
+        },
+        "geometry": {
+          "field": "wave",
+          "amount": 0.9,
+          "frequency": 1.65,
+          "tilt": 0.22,
+          "depth": 0.36
+        },
+        "projection": {
+          "type": "weak-perspective",
+          "strength": 0.1,
+          "rotation": [
+            0.34,
+            0.08,
+            0
+          ]
+        },
+        "sampling": {
+          "rows": 13,
+          "columns": 17,
+          "samples": 100
+        },
+        "style": {
+          "stroke": "#b084f5",
+          "strokeWidth": 1.05,
+          "opacity": 0.66,
+          "fill": "none"
+        },
+        "variants": {
+          "count": 1,
+          "includeBase": true,
+          "parameters": {}
+        }
       }
     },
     {
@@ -164,13 +618,50 @@
       "formula": "qₗ(u,v)=[u·w(v)+κv, yₗ+dv]",
       "accent": "#4addad",
       "scene": {
-        "version": 1, "seed": 1210, "name": "layered-perspective-grid", "family": "layered-grid",
-        "viewport": { "width": 800, "height": 600, "padding": 58, "background": "#353448" },
-        "geometry": { "layers": 3, "width": 1.18, "depth": 0.46, "spacing": 0.76, "nearScale": 1, "farScale": 0.56, "skew": 0, "alternate": true },
-        "projection": { "type": "none", "strength": 0, "rotation": [0, 0, 0] },
-        "sampling": { "rows": 5, "columns": 11 },
-        "style": { "stroke": "#4addad", "strokeWidth": 1.28, "opacity": 0.75, "fill": "none" },
-        "variants": { "count": 1, "includeBase": true, "parameters": {} }
+        "version": 1,
+        "seed": 1210,
+        "name": "layered-perspective-grid",
+        "family": "layered-grid",
+        "viewport": {
+          "width": 800,
+          "height": 600,
+          "padding": 58,
+          "background": "#353448"
+        },
+        "geometry": {
+          "layers": 3,
+          "width": 1.18,
+          "depth": 0.46,
+          "spacing": 0.76,
+          "nearScale": 1,
+          "farScale": 0.56,
+          "skew": 0,
+          "alternate": true
+        },
+        "projection": {
+          "type": "none",
+          "strength": 0,
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        "sampling": {
+          "rows": 5,
+          "columns": 11
+        },
+        "style": {
+          "stroke": "#4addad",
+          "strokeWidth": 1.28,
+          "opacity": 0.75,
+          "fill": "none"
+        },
+        "variants": {
+          "count": 1,
+          "includeBase": true,
+          "parameters": {}
+        }
       }
     },
     {
@@ -180,13 +671,49 @@
       "formula": "F(p)=Σqᵢ(p−pᵢ)/‖p−pᵢ‖²",
       "accent": "#d5dc78",
       "scene": {
-        "version": 1, "seed": 1211, "name": "sparse-dipole-field", "family": "dipole-field",
-        "viewport": { "width": 800, "height": 600, "padding": 62, "background": "#353448" },
-        "geometry": { "separation": 1.05, "startRadius": 0.055, "stepSize": 0.016, "poleRadius": 0.07, "axisLength": 0.92, "maxRadius": 3 },
-        "projection": { "type": "none", "strength": 0, "rotation": [0, 0, 0] },
-        "sampling": { "lines": 11, "steps": 760, "markerSegments": 48 },
-        "style": { "stroke": "#d5dc78", "strokeWidth": 1.25, "opacity": 0.78, "fill": "none" },
-        "variants": { "count": 1, "includeBase": true, "parameters": {} }
+        "version": 1,
+        "seed": 1211,
+        "name": "sparse-dipole-field",
+        "family": "dipole-field",
+        "viewport": {
+          "width": 800,
+          "height": 600,
+          "padding": 62,
+          "background": "#353448"
+        },
+        "geometry": {
+          "separation": 1.05,
+          "startRadius": 0.055,
+          "stepSize": 0.016,
+          "poleRadius": 0.07,
+          "axisLength": 0.92,
+          "maxRadius": 3
+        },
+        "projection": {
+          "type": "none",
+          "strength": 0,
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        "sampling": {
+          "lines": 11,
+          "steps": 760,
+          "markerSegments": 48
+        },
+        "style": {
+          "stroke": "#d5dc78",
+          "strokeWidth": 1.25,
+          "opacity": 0.78,
+          "fill": "none"
+        },
+        "variants": {
+          "count": 1,
+          "includeBase": true,
+          "parameters": {}
+        }
       }
     },
     {
@@ -196,13 +723,53 @@
       "formula": "yᵢ(x) = A·e(x)·sin[π(fx + φᵢ)]",
       "accent": "#2759a8",
       "scene": {
-        "version": 1, "seed": 1212, "name": "interference-waves", "family": "parametric-curves",
-        "viewport": { "width": 800, "height": 600, "padding": 64, "background": "#f2f0e7" },
-        "geometry": { "curve": "interference", "a": 3, "b": 2, "k": 5, "delta": 0.16, "turns": 1, "innerRadius": 0.25, "penOffset": 0.7, "spread": 0.18, "amplitude": 0.58, "frequency": 2.25 },
-        "projection": { "type": "none", "strength": 0, "rotation": [0, 0, 0] },
-        "sampling": { "curves": 9, "segments": 420 },
-        "style": { "stroke": "#2759a8", "strokeWidth": 1.2, "opacity": 0.74, "fill": "none" },
-        "variants": { "count": 1, "includeBase": true, "parameters": {} }
+        "version": 1,
+        "seed": 1212,
+        "name": "interference-waves",
+        "family": "parametric-curves",
+        "viewport": {
+          "width": 800,
+          "height": 600,
+          "padding": 64,
+          "background": "#f2f0e7"
+        },
+        "geometry": {
+          "curve": "interference",
+          "a": 3,
+          "b": 2,
+          "k": 5,
+          "delta": 0.16,
+          "turns": 1,
+          "innerRadius": 0.25,
+          "penOffset": 0.7,
+          "spread": 0.18,
+          "amplitude": 0.58,
+          "frequency": 2.25
+        },
+        "projection": {
+          "type": "none",
+          "strength": 0,
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        "sampling": {
+          "curves": 9,
+          "segments": 420
+        },
+        "style": {
+          "stroke": "#2759a8",
+          "strokeWidth": 1.2,
+          "opacity": 0.74,
+          "fill": "none"
+        },
+        "variants": {
+          "count": 1,
+          "includeBase": true,
+          "parameters": {}
+        }
       }
     },
     {
@@ -212,13 +779,664 @@
       "formula": "θᵢ(s)=2π(T+ΔTᵢ)s+φᵢ, rᵢ(s)=Aᵢ(1-s)ᵖ",
       "accent": "#83c9ff",
       "scene": {
-        "version": 1, "seed": 1213, "name": "converging-dashed-helix", "family": "converging-helix",
-        "viewport": { "width": 800, "height": 600, "padding": 48, "background": "#020912" },
-        "geometry": { "turns": 2.25, "amplitude": 0.52, "decay": 1.05, "compression": 1.22, "convergeX": 0.2, "tailLength": 0.25, "phaseSpan": 4.8, "turnSpread": 0.42, "amplitudeSpread": 0.15, "dashLength": 5, "dashGap": 8, "strandWidth": 3.1, "tailWidth": 1.5, "axisWidth": 1, "axisOpacity": 0.42 },
-        "projection": { "type": "weak-perspective", "strength": 0.03, "rotation": [0, 0.01, 0] },
-        "sampling": { "strands": 7, "segments": 380 },
-        "style": { "stroke": "#83c9ff", "strokeWidth": 1, "opacity": 1, "fill": "none", "lineCap": "round" },
-        "variants": { "count": 1, "includeBase": true, "parameters": {} }
+        "version": 1,
+        "seed": 1213,
+        "name": "converging-dashed-helix",
+        "family": "converging-helix",
+        "viewport": {
+          "width": 800,
+          "height": 600,
+          "padding": 48,
+          "background": "#020912"
+        },
+        "geometry": {
+          "turns": 2.25,
+          "amplitude": 0.52,
+          "decay": 1.05,
+          "compression": 1.22,
+          "convergeX": 0.2,
+          "tailLength": 0.25,
+          "phaseSpan": 4.8,
+          "turnSpread": 0.42,
+          "amplitudeSpread": 0.15,
+          "dashLength": 5,
+          "dashGap": 8,
+          "strandWidth": 3.1,
+          "tailWidth": 1.5,
+          "axisWidth": 1,
+          "axisOpacity": 0.42
+        },
+        "projection": {
+          "type": "weak-perspective",
+          "strength": 0.03,
+          "rotation": [
+            0,
+            0.01,
+            0
+          ]
+        },
+        "sampling": {
+          "strands": 7,
+          "segments": 380
+        },
+        "style": {
+          "stroke": "#83c9ff",
+          "strokeWidth": 1,
+          "opacity": 1,
+          "fill": "none",
+          "lineCap": "round"
+        },
+        "variants": {
+          "count": 1,
+          "includeBase": true,
+          "parameters": {}
+        }
+      }
+    },
+    {
+      "id": "nested-lens-tunnel",
+      "title": "嵌套透镜隧道",
+      "familyLabel": "矩阵重复",
+      "formula": "qᵢ(t)=S(sₓ+iΔx,sᵧ−iΔy)[cos t,sin t]",
+      "accent": "#e8edf2",
+      "scene": {
+        "version": 1,
+        "seed": 1301,
+        "name": "nested-lens-tunnel",
+        "family": "transform-array",
+        "viewport": {
+          "width": 800,
+          "height": 600,
+          "padding": 66,
+          "background": "#090b0e"
+        },
+        "geometry": {
+          "primitive": "ellipse",
+          "count": 18,
+          "radiusX": 0.9,
+          "radiusY": 0.86,
+          "rotation": -0.26,
+          "rotationStep": 0.024,
+          "translate": [
+            -0.22,
+            0.08
+          ],
+          "translateStep": [
+            0.025,
+            -0.01
+          ],
+          "scale": [
+            0.28,
+            1.34
+          ],
+          "scaleStep": [
+            0.04,
+            -0.052
+          ],
+          "shear": [
+            -0.12,
+            0
+          ],
+          "shearStep": [
+            0.009,
+            0
+          ]
+        },
+        "projection": {
+          "type": "none",
+          "strength": 0,
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        "sampling": {
+          "segments": 240
+        },
+        "style": {
+          "stroke": "#e8edf2",
+          "strokeWidth": 1.02,
+          "opacity": 0.72,
+          "fill": "none"
+        },
+        "variants": {
+          "count": 1,
+          "includeBase": true,
+          "parameters": {}
+        }
+      }
+    },
+    {
+      "id": "orbital-halo-weave",
+      "title": "轨道光环编织",
+      "familyLabel": "三维轨道",
+      "formula": "qⱼ(t)=P·Rⱼ[rⱼcos t,aⱼrⱼsin t,0]",
+      "accent": "#9fb6ff",
+      "scene": {
+        "version": 1,
+        "seed": 1302,
+        "name": "orbital-halo-weave",
+        "family": "orbital-rings",
+        "viewport": {
+          "width": 800,
+          "height": 600,
+          "padding": 76,
+          "background": "#080b13"
+        },
+        "geometry": {
+          "rings": [
+            {
+              "rotation": [
+                0.16,
+                0.42,
+                0.06
+              ],
+              "radius": 1.08,
+              "aspect": 0.58
+            },
+            {
+              "rotation": [
+                0.72,
+                -0.18,
+                0.48
+              ],
+              "radius": 1.02,
+              "aspect": 0.82
+            },
+            {
+              "rotation": [
+                -0.64,
+                0.5,
+                -0.54
+              ],
+              "radius": 1.12,
+              "aspect": 0.7
+            },
+            {
+              "rotation": [
+                1.12,
+                0.24,
+                0.98
+              ],
+              "radius": 0.94,
+              "aspect": 0.9
+            },
+            {
+              "rotation": [
+                -1.02,
+                -0.3,
+                0.74
+              ],
+              "radius": 1,
+              "aspect": 0.76,
+              "dash": [
+                5,
+                9
+              ]
+            },
+            {
+              "rotation": [
+                0.38,
+                1.04,
+                -1.08
+              ],
+              "radius": 0.88,
+              "aspect": 0.64
+            },
+            {
+              "rotation": [
+                -0.24,
+                0.82,
+                1.3
+              ],
+              "radius": 1.05,
+              "aspect": 0.86,
+              "opacity": 0.56
+            }
+          ],
+          "hubRadii": [
+            0.075
+          ],
+          "markers": [
+            {
+              "ring": 1,
+              "phase": 0.18,
+              "radius": 0.018
+            },
+            {
+              "ring": 4,
+              "phase": 0.73,
+              "radius": 0.018
+            }
+          ],
+          "axisLength": 1.22,
+          "axisAngle": 0.34,
+          "axisArrowSize": 0.045,
+          "axisMarkers": [
+            0
+          ],
+          "axisMarkerRadius": 0.016
+        },
+        "projection": {
+          "type": "weak-perspective",
+          "strength": 0.11,
+          "rotation": [
+            0.18,
+            -0.12,
+            0.08
+          ]
+        },
+        "sampling": {
+          "segments": 240,
+          "hubSegments": 80,
+          "markerSegments": 28
+        },
+        "style": {
+          "stroke": "#9fb6ff",
+          "strokeWidth": 1.02,
+          "opacity": 0.72,
+          "fill": "none"
+        },
+        "variants": {
+          "count": 1,
+          "includeBase": true,
+          "parameters": {}
+        }
+      }
+    },
+    {
+      "id": "offset-superellipse-echo",
+      "title": "偏移超椭圆回声",
+      "familyLabel": "矩阵重复",
+      "formula": "|x/a|ⁿ+|y/b|ⁿ=1; qᵢ=TᵢRᵢHᵢq",
+      "accent": "#f6a6d7",
+      "scene": {
+        "version": 1,
+        "seed": 1303,
+        "name": "offset-superellipse-echo",
+        "family": "transform-array",
+        "viewport": {
+          "width": 800,
+          "height": 600,
+          "padding": 64,
+          "background": "#100a10"
+        },
+        "geometry": {
+          "primitive": "superellipse",
+          "exponent": 3.9,
+          "count": 16,
+          "radiusX": 0.58,
+          "radiusY": 0.72,
+          "rotation": -0.24,
+          "rotationStep": 0.024,
+          "translate": [
+            -0.38,
+            -0.27
+          ],
+          "translateStep": [
+            0.05,
+            0.036
+          ],
+          "scale": [
+            0.72,
+            0.72
+          ],
+          "scaleStep": [
+            0.018,
+            0.018
+          ],
+          "shear": [
+            -0.11,
+            0.03
+          ],
+          "shearStep": [
+            0.012,
+            -0.003
+          ]
+        },
+        "projection": {
+          "type": "none",
+          "strength": 0,
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        "sampling": {
+          "segments": 220
+        },
+        "style": {
+          "stroke": "#f6a6d7",
+          "strokeWidth": 1,
+          "opacity": 0.68,
+          "fill": "none"
+        },
+        "variants": {
+          "count": 1,
+          "includeBase": true,
+          "parameters": {}
+        }
+      }
+    },
+    {
+      "id": "rose-curve-choir",
+      "title": "玫瑰曲线合唱",
+      "familyLabel": "参数曲线",
+      "formula": "rᵢ(t)=cos(kt+φᵢ), qᵢ=rᵢ[cos t,sin t]",
+      "accent": "#ffd27a",
+      "scene": {
+        "version": 1,
+        "seed": 1304,
+        "name": "rose-curve-choir",
+        "family": "parametric-curves",
+        "viewport": {
+          "width": 800,
+          "height": 600,
+          "padding": 70,
+          "background": "#100d07"
+        },
+        "geometry": {
+          "curve": "rose",
+          "a": 1,
+          "b": 1,
+          "k": 7,
+          "delta": 0.13,
+          "turns": 2,
+          "innerRadius": 0.28,
+          "penOffset": 0.66,
+          "spread": 0.085,
+          "amplitude": 0.88,
+          "frequency": 2.1
+        },
+        "projection": {
+          "type": "none",
+          "strength": 0,
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        "sampling": {
+          "curves": 11,
+          "segments": 560
+        },
+        "style": {
+          "stroke": "#ffd27a",
+          "strokeWidth": 0.96,
+          "opacity": 0.62,
+          "fill": "none"
+        },
+        "variants": {
+          "count": 1,
+          "includeBase": true,
+          "parameters": {}
+        }
+      }
+    },
+    {
+      "id": "hypotrochoid-knot",
+      "title": "内旋轮结",
+      "familyLabel": "参数曲线",
+      "formula": "q(t)=[(1−ρ)cos t+d cos((1−ρ)t/ρ),…]",
+      "accent": "#9f8cff",
+      "scene": {
+        "version": 1,
+        "seed": 1305,
+        "name": "hypotrochoid-knot",
+        "family": "parametric-curves",
+        "viewport": {
+          "width": 800,
+          "height": 600,
+          "padding": 72,
+          "background": "#0c0913"
+        },
+        "geometry": {
+          "curve": "hypotrochoid",
+          "a": 5,
+          "b": 3,
+          "k": 6,
+          "delta": 0.19,
+          "turns": 3,
+          "innerRadius": 0.6,
+          "penOffset": 0.31,
+          "spread": 0.04,
+          "amplitude": 0.82,
+          "frequency": 2.4
+        },
+        "projection": {
+          "type": "none",
+          "strength": 0,
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        "sampling": {
+          "curves": 1,
+          "segments": 480
+        },
+        "style": {
+          "stroke": "#9f8cff",
+          "strokeWidth": 2.1,
+          "opacity": 0.92,
+          "fill": "none"
+        },
+        "variants": {
+          "count": 1,
+          "includeBase": true,
+          "parameters": {}
+        }
+      }
+    },
+    {
+      "id": "folded-wave-membrane",
+      "title": "折叠波膜",
+      "familyLabel": "解析形变网格",
+      "formula": "z=A sin(πfx)cos(πfy), q=P[x,y,z]",
+      "accent": "#74d8ff",
+      "scene": {
+        "version": 1,
+        "seed": 1306,
+        "name": "folded-wave-membrane",
+        "family": "deformation-grid",
+        "viewport": {
+          "width": 800,
+          "height": 600,
+          "padding": 54,
+          "background": "#071014"
+        },
+        "geometry": {
+          "field": "wave",
+          "amount": 0.98,
+          "frequency": 1.72,
+          "tilt": 0.32,
+          "depth": 0.66
+        },
+        "projection": {
+          "type": "weak-perspective",
+          "strength": 0.17,
+          "rotation": [
+            0.62,
+            -0.2,
+            0.42
+          ]
+        },
+        "sampling": {
+          "rows": 11,
+          "columns": 17,
+          "samples": 120
+        },
+        "style": {
+          "stroke": "#74d8ff",
+          "strokeWidth": 0.92,
+          "opacity": 0.58,
+          "fill": "none"
+        },
+        "variants": {
+          "count": 1,
+          "includeBase": true,
+          "parameters": {}
+        }
+      }
+    },
+    {
+      "id": "pinched-saddle-grid",
+      "title": "收缩鞍面网格",
+      "familyLabel": "解析形变网格",
+      "formula": "q=P[x(1−Ae^{-fy²}),y,z(x,y)]",
+      "accent": "#6ee7b7",
+      "scene": {
+        "version": 1,
+        "seed": 1307,
+        "name": "pinched-saddle-grid",
+        "family": "deformation-grid",
+        "viewport": {
+          "width": 800,
+          "height": 600,
+          "padding": 58,
+          "background": "#07110e"
+        },
+        "geometry": {
+          "field": "pinch",
+          "amount": 0.88,
+          "frequency": 2.45,
+          "tilt": -0.62,
+          "depth": 0.82
+        },
+        "projection": {
+          "type": "weak-perspective",
+          "strength": 0.2,
+          "rotation": [
+            -0.38,
+            0.24,
+            -0.18
+          ]
+        },
+        "sampling": {
+          "rows": 13,
+          "columns": 17,
+          "samples": 112
+        },
+        "style": {
+          "stroke": "#6ee7b7",
+          "strokeWidth": 0.98,
+          "opacity": 0.61,
+          "fill": "none"
+        },
+        "variants": {
+          "count": 1,
+          "includeBase": true,
+          "parameters": {}
+        }
+      }
+    },
+    {
+      "id": "skewed-projection-gate",
+      "title": "偏斜投影门",
+      "familyLabel": "投影射线",
+      "formula": "Lᵢ(t)=(1−t)o+tR[a cos θᵢ,b sin θᵢ,ℓ]",
+      "accent": "#ff9f80",
+      "scene": {
+        "version": 1,
+        "seed": 1308,
+        "name": "skewed-projection-gate",
+        "family": "projection-rays",
+        "viewport": {
+          "width": 800,
+          "height": 600,
+          "padding": 62,
+          "background": "#130b08"
+        },
+        "geometry": {
+          "length": 1.72,
+          "apertureRadius": 0.82,
+          "apertureAspect": 0.34,
+          "phase": 0.31,
+          "originMarkerRadius": 0.018,
+          "showOriginMarker": true,
+          "showAxis": true
+        },
+        "projection": {
+          "type": "weak-perspective",
+          "strength": 0.22,
+          "rotation": [
+            0.29,
+            -0.51,
+            0.2
+          ]
+        },
+        "sampling": {
+          "rays": 19,
+          "apertureSegments": 220,
+          "markerSegments": 28
+        },
+        "style": {
+          "stroke": "#ff9f80",
+          "strokeWidth": 1.02,
+          "opacity": 0.67,
+          "fill": "none"
+        },
+        "variants": {
+          "count": 1,
+          "includeBase": true,
+          "parameters": {}
+        }
+      }
+    },
+    {
+      "id": "magnetic-eye-field",
+      "title": "磁性眼场",
+      "familyLabel": "向量场线",
+      "formula": "F(p)=Σqⱼ(p−pⱼ)/‖p−pⱼ‖²",
+      "accent": "#d9e875",
+      "scene": {
+        "version": 1,
+        "seed": 1309,
+        "name": "magnetic-eye-field",
+        "family": "dipole-field",
+        "viewport": {
+          "width": 800,
+          "height": 600,
+          "padding": 68,
+          "background": "#0e1007"
+        },
+        "geometry": {
+          "separation": 1.52,
+          "startRadius": 0.082,
+          "stepSize": 0.012,
+          "poleRadius": 0.052,
+          "axisLength": 1.3,
+          "maxRadius": 3.6
+        },
+        "projection": {
+          "type": "none",
+          "strength": 0,
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        "sampling": {
+          "lines": 23,
+          "steps": 980,
+          "markerSegments": 44
+        },
+        "style": {
+          "stroke": "#d9e875",
+          "strokeWidth": 0.96,
+          "opacity": 0.64,
+          "fill": "none"
+        },
+        "variants": {
+          "count": 1,
+          "includeBase": true,
+          "parameters": {}
+        }
       }
     }
   ]

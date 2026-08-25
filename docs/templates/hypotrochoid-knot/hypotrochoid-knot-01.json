@@ -1,0 +1,70 @@
+{
+  "version": 1,
+  "seed": 1305,
+  "name": "hypotrochoid-knot",
+  "viewport": {
+    "width": 800,
+    "height": 600,
+    "padding": 72,
+    "background": "#0c0913"
+  },
+  "projection": {
+    "type": "none",
+    "strength": 0,
+    "rotation": [
+      0,
+      0,
+      0
+    ]
+  },
+  "sampling": {
+    "curves": 1,
+    "segments": 480
+  },
+  "style": {
+    "stroke": "#9f8cff",
+    "strokeWidth": 2.1,
+    "opacity": 0.92,
+    "fill": "none"
+  },
+  "constraints": {
+    "mirrorX": false
+  },
+  "variants": {
+    "count": 1,
+    "includeBase": true,
+    "parameters": {
+      "geometry.delta": {
+        "relative": [
+          -0.3,
+          0.3
+        ]
+      },
+      "geometry.spread": {
+        "relative": [
+          -0.2,
+          0.2
+        ]
+      }
+    },
+    "presets": []
+  },
+  "geometry": {
+    "curve": "hypotrochoid",
+    "a": 5,
+    "b": 3,
+    "k": 6,
+    "delta": 0.19,
+    "turns": 3,
+    "innerRadius": 0.6,
+    "penOffset": 0.31,
+    "spread": 0.04,
+    "amplitude": 0.82,
+    "frequency": 2.4
+  },
+  "family": "parametric-curves",
+  "variant": {
+    "index": 0,
+    "seed": 2541928748
+  }
+}

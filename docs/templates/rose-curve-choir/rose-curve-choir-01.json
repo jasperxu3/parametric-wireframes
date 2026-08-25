@@ -1,0 +1,70 @@
+{
+  "version": 1,
+  "seed": 1304,
+  "name": "rose-curve-choir",
+  "viewport": {
+    "width": 800,
+    "height": 600,
+    "padding": 70,
+    "background": "#100d07"
+  },
+  "projection": {
+    "type": "none",
+    "strength": 0,
+    "rotation": [
+      0,
+      0,
+      0
+    ]
+  },
+  "sampling": {
+    "curves": 11,
+    "segments": 560
+  },
+  "style": {
+    "stroke": "#ffd27a",
+    "strokeWidth": 0.96,
+    "opacity": 0.62,
+    "fill": "none"
+  },
+  "constraints": {
+    "mirrorX": false
+  },
+  "variants": {
+    "count": 1,
+    "includeBase": true,
+    "parameters": {
+      "geometry.delta": {
+        "relative": [
+          -0.3,
+          0.3
+        ]
+      },
+      "geometry.spread": {
+        "relative": [
+          -0.2,
+          0.2
+        ]
+      }
+    },
+    "presets": []
+  },
+  "geometry": {
+    "curve": "rose",
+    "a": 1,
+    "b": 1,
+    "k": 7,
+    "delta": 0.13,
+    "turns": 2,
+    "innerRadius": 0.28,
+    "penOffset": 0.66,
+    "spread": 0.085,
+    "amplitude": 0.88,
+    "frequency": 2.1
+  },
+  "family": "parametric-curves",
+  "variant": {
+    "index": 0,
+    "seed": 234620331
+  }
+}

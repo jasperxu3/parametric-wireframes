@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "name": "orbital-halo-weave",
+  "family": "orbital-rings",
+  "sourceFingerprint": 668338252,
+  "viewport": {
+    "width": 800,
+    "height": 600,
+    "padding": 76,
+    "background": "#080b13"
+  },
+  "items": [
+    {
+      "index": 0,
+      "seed": 1952324829,
+      "family": "orbital-rings",
+      "svg": "orbital-halo-weave-01.svg",
+      "scene": "orbital-halo-weave-01.json",
+      "pathCount": 13,
+      "bounds": {
+        "minX": 106.642,
+        "minY": 76,
+        "maxX": 693.358,
+        "maxY": 524
+      }
+    }
+  ]
+}

@@ -4,6 +4,8 @@ import animationUrl from '../../assets/animations/catenoid-field.js?url'
 type AnimationInstance = {
   destroy: () => void
   restart: () => void
+  setFrontView: (enabled: boolean) => void
+  setViewRotation: (rotation: readonly number[] | null) => void
 }
 
 type AnimationCanvas = HTMLCanvasElement & {
@@ -21,8 +23,10 @@ declare global {
   }
 }
 
-export function CatenoidAnimation({ active }: { active: boolean }) {
+export function CatenoidAnimation({ active, viewRotation }: { active: boolean; viewRotation: readonly number[] | null }) {
   const canvasRef = useRef<AnimationCanvas>(null)
+  const viewRotationRef = useRef(viewRotation)
+  viewRotationRef.current = viewRotation
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -32,7 +36,10 @@ export function CatenoidAnimation({ active }: { active: boolean }) {
     const initialize = () => {
       if (disposed) return
       window.__parametricWireframesAnimations?.initialize()
-      if (active) canvas.__catenoidFieldAnimation?.restart()
+      if (active) {
+        canvas.__catenoidFieldAnimation?.restart()
+        canvas.__catenoidFieldAnimation?.setViewRotation(viewRotationRef.current)
+      }
     }
 
     if (window.__parametricWireframesAnimations) {
@@ -68,6 +75,10 @@ export function CatenoidAnimation({ active }: { active: boolean }) {
       api.destroy(canvas)
     }
   }, [active])
+
+  useEffect(() => {
+    canvasRef.current?.__catenoidFieldAnimation?.setViewRotation(viewRotation)
+  }, [viewRotation])
 
   return (
     <canvas

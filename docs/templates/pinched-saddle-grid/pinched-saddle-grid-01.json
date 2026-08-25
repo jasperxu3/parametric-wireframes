@@ -1,0 +1,77 @@
+{
+  "version": 1,
+  "seed": 1307,
+  "name": "pinched-saddle-grid",
+  "viewport": {
+    "width": 800,
+    "height": 600,
+    "padding": 58,
+    "background": "#07110e"
+  },
+  "projection": {
+    "type": "weak-perspective",
+    "strength": 0.2,
+    "rotation": [
+      -0.38,
+      0.24,
+      -0.18
+    ]
+  },
+  "sampling": {
+    "rows": 13,
+    "columns": 17,
+    "samples": 112
+  },
+  "style": {
+    "stroke": "#6ee7b7",
+    "strokeWidth": 0.98,
+    "opacity": 0.61,
+    "fill": "none"
+  },
+  "constraints": {
+    "mirrorX": false
+  },
+  "variants": {
+    "count": 1,
+    "includeBase": true,
+    "parameters": {
+      "geometry.amount": {
+        "relative": [
+          -0.16,
+          0.16
+        ]
+      },
+      "geometry.tilt": {
+        "relative": [
+          -0.15,
+          0.15
+        ]
+      },
+      "geometry.depth": {
+        "relative": [
+          -0.18,
+          0.18
+        ]
+      },
+      "projection.strength": {
+        "relative": [
+          -0.2,
+          0.2
+        ]
+      }
+    },
+    "presets": []
+  },
+  "geometry": {
+    "field": "pinch",
+    "amount": 0.88,
+    "frequency": 2.45,
+    "tilt": -0.62,
+    "depth": 0.82
+  },
+  "family": "deformation-grid",
+  "variant": {
+    "index": 0,
+    "seed": 1381896410
+  }
+}

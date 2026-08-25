@@ -1,8 +1,17 @@
 import { IconChevronLeft, IconChevronRight, IconRefresh } from '@tabler/icons-react'
 import type { CSSProperties } from 'react'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { templates } from '../data/templates'
 import { CatenoidAnimation } from './catenoid-animation'
+import { WireframeAnimation } from './wireframe-animation'
+
+type ViewRotation = [number, number, number]
+
+const VIEW_AXES = [
+  { key: 'X', label: '俯仰 X', min: -90, max: 90 },
+  { key: 'Y', label: '水平 Y', min: -180, max: 180 },
+  { key: 'Z', label: '滚转 Z', min: -180, max: 180 },
+] as const
 
 function SvgMarkup({ markup, className }: { markup: string; className: string }) {
   return <div className={className} dangerouslySetInnerHTML={{ __html: markup }} />
@@ -30,10 +39,24 @@ export function WireframeWorkbench() {
   const [libraryCollapsed, setLibraryCollapsed] = useState(false)
   const [inspectorCollapsed, setInspectorCollapsed] = useState(false)
   const [restartKey, setRestartKey] = useState(0)
+  const [viewRotation, setViewRotation] = useState<ViewRotation | null>(null)
   const [toast, setToast] = useState('')
   const toastTimer = useRef<ReturnType<typeof setTimeout>>(undefined)
   const activeTemplate = templates.find((template) => template.id === activeId) ?? templates[0]
-  const animated = activeTemplate.id === 'catenoid-field'
+  const catenoid = activeTemplate.id === 'catenoid-field'
+  const frontView = viewRotation?.every((value) => value === 0) ?? false
+  const viewRotationRadians = useMemo(
+    () => viewRotation?.map((value) => value * Math.PI / 180) ?? null,
+    [viewRotation],
+  )
+
+  const setViewAxis = (axis: number, value: number) => {
+    setViewRotation((current) => {
+      const next: ViewRotation = current ? [...current] : [0, 0, 0]
+      next[axis] = value
+      return next
+    })
+  }
 
   useEffect(() => {
     if (window.matchMedia('(max-width: 760px)').matches) {
@@ -122,22 +145,35 @@ export function WireframeWorkbench() {
           <span className="stage-status">LIVE CANVAS</span>
         </header>
         <section className="stage-shell" aria-label="参数化图形调试区域">
-          <div className={`stage-render preview${animated ? ' show-animation is-animated' : ''}${restartKey ? ' is-restarting' : ''}`}>
+          <div className={`stage-render preview show-animation is-animated${restartKey ? ' is-restarting' : ''}`}>
             <SvgMarkup key={`${activeId}-${restartKey}`} markup={activeTemplate.svg} className="stage-svg" />
-            <CatenoidAnimation active={animated} />
-            <button
-              className="icon-button stage-refresh"
-              type="button"
-              onClick={() => {
-                setRestartKey((value) => value + 1)
-                document.querySelector<HTMLCanvasElement>('canvas[data-animation="catenoid-field"]')
-                  ?.__catenoidFieldAnimation?.restart()
-              }}
-              aria-label="重新播放入场动画"
-              title="重新播放入场动画"
-            >
-              <IconRefresh />
-            </button>
+            {catenoid
+              ? <CatenoidAnimation key="catenoid-field" active viewRotation={viewRotationRadians} />
+              : <WireframeAnimation key={activeId} templateId={activeId} viewRotation={viewRotationRadians} />}
+            <div className="stage-controls">
+              <button
+                className={`stage-view-button${frontView ? ' is-active' : ''}`}
+                type="button"
+                onClick={() => setViewRotation(frontView ? null : [0, 0, 0])}
+                aria-pressed={frontView}
+              >
+                正视图
+              </button>
+              <button
+                className="icon-button stage-refresh"
+                type="button"
+                onClick={() => {
+                  setRestartKey((value) => value + 1)
+                  const canvas = document.querySelector<HTMLCanvasElement>('.parametric-animation')
+                  if (catenoid) canvas?.__catenoidFieldAnimation?.restart()
+                  else canvas?.__wireframeAnimation?.restart()
+                }}
+                aria-label="重新播放入场动画"
+                title="重新播放入场动画"
+              >
+                <IconRefresh />
+              </button>
+            </div>
           </div>
         </section>
         <footer className="stage-footer">
@@ -168,17 +204,38 @@ export function WireframeWorkbench() {
             <div className="meta-row"><span>家族</span><strong>{activeTemplate.familyLabel}</strong></div>
             <div className="meta-row"><span>公式</span><code>{activeTemplate.formula}</code></div>
           </div>
-          <div className="inspector-block" hidden={!animated}>
+          <div className="inspector-block">
+            <fieldset className="animation-settings view-settings">
+              <legend>视角参数</legend>
+              {VIEW_AXES.map((axis, index) => (
+                <label className="animation-setting" key={axis.key}>
+                  <span>{axis.label} <output>{viewRotation ? `${viewRotation[index]}°` : '默认'}</output></span>
+                  <input
+                    type="range"
+                    data-view-axis={axis.key}
+                    aria-label={axis.label}
+                    min={axis.min}
+                    max={axis.max}
+                    step="1"
+                    value={viewRotation?.[index] ?? 0}
+                    onChange={(event) => setViewAxis(index, Number(event.currentTarget.value))}
+                  />
+                </label>
+              ))}
+              <button className="view-reset-button" type="button" onClick={() => setViewRotation(null)} disabled={!viewRotation}>恢复默认视角</button>
+            </fieldset>
+          </div>
+          <div className="inspector-block" hidden={!catenoid}>
             <fieldset className="animation-settings">
               <legend>动画调试</legend>
-              <label className="toggle-setting"><span>自动旋转</span><input type="checkbox" data-animation-setting="autoRotate" defaultChecked /><span className="switch" aria-hidden="true" /></label>
-              <label className="toggle-setting"><span>鼠标跟随</span><input type="checkbox" data-animation-setting="pointerFollow" defaultChecked /><span className="switch" aria-hidden="true" /></label>
-              <label className="animation-setting"><span>旋转速度 <output>1.0×</output></span><input type="range" data-animation-setting="rotationSpeed" min="0" max="200" step="10" defaultValue="100" /></label>
+              <label className="toggle-setting"><span>自动旋转</span><input type="checkbox" data-animation-setting="autoRotate" defaultChecked disabled={Boolean(viewRotation)} /><span className="switch" aria-hidden="true" /></label>
+              <label className="toggle-setting"><span>鼠标跟随</span><input type="checkbox" data-animation-setting="pointerFollow" defaultChecked disabled={Boolean(viewRotation)} /><span className="switch" aria-hidden="true" /></label>
+              <label className="animation-setting"><span>旋转速度 <output>1.0×</output></span><input type="range" data-animation-setting="rotationSpeed" min="0" max="200" step="10" defaultValue="100" disabled={Boolean(viewRotation)} /></label>
               <label className="animation-setting"><span>圆环速度 <output>1.0×</output></span><input type="range" data-animation-setting="cycleSpeed" min="0" max="200" step="10" defaultValue="100" /></label>
             </fieldset>
           </div>
-          <div className="inspector-block" hidden={animated}>
-            <p className="static-notice">该图形当前使用确定性 SVG 预览。动画调试参数将在支持该图形后显示。</p>
+          <div className="inspector-block" hidden={catenoid}>
+            <p className="static-notice">该动态图形根据自身几何家族使用确定性的运动与文字编排；刷新按钮可重新播放入场。</p>
           </div>
         </div>
         <footer className="inspector-footer">
@@ -193,6 +250,7 @@ export function WireframeWorkbench() {
 
 declare global {
   interface HTMLCanvasElement {
-    __catenoidFieldAnimation?: { restart: () => void }
+    __catenoidFieldAnimation?: { restart: () => void; setFrontView: (enabled: boolean) => void; setViewRotation: (rotation: readonly number[] | null) => void }
+    __wireframeAnimation?: { frame: number; restart: () => void; setFrontView: (enabled: boolean) => void; setViewRotation: (rotation: readonly number[] | null) => void }
   }
 }

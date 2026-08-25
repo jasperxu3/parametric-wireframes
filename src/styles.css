@@ -93,7 +93,11 @@ button { color: inherit; }
 .stage-svg svg > rect:first-child, .mini-preview svg > rect:first-child { fill: var(--stage); }
 .stage-svg svg path, .mini-preview svg path { stroke: color-mix(in srgb, var(--active-accent) 82%, white); }
 .stage-render.is-restarting .stage-svg { animation: preview-enter 520ms var(--ease-out) both; }
-.stage-refresh { position: absolute; top: 12px; right: 12px; z-index: 3; width: 38px; height: 38px; border-color: color-mix(in srgb, var(--active-accent) 30%, var(--line)); background: rgb(15 20 26 / 82%); backdrop-filter: blur(10px); }
+.stage-controls { position: absolute; top: 12px; right: 12px; z-index: 3; display: flex; align-items: center; gap: 8px; }
+.stage-refresh { width: 38px; height: 38px; border-color: color-mix(in srgb, var(--active-accent) 30%, var(--line)); background: rgb(15 20 26 / 82%); backdrop-filter: blur(10px); }
+.stage-view-button { min-height: 38px; padding: 0 12px; border: 1px solid color-mix(in srgb, var(--active-accent) 30%, var(--line)); border-radius: 10px; color: #cbd3dc; background: rgb(15 20 26 / 82%); font: 600 11px/1 ui-monospace, SFMono-Regular, Menlo, monospace; cursor: pointer; backdrop-filter: blur(10px); }
+.stage-view-button.is-active { border-color: var(--active-accent); color: #08110e; background: var(--active-accent); }
+.stage-view-button:focus-visible { outline: 2px solid var(--active-accent); outline-offset: 2px; }
 .parametric-animation { position: absolute; inset: 0; display: block; width: 100%; height: 100%; opacity: 0; }
 .preview.is-animated.show-animation .stage-svg { visibility: hidden; }
 .preview.is-animated.show-animation .parametric-animation { opacity: 1; }
@@ -102,7 +106,7 @@ button { color: inherit; }
 .stage-zoom { flex: none; padding: 6px 9px; border: 1px solid var(--line); border-radius: 8px; color: #7f8995; font: 600 10px/1 ui-monospace, SFMono-Regular, Menlo, monospace; background: #151b22; }
 @keyframes preview-enter { from { opacity: 0; transform: scale(.975); } to { opacity: 1; transform: none; } }
 
-.inspector-scroll { min-height: 0; overflow: auto; padding: 14px; }
+.inspector-scroll { min-height: 0; flex: 1; overflow: auto; padding: 14px; }
 .section-label { margin: 0 0 8px; color: #75818e; font: 650 9px/1 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .14em; text-transform: uppercase; }
 .mini-preview { aspect-ratio: 4/3; overflow: hidden; border: 1px solid var(--line); border-radius: 14px; background: var(--stage); }
 .inspector-block { margin-top: 14px; padding: 13px; border: 1px solid var(--line); border-radius: 14px; background: #141a21; }
@@ -127,6 +131,9 @@ button { color: inherit; }
 .animation-setting > span { display: flex; justify-content: space-between; }
 .animation-setting output { color: var(--active-accent); font: 600 11px/1 ui-monospace, SFMono-Regular, Menlo, monospace; }
 .animation-setting input { width: 100%; height: 18px; margin: 0; accent-color: var(--active-accent); cursor: pointer; }
+.view-reset-button { min-height: 34px; border: 1px solid #303945; border-radius: 9px; color: #cbd3dc; background: #1b222b; font-size: 11px; cursor: pointer; }
+.view-reset-button:disabled { opacity: .42; cursor: default; }
+.view-reset-button:focus-visible { outline: 2px solid var(--active-accent); outline-offset: 2px; }
 .static-notice { margin: 0; color: #7f8a96; font-size: 11px; line-height: 1.6; }
 .inspector-footer { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 12px; border-top: 1px solid var(--line); }
 .action-button { min-height: 42px; padding: 0 12px; border: 1px solid color-mix(in srgb, var(--active-accent) 40%, var(--line)); border-radius: 11px; color: #08110e; background: var(--active-accent); font-weight: 700; cursor: pointer; touch-action: manipulation; transition: transform 140ms var(--ease-out), filter 140ms ease; }
@@ -160,7 +167,7 @@ button { color: inherit; }
   .stage-status, .stage-zoom { display: none; }
   .stage-shell { min-height: 62vh; padding: 20px; }
   .stage-render { width: 100%; }
-  .stage-refresh { right: 52px; }
+  .stage-controls { right: 52px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .workbench, .sidebar, .icon-button, .template-option, .action-button, .toast, .switch, .switch::after { transition-duration: 0ms; }

@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "name": "hypotrochoid-knot",
+  "family": "parametric-curves",
+  "sourceFingerprint": 809380119,
+  "viewport": {
+    "width": 800,
+    "height": 600,
+    "padding": 72,
+    "background": "#0c0913"
+  },
+  "items": [
+    {
+      "index": 0,
+      "seed": 2541928748,
+      "family": "parametric-curves",
+      "svg": "hypotrochoid-knot-01.svg",
+      "scene": "hypotrochoid-knot-01.json",
+      "pathCount": 1,
+      "bounds": {
+        "minX": 181.856,
+        "minY": 72,
+        "maxX": 618.144,
+        "maxY": 528
+      }
+    }
+  ]
+}

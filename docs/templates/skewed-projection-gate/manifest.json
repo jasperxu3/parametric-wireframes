@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "name": "skewed-projection-gate",
+  "family": "projection-rays",
+  "sourceFingerprint": 1377915554,
+  "viewport": {
+    "width": 800,
+    "height": 600,
+    "padding": 62,
+    "background": "#130b08"
+  },
+  "items": [
+    {
+      "index": 0,
+      "seed": 2708158927,
+      "family": "projection-rays",
+      "svg": "skewed-projection-gate-01.svg",
+      "scene": "skewed-projection-gate-01.json",
+      "pathCount": 22,
+      "bounds": {
+        "minX": 62,
+        "minY": 189.214,
+        "maxX": 738,
+        "maxY": 410.786
+      }
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "name": "offset-superellipse-echo",
+  "family": "transform-array",
+  "sourceFingerprint": 1141254450,
+  "viewport": {
+    "width": 800,
+    "height": 600,
+    "padding": 64,
+    "background": "#100a10"
+  },
+  "items": [
+    {
+      "index": 0,
+      "seed": 3989911414,
+      "family": "transform-array",
+      "svg": "offset-superellipse-echo-01.svg",
+      "scene": "offset-superellipse-echo-01.json",
+      "pathCount": 16,
+      "bounds": {
+        "minX": 171.449,
+        "minY": 64,
+        "maxX": 628.551,
+        "maxY": 536
+      }
+    }
+  ]
+}

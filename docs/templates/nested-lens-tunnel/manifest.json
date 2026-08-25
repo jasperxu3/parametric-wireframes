@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "name": "nested-lens-tunnel",
+  "family": "transform-array",
+  "sourceFingerprint": 390320545,
+  "viewport": {
+    "width": 800,
+    "height": 600,
+    "padding": 66,
+    "background": "#090b0e"
+  },
+  "items": [
+    {
+      "index": 0,
+      "seed": 3536732472,
+      "family": "transform-array",
+      "svg": "nested-lens-tunnel-01.svg",
+      "scene": "nested-lens-tunnel-01.json",
+      "pathCount": 18,
+      "bounds": {
+        "minX": 226.032,
+        "minY": 66,
+        "maxX": 573.968,
+        "maxY": 534
+      }
+    }
+  ]
+}
