@@ -115,6 +115,46 @@ test('visitor can collapse panels, restart the preview, and copy both exports', 
   expect(JSON.parse(await page.evaluate(() => navigator.clipboard.readText())).name).toBe('catenoid-field')
 })
 
+test('visitor can change background and line colors across previews and exports', async ({ page, context }) => {
+  await context.grantPermissions(['clipboard-read', 'clipboard-write'])
+  await page.goto('/')
+  const catenoid = page.locator('canvas[data-animation="catenoid-field"]')
+  await expect(catenoid).toHaveAttribute('data-animation-ready', 'true')
+
+  await page.locator('input[type="color"][aria-label="线条颜色"]').fill('#112233')
+  await page.locator('input[type="color"][aria-label="背景颜色"]').fill('#ffffff')
+  await expect.poll(() => catenoid.evaluate((element) => {
+    const animation = (element as HTMLCanvasElement & {
+      __catenoidFieldAnimation?: { colors: { accent: string; background: string } }
+    }).__catenoidFieldAnimation
+    return animation?.colors
+  })).toMatchObject({ accent: '#112233', background: '#ffffff' })
+
+  const miniPreview = page.locator('.mini-preview svg')
+  await expect(miniPreview.locator('rect').first()).toHaveAttribute('fill', '#ffffff')
+  await expect(miniPreview.locator('g').first()).toHaveAttribute('stroke', '#112233')
+
+  await page.getByRole('button', { name: '椭圆反射场' }).click()
+  const generic = page.locator('canvas[data-animation="ellipse-reflection"]')
+  await expect(generic).toHaveAttribute('data-animation-ready', 'true')
+  await expect.poll(() => generic.evaluate((element) => {
+    const animation = (element as HTMLCanvasElement & {
+      __wireframeAnimation?: { accentColor: string | null; backgroundColor: string | null }
+    }).__wireframeAnimation
+    return { accent: animation?.accentColor, background: animation?.backgroundColor }
+  })).toEqual({ accent: '#112233', background: '#ffffff' })
+
+  await page.getByRole('button', { name: '复制 SVG' }).click()
+  const svg = await page.evaluate(() => navigator.clipboard.readText())
+  expect(svg).toContain('fill="#ffffff"')
+  expect(svg).toContain('stroke="#112233"')
+
+  await page.getByRole('button', { name: '复制参数' }).click()
+  const scene = JSON.parse(await page.evaluate(() => navigator.clipboard.readText()))
+  expect(scene.viewport.background).toBe('#ffffff')
+  expect(scene.style.stroke).toBe('#112233')
+})
+
 test('front view resets camera rotation and persists between templates', async ({ page }) => {
   await page.goto('/')
   const catenoid = page.locator('canvas[data-animation="catenoid-field"]')
@@ -285,6 +325,52 @@ test('superellipse growth loops without a visible seam', async ({ page }) => {
 
   expect(differences.regularMotion).toBeGreaterThan(0)
   expect(differences.seam).toBeLessThan(differences.regularMotion * 0.2)
+})
+
+test('dashed converging helix rotates around its axis without a loop seam', async ({ page }) => {
+  await page.goto('/')
+  await expect(page.locator('canvas[data-animation="catenoid-field"]')).toHaveAttribute('data-animation-ready', 'true')
+  await page.getByRole('button', { name: '收束编织螺旋' }).click()
+  await expect(page.locator('canvas[data-animation="converging-dashed-helix"]')).toHaveAttribute('data-animation-ready', 'true')
+
+  const samples = await page.evaluate(() => {
+    const definition = window.__parametricWireframeDefinitions!['converging-dashed-helix']
+    const drawAt = (elapsed: number) => {
+      const canvas = document.createElement('canvas')
+      canvas.width = 800
+      canvas.height = 600
+      const context = canvas.getContext('2d')!
+      let hash = 2_166_136_261
+      let dashedStroke = false
+      const record = (x: number, y: number) => {
+        hash = Math.imul(hash ^ Math.round(x * 100), 16_777_619)
+        hash = Math.imul(hash ^ Math.round(y * 100), 16_777_619)
+      }
+      context.moveTo = record
+      context.lineTo = record
+      context.stroke = () => {
+        if (context.getLineDash().length > 0) dashedStroke = true
+      }
+      definition.draw({
+        context,
+        width: 800,
+        height: 600,
+        elapsed,
+        intro: 1,
+        reducedMotion: false,
+        pointer: { x: 0, y: 0 },
+        frontView: false,
+        viewRotation: null,
+      })
+      return { hash, dashedStroke }
+    }
+    return [drawAt(0), drawAt(2_100), drawAt(8_400)]
+  })
+
+  expect(samples[0].dashedStroke).toBe(true)
+  expect(samples[1].dashedStroke).toBe(true)
+  expect(samples[0].hash).not.toBe(samples[1].hash)
+  expect(samples[0].hash).toBe(samples[2].hash)
 })
 
 test('generic animations stay alive on desktop and mobile', async ({ page }) => {

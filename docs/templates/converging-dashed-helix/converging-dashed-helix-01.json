@@ -68,7 +68,7 @@
     "amplitudeSpread": 0.15,
     "dashLength": 5,
     "dashGap": 8,
-    "strandWidth": 3.1,
+    "strandWidth": 1,
     "tailWidth": 1.5,
     "axisWidth": 1,
     "axisOpacity": 0.42

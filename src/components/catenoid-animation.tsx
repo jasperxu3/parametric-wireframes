@@ -4,6 +4,7 @@ import animationUrl from '../../assets/animations/catenoid-field.js?url'
 type AnimationInstance = {
   destroy: () => void
   restart: () => void
+  setOptions: (options: { accent: string; background: string; secondary: string }) => void
   setFrontView: (enabled: boolean) => void
   setViewRotation: (rotation: readonly number[] | null) => void
 }
@@ -23,10 +24,17 @@ declare global {
   }
 }
 
-export function CatenoidAnimation({ active, viewRotation }: { active: boolean; viewRotation: readonly number[] | null }) {
+export function CatenoidAnimation({ active, viewRotation, accentColor, backgroundColor }: {
+  active: boolean
+  viewRotation: readonly number[] | null
+  accentColor: string
+  backgroundColor: string
+}) {
   const canvasRef = useRef<AnimationCanvas>(null)
   const viewRotationRef = useRef(viewRotation)
   viewRotationRef.current = viewRotation
+  const colorsRef = useRef({ accentColor, backgroundColor })
+  colorsRef.current = { accentColor, backgroundColor }
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -39,6 +47,11 @@ export function CatenoidAnimation({ active, viewRotation }: { active: boolean; v
       if (active) {
         canvas.__catenoidFieldAnimation?.restart()
         canvas.__catenoidFieldAnimation?.setViewRotation(viewRotationRef.current)
+        canvas.__catenoidFieldAnimation?.setOptions({
+          accent: colorsRef.current.accentColor,
+          background: colorsRef.current.backgroundColor,
+          secondary: colorsRef.current.accentColor,
+        })
       }
     }
 
@@ -79,6 +92,10 @@ export function CatenoidAnimation({ active, viewRotation }: { active: boolean; v
   useEffect(() => {
     canvasRef.current?.__catenoidFieldAnimation?.setViewRotation(viewRotation)
   }, [viewRotation])
+
+  useEffect(() => {
+    canvasRef.current?.__catenoidFieldAnimation?.setOptions({ accent: accentColor, background: backgroundColor, secondary: accentColor })
+  }, [accentColor, backgroundColor])
 
   return (
     <canvas

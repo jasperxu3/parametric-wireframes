@@ -22,6 +22,8 @@
       this.visible = false;
       this.frame = 0;
       this.viewRotation = null;
+      this.accentColor = null;
+      this.backgroundColor = null;
       this.startedAt = performance.now();
       this.lastFrameAt = null;
       this.pointer = { x: 0, y: 0, targetX: 0, targetY: 0 };
@@ -77,7 +79,9 @@
         reducedMotion: this.reduceMotion,
         pointer: this.reduceMotion || this.viewRotation ? { x: 0, y: 0 } : { x: this.pointer.x, y: this.pointer.y },
         frontView: Boolean(this.viewRotation?.every(value => value === 0)),
-        viewRotation: this.viewRotation
+        viewRotation: this.viewRotation,
+        accentColor: this.accentColor,
+        backgroundColor: this.backgroundColor
       });
     }
 
@@ -122,6 +126,12 @@
     setViewRotation(rotation) {
       this.viewRotation = rotation ? rotation.map(Number) : null;
       this.pointer = { x: 0, y: 0, targetX: 0, targetY: 0 };
+      this.render();
+    }
+
+    setColors(accentColor, backgroundColor) {
+      this.accentColor = accentColor || null;
+      this.backgroundColor = backgroundColor || null;
       this.render();
     }
 

@@ -9,6 +9,7 @@ type AnimationInstance = {
   destroy: () => void
   frame: number
   restart: () => void
+  setColors: (accentColor: string, backgroundColor: string) => void
   setFrontView: (enabled: boolean) => void
   setViewRotation: (rotation: readonly number[] | null) => void
 }
@@ -48,10 +49,17 @@ export function loadWireframeDefinitions() {
   return Promise.all(definitionScripts.map(loadScript))
 }
 
-export function WireframeAnimation({ templateId, viewRotation }: { templateId: string; viewRotation: readonly number[] | null }) {
+export function WireframeAnimation({ templateId, viewRotation, accentColor, backgroundColor }: {
+  templateId: string
+  viewRotation: readonly number[] | null
+  accentColor: string
+  backgroundColor: string
+}) {
   const canvasRef = useRef<AnimationCanvas>(null)
   const viewRotationRef = useRef(viewRotation)
   viewRotationRef.current = viewRotation
+  const colorsRef = useRef({ accentColor, backgroundColor })
+  colorsRef.current = { accentColor, backgroundColor }
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -65,6 +73,7 @@ export function WireframeAnimation({ templateId, viewRotation }: { templateId: s
       window.__parametricWireframeRuntime?.initialize(canvas)
       canvas.__wireframeAnimation?.restart()
       canvas.__wireframeAnimation?.setViewRotation(viewRotationRef.current)
+      canvas.__wireframeAnimation?.setColors(colorsRef.current.accentColor, colorsRef.current.backgroundColor)
     }
 
     void initialize()
@@ -77,6 +86,10 @@ export function WireframeAnimation({ templateId, viewRotation }: { templateId: s
   useEffect(() => {
     canvasRef.current?.__wireframeAnimation?.setViewRotation(viewRotation)
   }, [viewRotation])
+
+  useEffect(() => {
+    canvasRef.current?.__wireframeAnimation?.setColors(accentColor, backgroundColor)
+  }, [accentColor, backgroundColor])
 
   return (
     <canvas
@@ -101,6 +114,8 @@ declare global {
         pointer: { x: number; y: number }
         frontView: boolean
         viewRotation: readonly number[] | null
+        accentColor?: string | null
+        backgroundColor?: string | null
       }) => void
     }>
     __parametricWireframeRuntime?: AnimationRuntime

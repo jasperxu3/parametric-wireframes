@@ -34,9 +34,9 @@
     };
   }
 
-  function beginFrame(context, width, height) {
+  function beginFrame(context, width, height, background = BACKGROUND) {
     context.clearRect(0, 0, width, height);
-    context.fillStyle = BACKGROUND;
+    context.fillStyle = background;
     context.fillRect(0, 0, width, height);
     context.lineCap = 'round';
     context.lineJoin = 'round';
@@ -216,8 +216,8 @@
     id: 'ellipse-reflection',
     draw(frame) {
       const { context, width, height, elapsed, reducedMotion } = frame;
-      const color = '#6c9fe8';
-      const stage = beginFrame(context, width, height);
+      const color = frame.accentColor || '#6c9fe8';
+      const stage = beginFrame(context, width, height, frame.backgroundColor || BACKGROUND);
       const centerX = stage.x + stage.width * 0.5;
       const centerY = stage.y + stage.height * 0.51;
       const scale = stage.height * 0.3;
@@ -263,8 +263,8 @@
     id: 'radial-petals',
     draw(frame) {
       const { context, width, height, elapsed, reducedMotion } = frame;
-      const color = '#d76b98';
-      const stage = beginFrame(context, width, height);
+      const color = frame.accentColor || '#d76b98';
+      const stage = beginFrame(context, width, height, frame.backgroundColor || BACKGROUND);
       const centerX = stage.x + stage.width * 0.5;
       const centerY = stage.y + stage.height * 0.5;
       const phase = reducedMotion ? 0 : elapsed * 0.00022 + pointerValue(frame, 'x') * 0.08;
@@ -307,8 +307,8 @@
     id: 'superellipse-stack',
     draw(frame) {
       const { context, width, height, elapsed, reducedMotion } = frame;
-      const color = '#65a7ff';
-      const stage = beginFrame(context, width, height);
+      const color = frame.accentColor || '#65a7ff';
+      const stage = beginFrame(context, width, height, frame.backgroundColor || BACKGROUND);
       const centerX = stage.x + stage.width * 0.5;
       const centerY = stage.y + stage.height * 0.5;
       const cyclePosition = reducedMotion
@@ -359,8 +359,8 @@
     id: 'gravity-well',
     draw(frame) {
       const { context, width, height, elapsed, reducedMotion } = frame;
-      const color = '#59d9bd';
-      const stage = beginFrame(context, width, height);
+      const color = frame.accentColor || '#59d9bd';
+      const stage = beginFrame(context, width, height, frame.backgroundColor || BACKGROUND);
       const breath = reducedMotion ? 0 : Math.sin(elapsed * 0.00072);
       const geometry = {
         field: 'hourglass',
@@ -401,8 +401,8 @@
     id: 'wave-membrane',
     draw(frame) {
       const { context, width, height, elapsed, reducedMotion } = frame;
-      const color = '#b084f5';
-      const stage = beginFrame(context, width, height);
+      const color = frame.accentColor || '#b084f5';
+      const stage = beginFrame(context, width, height, frame.backgroundColor || BACKGROUND);
       const phase = reducedMotion ? 0.72 : elapsed * 0.00105 + pointerValue(frame, 'x') * 0.24;
       const geometry = { field: 'wave', amount: 0.9, frequency: 1.65, tilt: 0.22, depth: 0.36 };
       const sampling = { rows: 13, columns: 17, samples: 100 };

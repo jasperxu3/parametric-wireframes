@@ -107,7 +107,7 @@ const FAMILY_DEFAULTS = {
       turns: 2.25, amplitude: 0.52, decay: 1.05, compression: 1.22,
       convergeX: 0.22, tailLength: 0.25, phaseSpan: 4.8,
       turnSpread: 0.42, amplitudeSpread: 0.15,
-      dashLength: 5, dashGap: 8, strandWidth: 3.1,
+      dashLength: 5, dashGap: 8, strandWidth: 1,
       tailWidth: 1.5, axisWidth: 1, axisOpacity: 0.42
     },
     projection: { type: 'weak-perspective', strength: 0.03, rotation: [0, 0.01, 0] },

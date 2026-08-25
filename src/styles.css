@@ -90,8 +90,6 @@ button { color: inherit; }
 .stage-shell::after { top: 0; left: 50%; width: 1px; height: 100%; }
 .stage-render { position: relative; z-index: 1; width: min(100%, 920px); max-height: 100%; aspect-ratio: 4/3; overflow: hidden; border: 1px solid color-mix(in srgb, var(--active-accent) 24%, var(--line)); border-radius: 18px; background: var(--stage); box-shadow: 0 24px 80px rgb(0 0 0 / 34%); }
 .stage-svg, .stage-svg svg, .mini-preview svg { display: block; width: 100%; height: 100%; }
-.stage-svg svg > rect:first-child, .mini-preview svg > rect:first-child { fill: var(--stage); }
-.stage-svg svg path, .mini-preview svg path { stroke: color-mix(in srgb, var(--active-accent) 82%, white); }
 .stage-render.is-restarting .stage-svg { animation: preview-enter 520ms var(--ease-out) both; }
 .stage-controls { position: absolute; top: 12px; right: 12px; z-index: 3; display: flex; align-items: center; gap: 8px; }
 .stage-refresh { width: 38px; height: 38px; border-color: color-mix(in srgb, var(--active-accent) 30%, var(--line)); background: rgb(15 20 26 / 82%); backdrop-filter: blur(10px); }
@@ -131,6 +129,12 @@ button { color: inherit; }
 .animation-setting > span { display: flex; justify-content: space-between; }
 .animation-setting output { color: var(--active-accent); font: 600 11px/1 ui-monospace, SFMono-Regular, Menlo, monospace; }
 .animation-setting input { width: 100%; height: 18px; margin: 0; accent-color: var(--active-accent); cursor: pointer; }
+.color-settings { gap: 10px; }
+.color-setting { display: grid; grid-template-columns: minmax(0, 1fr) 38px; align-items: center; gap: 10px; color: #cbd1db; font-size: 12px; }
+.color-setting > span { display: flex; min-width: 0; align-items: center; justify-content: space-between; gap: 8px; }
+.color-setting output { overflow: hidden; color: var(--active-accent); font: 600 10px/1 ui-monospace, SFMono-Regular, Menlo, monospace; text-overflow: ellipsis; }
+.color-setting input { width: 38px; height: 30px; padding: 2px; border: 1px solid #303945; border-radius: 8px; background: #1b222b; cursor: pointer; }
+.color-setting input:focus-visible { outline: 2px solid var(--active-accent); outline-offset: 2px; }
 .view-reset-button { min-height: 34px; border: 1px solid #303945; border-radius: 9px; color: #cbd3dc; background: #1b222b; font-size: 11px; cursor: pointer; }
 .view-reset-button:disabled { opacity: .42; cursor: default; }
 .view-reset-button:focus-visible { outline: 2px solid var(--active-accent); outline-offset: 2px; }

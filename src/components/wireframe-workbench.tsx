@@ -17,6 +17,12 @@ function SvgMarkup({ markup, className }: { markup: string; className: string })
   return <div className={className} dangerouslySetInnerHTML={{ __html: markup }} />
 }
 
+function recolorSvg(markup: string, lineColor: string, backgroundColor: string) {
+  return markup
+    .replace(/(<rect[^>]*\bfill=")[^"]*(")/, `$1${backgroundColor}$2`)
+    .replace(/(<g[^>]*\bstroke=")[^"]*(")/, `$1${lineColor}$2`)
+}
+
 async function copyText(text: string) {
   if (navigator.clipboard && window.isSecureContext) {
     await navigator.clipboard.writeText(text)
@@ -40,10 +46,18 @@ export function WireframeWorkbench() {
   const [inspectorCollapsed, setInspectorCollapsed] = useState(false)
   const [restartKey, setRestartKey] = useState(0)
   const [viewRotation, setViewRotation] = useState<ViewRotation | null>(null)
+  const [lineColorOverride, setLineColorOverride] = useState<string | null>(null)
+  const [backgroundColorOverride, setBackgroundColorOverride] = useState<string | null>(null)
   const [toast, setToast] = useState('')
   const toastTimer = useRef<ReturnType<typeof setTimeout>>(undefined)
   const activeTemplate = templates.find((template) => template.id === activeId) ?? templates[0]
   const catenoid = activeTemplate.id === 'catenoid-field'
+  const lineColor = lineColorOverride ?? activeTemplate.accent
+  const backgroundColor = backgroundColorOverride ?? activeTemplate.scene.viewport.background
+  const activeSvg = useMemo(
+    () => recolorSvg(activeTemplate.svg, lineColor, backgroundColor),
+    [activeTemplate.svg, backgroundColor, lineColor],
+  )
   const frontView = viewRotation?.every((value) => value === 0) ?? false
   const viewRotationRadians = useMemo(
     () => viewRotation?.map((value) => value * Math.PI / 180) ?? null,
@@ -74,7 +88,12 @@ export function WireframeWorkbench() {
 
   const copyExport = async (kind: 'scene' | 'svg') => {
     try {
-      await copyText(kind === 'svg' ? activeTemplate.svg : JSON.stringify(activeTemplate.scene, null, 2))
+      const scene = {
+        ...activeTemplate.scene,
+        viewport: { ...activeTemplate.scene.viewport, background: backgroundColor },
+        style: { ...activeTemplate.scene.style, stroke: lineColor },
+      }
+      await copyText(kind === 'svg' ? activeSvg : JSON.stringify(scene, null, 2))
       announce(kind === 'svg' ? 'SVG 代码已复制' : '参数 JSON 已复制')
     } catch {
       announce('复制失败，请在安全的浏览器页面中重试')
@@ -101,7 +120,7 @@ export function WireframeWorkbench() {
     libraryCollapsed && 'left-collapsed',
     inspectorCollapsed && 'right-collapsed',
   ].filter(Boolean).join(' ')
-  const accentStyle = { '--active-accent': activeTemplate.accent } as CSSProperties
+  const accentStyle = { '--active-accent': lineColor } as CSSProperties
 
   return (
     <div className={workbenchClass} style={accentStyle}>
@@ -146,10 +165,10 @@ export function WireframeWorkbench() {
         </header>
         <section className="stage-shell" aria-label="参数化图形调试区域">
           <div className={`stage-render preview show-animation is-animated${restartKey ? ' is-restarting' : ''}`}>
-            <SvgMarkup key={`${activeId}-${restartKey}`} markup={activeTemplate.svg} className="stage-svg" />
+            <SvgMarkup key={`${activeId}-${restartKey}`} markup={activeSvg} className="stage-svg" />
             {catenoid
-              ? <CatenoidAnimation key="catenoid-field" active viewRotation={viewRotationRadians} />
-              : <WireframeAnimation key={activeId} templateId={activeId} viewRotation={viewRotationRadians} />}
+              ? <CatenoidAnimation key="catenoid-field" active viewRotation={viewRotationRadians} accentColor={lineColor} backgroundColor={backgroundColor} />
+              : <WireframeAnimation key={activeId} templateId={activeId} viewRotation={viewRotationRadians} accentColor={lineColor} backgroundColor={backgroundColor} />}
             <div className="stage-controls">
               <button
                 className={`stage-view-button${frontView ? ' is-active' : ''}`}
@@ -198,11 +217,28 @@ export function WireframeWorkbench() {
         </div>
         <div className="inspector-scroll">
           <p className="section-label">当前图形</p>
-          <SvgMarkup markup={activeTemplate.svg} className="mini-preview" />
+          <SvgMarkup markup={activeSvg} className="mini-preview" />
           <div className="inspector-block">
             <div className="meta-row"><span>名称</span><strong>{activeTemplate.title}</strong></div>
             <div className="meta-row"><span>家族</span><strong>{activeTemplate.familyLabel}</strong></div>
             <div className="meta-row"><span>公式</span><code>{activeTemplate.formula}</code></div>
+          </div>
+          <div className="inspector-block">
+            <fieldset className="animation-settings color-settings">
+              <legend>外观颜色</legend>
+              <label className="color-setting">
+                <span>线条颜色 <output>{lineColor.toUpperCase()}</output></span>
+                <input type="color" aria-label="线条颜色" value={lineColor} onChange={(event) => setLineColorOverride(event.currentTarget.value)} />
+              </label>
+              <label className="color-setting">
+                <span>背景颜色 <output>{backgroundColor.toUpperCase()}</output></span>
+                <input type="color" aria-label="背景颜色" value={backgroundColor} onChange={(event) => setBackgroundColorOverride(event.currentTarget.value)} />
+              </label>
+              <button className="view-reset-button" type="button" onClick={() => {
+                setLineColorOverride(null)
+                setBackgroundColorOverride(null)
+              }} disabled={!lineColorOverride && !backgroundColorOverride}>恢复模板配色</button>
+            </fieldset>
           </div>
           <div className="inspector-block">
             <fieldset className="animation-settings view-settings">
@@ -251,6 +287,6 @@ export function WireframeWorkbench() {
 declare global {
   interface HTMLCanvasElement {
     __catenoidFieldAnimation?: { restart: () => void; setFrontView: (enabled: boolean) => void; setViewRotation: (rotation: readonly number[] | null) => void }
-    __wireframeAnimation?: { frame: number; restart: () => void; setFrontView: (enabled: boolean) => void; setViewRotation: (rotation: readonly number[] | null) => void }
+    __wireframeAnimation?: { frame: number; restart: () => void; setColors: (accentColor: string, backgroundColor: string) => void; setFrontView: (enabled: boolean) => void; setViewRotation: (rotation: readonly number[] | null) => void }
   }
 }

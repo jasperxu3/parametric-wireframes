@@ -128,7 +128,7 @@ async function run() {
     const helixPaths = renderFamily(helixScene);
     const helixStrands = helixPaths.filter(item => item.role === 'helix-strand');
     assert.strictEqual(helixStrands.length, helixInput.sampling.strands, 'converging helix strand count');
-    assert(helixStrands.every(item => item.dash && item.points.length === helixInput.sampling.segments + 1), 'converging helix must use dashed sampled curves');
+    assert(helixStrands.every(item => item.dash && item.strokeWidth === 1 && item.points.length === helixInput.sampling.segments + 1), 'converging helix must use 1px dashed sampled curves');
     assert.strictEqual(helixPaths.filter(item => item.role === 'helix-axis').length, 1, 'converging helix axis');
     assert.strictEqual(helixPaths.filter(item => item.role === 'tail').length, 1, 'converging helix tail');
     assert.strictEqual(helixPaths.filter(item => item.role === 'particle').length, 0, 'converging helix must not render isolated particles');

@@ -48,9 +48,9 @@
     };
   }
 
-  function beginFrame(context, width, height) {
+  function beginFrame(context, width, height, background = BACKGROUND) {
     context.save();
-    context.fillStyle = BACKGROUND;
+    context.fillStyle = background;
     context.fillRect(0, 0, width, height);
     context.lineCap = 'round';
     context.lineJoin = 'round';
@@ -106,7 +106,8 @@
 
   function drawTwistedFunnel(frame) {
     const { context, width, height, elapsed, intro, reducedMotion, pointer } = frame;
-    beginFrame(context, width, height);
+    const color = frame.accentColor || FUNNEL;
+    beginFrame(context, width, height, frame.backgroundColor || BACKGROUND);
 
     const view = reducedMotion || frame.viewRotation ? [0, 0] : [pointer.y * 0.055, pointer.x * 0.09];
     const rotation = frame.viewRotation ?? [0.14 + view[0], 0.22 + view[1], 0];
@@ -144,7 +145,7 @@
     paths.sort((a, b) => a.z - b.z);
     paths.forEach((path, index) => {
       const reveal = reducedMotion ? 1 : ease(intro * 1.55 - index * 0.018);
-      context.strokeStyle = rgba(FUNNEL, path.ring ? 0.82 : 0.56);
+      context.strokeStyle = rgba(color, path.ring ? 0.82 : 0.56);
       context.lineWidth = path.ring ? 1.12 : 0.92;
       trace(context, path.points, reveal);
     });
@@ -155,12 +156,12 @@
       const sampleU = Math.floor(flowPhase * 18) / 18 * TAU;
       const sample = funnelPoint(sampleU, sampleV, rotation, layout);
       const squareSize = Math.max(7, Math.min(14, layout.scale * 0.08));
-      context.fillStyle = rgba(FUNNEL, 0.96);
+      context.fillStyle = rgba(color, 0.96);
       context.fillRect(sample.x - squareSize / 2, sample.y - squareSize / 2, squareSize, squareSize);
     }
 
     const fontSize = Math.min(width, height) * 0.022;
-    labelStyle(context, FUNNEL, fontSize);
+    labelStyle(context, color, fontSize);
     context.textAlign = 'left';
     context.fillText('INLET  v = −1', width * 0.085, height * 0.22);
     context.textAlign = 'right';
@@ -175,8 +176,8 @@
       width * 0.085,
       height * 0.84
     );
-    drawGuide(context, width * 0.13, height * 0.25, width * 0.22, height * 0.36, FUNNEL);
-    drawGuide(context, width * 0.87, height * 0.75, width * 0.79, height * 0.64, FUNNEL);
+    drawGuide(context, width * 0.13, height * 0.25, width * 0.22, height * 0.36, color);
+    drawGuide(context, width * 0.87, height * 0.75, width * 0.79, height * 0.64, color);
 
     endFrame(context);
   }
@@ -187,7 +188,8 @@
 
   function drawProjectionCone(frame) {
     const { context, width, height, elapsed, intro, reducedMotion, pointer } = frame;
-    beginFrame(context, width, height);
+    const color = frame.accentColor || CONE;
+    beginFrame(context, width, height, frame.backgroundColor || BACKGROUND);
 
     const view = reducedMotion || frame.viewRotation ? [0, 0] : [pointer.y * 0.035, pointer.x * 0.07];
     const rotation = frame.viewRotation ?? [0.12 + view[0], 0.34 + view[1], 0];
@@ -207,14 +209,14 @@
     for (let segment = 0; segment <= 180; segment += 1) {
       rim.push(target(0.18 + segment / 180 * TAU));
     }
-    context.strokeStyle = rgba(CONE, 0.95);
+    context.strokeStyle = rgba(color, 0.95);
     context.lineWidth = 1.3;
     trace(context, rim, reducedMotion ? 1 : ease(intro * 1.4 - 0.32));
 
     for (let rayIndex = 0; rayIndex < 11; rayIndex += 1) {
       const endpoint = target(0.18 + rayIndex / 11 * TAU);
       const reveal = reducedMotion ? 1 : ease(intro * 1.8 - rayIndex * 0.055);
-      context.strokeStyle = rgba(CONE, rayIndex % 2 ? 0.72 : 0.9);
+      context.strokeStyle = rgba(color, rayIndex % 2 ? 0.72 : 0.9);
       context.lineWidth = 1.3;
       trace(context, [origin, endpoint], reveal);
     }
@@ -229,21 +231,21 @@
         x: origin.x + (endpoint.x - origin.x) * amount,
         y: origin.y + (endpoint.y - origin.y) * amount
       });
-      context.strokeStyle = rgba(CONE, 1);
+      context.strokeStyle = rgba(color, 1);
       context.lineWidth = 2.6;
       trace(context, [interpolate(tail), interpolate(head)], 1);
 
       if (elapsed % 2400 < 760) {
         const sample = interpolate(head);
         const squareSize = Math.max(7, Math.min(14, layout.scale * 0.08));
-        context.fillStyle = rgba(CONE, 0.98);
+        context.fillStyle = rgba(color, 0.98);
         context.fillRect(sample.x - squareSize / 2, sample.y - squareSize / 2, squareSize, squareSize);
       }
     }
 
     const axisEnd = conePoint([1.55, 0, 0], rotation, layout);
     context.save();
-    context.strokeStyle = rgba(CONE, 0.58);
+    context.strokeStyle = rgba(color, 0.58);
     context.lineWidth = 1;
     context.setLineDash([5, 6]);
     trace(context, [origin, axisEnd], reducedMotion ? 1 : ease(intro * 2.5 - 0.08));
@@ -254,12 +256,12 @@
       const angle = segment / 36 * TAU;
       marker.push(conePoint([-1.55, 0.035 * Math.cos(angle), 0.035 * Math.sin(angle)], rotation, layout));
     }
-    context.strokeStyle = rgba(CONE, 1);
+    context.strokeStyle = rgba(color, 1);
     context.lineWidth = 1.8;
     trace(context, marker, reducedMotion ? 1 : ease(intro * 2.2 - 0.2));
 
     const fontSize = Math.min(width, height) * 0.022;
-    labelStyle(context, CONE, fontSize, 0.95);
+    labelStyle(context, color, fontSize, 0.95);
     context.textAlign = 'left';
     context.fillText('VANISHING POINT  o', width * 0.085, height * 0.27);
     context.textAlign = 'right';
@@ -271,8 +273,8 @@
       width * 0.085,
       height * 0.88
     );
-    drawGuide(context, width * 0.2, height * 0.3, origin.x - fontSize, origin.y - fontSize, CONE, 0.48);
-    drawGuide(context, width * 0.82, height * 0.22, rim[20].x, rim[20].y, CONE, 0.48);
+    drawGuide(context, width * 0.2, height * 0.3, origin.x - fontSize, origin.y - fontSize, color, 0.48);
+    drawGuide(context, width * 0.82, height * 0.22, rim[20].x, rim[20].y, color, 0.48);
 
     endFrame(context);
   }
@@ -323,7 +325,8 @@
 
   function drawAtomicOrbits(frame) {
     const { context, width, height, elapsed, intro, reducedMotion, pointer } = frame;
-    beginFrame(context, width, height);
+    const color = frame.accentColor || ORBITS;
+    beginFrame(context, width, height, frame.backgroundColor || BACKGROUND);
 
     const view = reducedMotion || frame.viewRotation ? [0, 0] : [pointer.y * 0.055, pointer.x * 0.075];
     const viewRotation = frame.viewRotation ?? [view[0], view[1], 0];
@@ -337,7 +340,7 @@
 
     const axisStart = screenPoint([-1.45, 0, 0], layout);
     const axisEnd = screenPoint([1.45, 0, 0], layout);
-    context.strokeStyle = rgba(ORBITS, 0.66);
+    context.strokeStyle = rgba(color, 0.66);
     context.lineWidth = 1.15;
     trace(context, [axisStart, axisEnd], revealBase);
     const arrowSize = 0.07 * layout.scale;
@@ -353,7 +356,7 @@
         points.push(orbitPoint(ring, segment / 220, viewRotation, layout));
       }
       context.save();
-      context.strokeStyle = rgba(ORBITS, ringIndex === 3 ? 0.68 : 0.9);
+      context.strokeStyle = rgba(color, ringIndex === 3 ? 0.68 : 0.9);
       context.lineWidth = ring.strokeWidth;
       context.setLineDash(ring.dash || []);
       trace(context, points, reducedMotion ? 1 : ease(intro * 1.55 - ringIndex * 0.07));
@@ -365,7 +368,7 @@
         ? marker.phase
         : (marker.phase + elapsed / (5200 + markerIndex * 1300) * (markerIndex ? -1 : 1)) % 1;
       const center = orbitPoint(rings[marker.ring], markerPhase, viewRotation, layout);
-      context.strokeStyle = rgba(ORBITS, 0.98);
+      context.strokeStyle = rgba(color, 0.98);
       context.lineWidth = 1.4;
       drawScreenCircle(context, center, marker.radius * layout.scale, 32);
     });
@@ -375,12 +378,12 @@
       const eventPhase = (0.14 + elapsed / 5600 * (eventRingIndex % 2 ? -1 : 1) + 1) % 1;
       const eventPoint = orbitPoint(rings[eventRingIndex], eventPhase, viewRotation, layout);
       const squareSize = Math.max(7, Math.min(14, layout.scale * 0.08));
-      context.fillStyle = rgba(ORBITS, 0.96);
+      context.fillStyle = rgba(color, 0.96);
       context.fillRect(eventPoint.x - squareSize / 2, eventPoint.y - squareSize / 2, squareSize, squareSize);
     }
 
     [-0.2, 0.2].forEach(position => {
-      context.strokeStyle = rgba(ORBITS, 0.95);
+      context.strokeStyle = rgba(color, 0.95);
       context.lineWidth = 1.8;
       drawScreenCircle(context, {
         x: layout.cx + 1.45 * position * layout.scale,
@@ -388,19 +391,19 @@
       }, 0.022 * layout.scale, 32);
     });
     [0.2, 0.11].forEach((radius, index) => {
-      context.strokeStyle = rgba(ORBITS, 1);
+      context.strokeStyle = rgba(color, 1);
       context.lineWidth = index === 0 ? 3.2 : 1.9;
       drawScreenCircle(context, { x: layout.cx, y: layout.cy }, radius * layout.scale, 96);
     });
 
     const fontSize = Math.min(width, height) * 0.021;
-    labelStyle(context, ORBITS, fontSize, 0.7);
+    labelStyle(context, color, fontSize, 0.7);
     context.textAlign = 'left';
     context.fillText('HUB  r = 0.11 / 0.20', width * 0.085, height * 0.19);
     context.textAlign = 'right';
     context.fillText('AXIS  ℓ = 1.45', width * 0.915, height * 0.81);
-    drawGuide(context, width * 0.22, height * 0.21, layout.cx - fontSize, layout.cy - fontSize, ORBITS, 0.22);
-    drawGuide(context, width * 0.82, height * 0.79, axisEnd.x, axisEnd.y, ORBITS, 0.22);
+    drawGuide(context, width * 0.22, height * 0.21, layout.cx - fontSize, layout.cy - fontSize, color, 0.22);
+    drawGuide(context, width * 0.82, height * 0.79, axisEnd.x, axisEnd.y, color, 0.22);
 
     const textPhase = reducedMotion ? -0.72 : elapsed / 14000 * TAU - 0.72;
     const textRadiusX = Math.min(width * 0.39, layout.scale * 1.48);
@@ -411,7 +414,7 @@
     context.translate(textX, textY);
     context.rotate(Math.atan2(Math.cos(textPhase) * textRadiusY, -Math.sin(textPhase) * textRadiusX));
     context.textAlign = 'center';
-    context.fillStyle = rgba(ORBITS, 0.48);
+    context.fillStyle = rgba(color, 0.48);
     context.fillText('ORBITAL PRECESSION', 0, 0);
     context.restore();
 

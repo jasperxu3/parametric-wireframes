@@ -49,9 +49,9 @@
     };
   }
 
-  function paintBackground(context, width, height) {
+  function paintBackground(context, width, height, background = BACKGROUND) {
     context.clearRect(0, 0, width, height);
-    context.fillStyle = BACKGROUND;
+    context.fillStyle = background;
     context.fillRect(0, 0, width, height);
   }
 
@@ -117,7 +117,7 @@
     id: 'layered-perspective-grid',
     draw(frame) {
       const { context, width, height, elapsed, reducedMotion } = frame;
-      const accent = '#4addad';
+      const accent = frame.accentColor || '#4addad';
       const stage = stageFor(width, height);
       const map = mapper(stage, { minX: -1.18, maxX: 1.18, minY: -0.99, maxY: 0.99 }, 88, 80, frame.viewRotation);
       const layers = 3;
@@ -127,7 +127,7 @@
       const scan = reducedMotion ? 0.5 : (elapsed % 3600) / 3600;
 
       context.save();
-      paintBackground(context, width, height);
+      paintBackground(context, width, height, frame.backgroundColor || BACKGROUND);
       const depthStep = reducedMotion ? 3 : 1 + Math.floor((elapsed % 5100) / 1700);
       drawLabel(context, stage, reducedMotion ? 'FAR / L03' : `FAR / L0${depthStep}`, 80, 58, alpha(accent, 0.48));
       drawLabel(context, stage, 'DEPTH STACK', 720, 58, alpha(accent, 0.32), 'right');
@@ -218,7 +218,7 @@
     id: 'sparse-dipole-field',
     draw(frame) {
       const { context, width, height, elapsed, reducedMotion } = frame;
-      const accent = '#d5dc78';
+      const accent = frame.accentColor || '#d5dc78';
       const stage = stageFor(width, height);
       const all = dipoleGeometry.lines.flat();
       const maxX = Math.max(0.92, ...all.map(point => Math.abs(point[0])));
@@ -226,7 +226,7 @@
       const map = mapper(stage, { minX: -maxX, maxX, minY: -maxY, maxY }, 92, 82, frame.viewRotation);
 
       context.save();
-      paintBackground(context, width, height);
+      paintBackground(context, width, height, frame.backgroundColor || BACKGROUND);
       const polarityForward = reducedMotion || Math.floor(elapsed / 1450) % 2 === 0;
       drawLabel(context, stage, reducedMotion ? 'SOURCE / +q' : `SOURCE / ${polarityForward ? '+q' : 'EMIT'}`, 80, 64, alpha(accent, 0.52));
       drawLabel(context, stage, reducedMotion ? 'SINK / −q' : `SINK / ${polarityForward ? '−q' : 'CAPTURE'}`, 720, 64, alpha(accent, 0.52), 'right');
@@ -276,7 +276,7 @@
     id: 'interference-waves',
     draw(frame) {
       const { context, width, height, elapsed, reducedMotion } = frame;
-      const accent = '#60a5fa';
+      const accent = frame.accentColor || '#60a5fa';
       const stage = stageFor(width, height);
       const map = mapper(stage, { minX: -1, maxX: 1, minY: -1.02, maxY: 1.02 }, 88, 92, frame.viewRotation);
       const curves = 9;
@@ -284,7 +284,7 @@
       const propagation = reducedMotion ? 0 : elapsed * 0.00022;
 
       context.save();
-      paintBackground(context, width, height);
+      paintBackground(context, width, height, frame.backgroundColor || BACKGROUND);
       const phaseIndex = reducedMotion ? 0 : Math.floor((elapsed % 4800) / 600);
       drawLabel(context, stage, reducedMotion ? 'PHASE / φ₀' : `PHASE / φ${phaseIndex} · ${(phaseIndex * 45).toString().padStart(3, '0')}°`, 80, 58, alpha(accent, 0.7));
       drawLabel(context, stage, 'ENDPOINT / x=+1', 720, 58, alpha(accent, 0.55), 'right');
@@ -317,7 +317,7 @@
     }
   };
 
-  function helixPoint(strand, progress, viewRotation) {
+  function helixPoint(strand, progress, viewRotation, rotationPhase = 0) {
     const normalized = strand / 6 * 2 - 1;
     const phase = normalized * 4.8 * 0.5;
     const turns = 2.25 + normalized * 0.42;
@@ -325,7 +325,7 @@
     const compressed = 1 - Math.pow(1 - progress, 1.22);
     const x = -1 + (0.2 - -1) * compressed;
     const radius = amplitude * Math.pow(1 - progress, 1.05);
-    const angle = TAU * turns * progress + phase;
+    const angle = TAU * turns * progress + phase - rotationPhase;
     return project3D([x, radius * Math.cos(angle), radius * Math.sin(angle)], viewRotation ?? [0, 0.01, 0], 0.03);
   }
 
@@ -333,35 +333,35 @@
     id: 'converging-dashed-helix',
     draw(frame) {
       const { context, width, height, elapsed, reducedMotion } = frame;
-      const accent = '#83c9ff';
+      const accent = frame.accentColor || '#83c9ff';
       const stage = stageFor(width, height);
       const map = mapper(stage, { minX: -1.02, maxX: 0.45, minY: -0.62, maxY: 0.62 }, 86, 90);
 
       context.save();
-      paintBackground(context, width, height);
+      paintBackground(context, width, height, frame.backgroundColor || BACKGROUND);
       drawLabel(context, stage, '01 / ENTRANCE', 80, 58, alpha(accent, 0.58));
       const transportStage = reducedMotion ? 3 : 1 + Math.floor((elapsed % 4200) / 1400);
       drawLabel(context, stage, reducedMotion ? '03 / CONVERGENCE' : `0${transportStage} / ${['INTAKE', 'TRANSPORT', 'CONVERGE'][transportStage - 1]}`, 720, 58, alpha(accent, 0.58), 'right');
       const viewRotation = frame.viewRotation ?? [0, 0.01, 0];
+      const rotationPhase = reducedMotion ? 0 : (elapsed % 8400) / 8400 * TAU;
       drawPath(context, [project3D([-1, 0, 0], viewRotation, 0.03), project3D([0.45, 0, 0], viewRotation, 0.03)], map, {
         stroke: alpha(accent, 0.42), width: stage.scale
       });
 
       for (let strand = 0; strand < 7; strand += 1) {
         const points = [];
-        for (let segment = 0; segment <= 380; segment += 1) points.push(helixPoint(strand, segment / 380, frame.viewRotation));
+        for (let segment = 0; segment <= 380; segment += 1) points.push(helixPoint(strand, segment / 380, frame.viewRotation, rotationPhase));
         const reveal = reducedMotion ? 1 : smooth((frame.intro - strand * 0.035) / 0.74);
         drawPath(context, points, map, {
           stroke: alpha(accent, 0.86),
-          width: 3.1 * stage.scale,
+          width: stage.scale,
           dash: [5 * stage.scale, 8 * stage.scale],
-          dashOffset: reducedMotion ? 0 : -elapsed * 0.018 * stage.scale,
           lineCap: 'round',
           reveal
         });
         if (!reducedMotion && reveal === 1 && eventVisible(elapsed, 1840 + (strand % 3) * 120, strand * 293, 320)) {
           const progress = 0.14 + ((strand * 0.137 + 0.09) % 0.72);
-          drawDataSquare(context, stage, map(helixPoint(strand, progress, frame.viewRotation)), accent, 11 + (strand % 3) * 2);
+          drawDataSquare(context, stage, map(helixPoint(strand, progress, frame.viewRotation, rotationPhase)), accent, 11 + (strand % 3) * 2);
         }
       }
       drawPath(context, [project3D([0.2, 0, 0], viewRotation, 0.03), project3D([0.45, 0, 0], viewRotation, 0.03)], map, {

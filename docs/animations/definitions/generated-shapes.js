@@ -13,10 +13,10 @@
     return `rgba(${c[0]}, ${c[1]}, ${c[2]}, ${opacity})`;
   };
 
-  function stage(context, width, height, viewRotation = null) {
+  function stage(context, width, height, viewRotation = null, background = BG) {
     context.save();
     context.clearRect(0, 0, width, height);
-    context.fillStyle = BG;
+    context.fillStyle = background;
     context.fillRect(0, 0, width, height);
     context.lineCap = 'round';
     context.lineJoin = 'round';
@@ -96,19 +96,19 @@
     return points;
   }
   arrays.forEach(g => definitions[g.id] = { id: g.id, draw(frame) {
-    const { context, width, height, elapsed, reducedMotion } = frame; const s = stage(context, width, height, frame.viewRotation);
+    const { context, width, height, elapsed, reducedMotion } = frame; const color = frame.accentColor || g.color; const s = stage(context, width, height, frame.viewRotation, frame.backgroundColor || BG);
     const active = reducedMotion ? -10 : elapsed / (g.id === arrays[0].id ? 410 : 530) % g.count; const nodes = [];
     for (let index = 0; index < g.count; index += 1) {
       const distance = Math.min(Math.abs(index - active), g.count - Math.abs(index - active)); const glow = reducedMotion ? 0 : ease(1 - distance / 2.8);
       const points = arrayPoints(g, index, 1 + glow * (g.id === arrays[0].id ? 0.025 : 0.045));
-      path(context, s, points, g.color, 0.38 + index / g.count * 0.34 + glow * 0.22, 0.95 + glow * 0.65, reducedMotion ? 1 : ease((frame.intro - index / g.count * 0.48) / 0.52));
+      path(context, s, points, color, 0.38 + index / g.count * 0.34 + glow * 0.22, 0.95 + glow * 0.65, reducedMotion ? 1 : ease((frame.intro - index / g.count * 0.48) / 0.52));
       if (index % 4 === 1) nodes.push(points[(23 + index * 31) % 220]);
     }
-    events(context, s, elapsed, reducedMotion, nodes, g.color);
-    label(context, s, g.id === arrays[0].id ? 'LENS ARRAY / ΔT 0.025,−0.010' : 'ECHO MATRIX / n=3.90', 64, 58, g.color);
-    label(context, s, reducedMotion ? `LAYER / ${g.count}` : `LAYER / ${String(Math.floor(active) + 1).padStart(2, '0')}`, 736, 542, g.color, 'right', 0.72);
-    if (g.id === arrays[1].id) label(context, s, 'ΔH → 0.012', 748, 300, g.color, 'center', 0.38, true);
-    else label(context, s, 'Sᵧ 1.340 → 0.456', 64, 542, g.color);
+    events(context, s, elapsed, reducedMotion, nodes, color);
+    label(context, s, g.id === arrays[0].id ? 'LENS ARRAY / ΔT 0.025,−0.010' : 'ECHO MATRIX / n=3.90', 64, 58, color);
+    label(context, s, reducedMotion ? `LAYER / ${g.count}` : `LAYER / ${String(Math.floor(active) + 1).padStart(2, '0')}`, 736, 542, color, 'right', 0.72);
+    if (g.id === arrays[1].id) label(context, s, 'ΔH → 0.012', 748, 300, color, 'center', 0.38, true);
+    else label(context, s, 'Sᵧ 1.340 → 0.456', 64, 542, color);
     finish(context);
   }});
 
@@ -117,7 +117,7 @@
     [[1.12, 0.24, 0.98], 0.94, 0.9], [[-1.02, -0.3, 0.74], 1, 0.76], [[0.38, 1.04, -1.08], 0.88, 0.64], [[-0.24, 0.82, 1.3], 1.05, 0.86]
   ];
   definitions['orbital-halo-weave'] = { id: 'orbital-halo-weave', draw(frame) {
-    const { context, width, height, elapsed, reducedMotion } = frame; const color = '#9fb6ff'; const s = stage(context, width, height);
+    const { context, width, height, elapsed, reducedMotion } = frame; const color = frame.accentColor || '#9fb6ff'; const s = stage(context, width, height, null, frame.backgroundColor || BG);
     const view = frame.viewRotation ?? [0.18 + pointer(frame, 'y') * 0.05, -0.12 + pointer(frame, 'x') * 0.07, 0.08]; const nodes = [];
     orbitRings.forEach((ring, index) => {
       const precession = reducedMotion ? 0 : Math.sin(elapsed / (2600 + index * 190)) * 0.055;
@@ -138,7 +138,7 @@
   [
     ['rose-curve-choir', '#ffd27a', 'rose', 11, 2], ['hypotrochoid-knot', '#9f8cff', 'hypo', 1, 3]
   ].forEach(config => definitions[config[0]] = { id: config[0], draw(frame) {
-    const [id, color, kind, count, turns] = config; const { context, width, height, elapsed, reducedMotion } = frame; const s = stage(context, width, height, frame.viewRotation);
+    const [id, defaultColor, kind, count, turns] = config; const { context, width, height, elapsed, reducedMotion } = frame; const color = frame.accentColor || defaultColor; const s = stage(context, width, height, frame.viewRotation, frame.backgroundColor || BG);
     const phase = reducedMotion ? 0 : kind === 'rose' ? elapsed * 0.00018 : elapsed % 6000 / 6000 * TAU; const nodes = [];
     for (let curve = 0; curve < count; curve += 1) { const points = [];
       for (let segment = 0; segment <= 560; segment += 1) { const t = segment / 560 * TAU * turns + (kind === 'rose' ? phase : 0); const p = parametric(kind, curve, t); const spread = (curve - (count - 1) / 2) * (kind === 'rose' ? 0.012 : 0.02); const x = p[0] * (kind === 'rose' ? 0.88 + spread : 1 + spread); const y = p[1] * (kind === 'rose' ? 0.88 - spread : 1 - spread); points.push(kind === 'rose' ? [x, y] : [x * Math.cos(phase) - y * Math.sin(phase), x * Math.sin(phase) + y * Math.cos(phase)]); }
@@ -154,7 +154,7 @@
 
   function gridDefinition(id, color, field, amount, frequency, tilt, depth, rotation, rows, columns) {
     definitions[id] = { id, draw(frame) {
-      const { context, width, height, elapsed, reducedMotion } = frame; const s = stage(context, width, height);
+      const { context, width, height, elapsed, reducedMotion } = frame; const activeColor = frame.accentColor || color; const s = stage(context, width, height, null, frame.backgroundColor || BG);
       const phase = reducedMotion ? 0.65 : elapsed * (field === 'wave' ? 0.00072 : 0.00048); const all = []; const make = (u, v) => {
         let x = u, y = v, z;
         if (field === 'wave') z = amount * 0.27 * Math.sin(Math.PI * frequency * u + phase) * Math.cos(Math.PI * frequency * v - phase * 0.7);
@@ -164,10 +164,10 @@
       for (let row = 0; row < rows; row += 1) { const points = []; const v = -1 + row * 2 / (rows - 1); for (let q = 0; q <= 112; q += 1) points.push(make(-1 + q / 56, v)); all.push(points); }
       for (let column = 0; column < columns; column += 1) { const points = []; const u = -1 + column * 2 / (columns - 1); for (let q = 0; q <= 112; q += 1) points.push(make(u, -1 + q / 56)); all.push(points); }
       const scan = reducedMotion ? -1 : Math.floor(elapsed / 190) % all.length;
-      all.forEach((points, index) => path(context, s, points, color, 0.42 + (index === scan ? 0.46 : 0), index === scan ? 2 : 0.92, reducedMotion ? 1 : ease((frame.intro - index / all.length * 0.42) / 0.58)));
-      events(context, s, elapsed, reducedMotion, [all[2][31], all[7][78], all[rows + 3][50], all[rows + 10][89]], color);
-      if (field === 'wave') { label(context, s, 'BOUNDARY / FOLDED WAVE', 62, 62, color); label(context, s, reducedMotion ? 'PHASE / HOLD' : `PHASE / ${(phase % TAU).toFixed(2)}`, 738, 538, color, 'right'); label(context, s, '11 × 17', 738, 62, color, 'right'); }
-      else { label(context, s, 'PINCH / a=0.88', 65, 82, color); label(context, s, 'SADDLE DEPTH / 0.82', 735, 518, color, 'right'); label(context, s, reducedMotion ? 'SCAN / COMPLETE' : `SCAN / ${String(scan + 1).padStart(2, '0')}`, 65, 518, color); }
+      all.forEach((points, index) => path(context, s, points, activeColor, 0.42 + (index === scan ? 0.46 : 0), index === scan ? 2 : 0.92, reducedMotion ? 1 : ease((frame.intro - index / all.length * 0.42) / 0.58)));
+      events(context, s, elapsed, reducedMotion, [all[2][31], all[7][78], all[rows + 3][50], all[rows + 10][89]], activeColor);
+      if (field === 'wave') { label(context, s, 'BOUNDARY / FOLDED WAVE', 62, 62, activeColor); label(context, s, reducedMotion ? 'PHASE / HOLD' : `PHASE / ${(phase % TAU).toFixed(2)}`, 738, 538, activeColor, 'right'); label(context, s, '11 × 17', 738, 62, activeColor, 'right'); }
+      else { label(context, s, 'PINCH / a=0.88', 65, 82, activeColor); label(context, s, 'SADDLE DEPTH / 0.82', 735, 518, activeColor, 'right'); label(context, s, reducedMotion ? 'SCAN / COMPLETE' : `SCAN / ${String(scan + 1).padStart(2, '0')}`, 65, 518, activeColor); }
       finish(context);
     }};
   }
@@ -175,7 +175,7 @@
   gridDefinition('pinched-saddle-grid', '#6ee7b7', 'pinch', 0.88, 2.45, -0.62, 0.82, [-0.38, 0.24, -0.18], 13, 17);
 
   definitions['skewed-projection-gate'] = { id: 'skewed-projection-gate', draw(frame) {
-    const { context, width, height, elapsed, reducedMotion } = frame; const color = '#ff9f80'; const s = stage(context, width, height); const rotation = frame.viewRotation ?? [0.29, -0.51, 0.2];
+    const { context, width, height, elapsed, reducedMotion } = frame; const color = frame.accentColor || '#ff9f80'; const s = stage(context, width, height, null, frame.backgroundColor || BG); const rotation = frame.viewRotation ?? [0.29, -0.51, 0.2];
     const origin = project([-1.72, 0, 0], rotation, 0.22); const targets = []; const rim = [];
     for (let q = 0; q <= 220; q += 1) { const a = 0.31 + q / 220 * TAU; rim.push(project([0, 0.82 * Math.cos(a), 0.82 * 0.34 * Math.sin(a)], rotation, 0.22)); }
     path(context, s, rim, color, 0.9, 1.2, reducedMotion ? 1 : ease((frame.intro - 0.2) / 0.7));
@@ -193,7 +193,7 @@
   }
   const magneticLines = dipoleLines();
   definitions['magnetic-eye-field'] = { id: 'magnetic-eye-field', draw(frame) {
-    const { context, width, height, elapsed, reducedMotion } = frame; const color = '#d9e875'; const s = stage(context, width, height, frame.viewRotation); const nodes = [];
+    const { context, width, height, elapsed, reducedMotion } = frame; const color = frame.accentColor || '#d9e875'; const s = stage(context, width, height, frame.viewRotation, frame.backgroundColor || BG); const nodes = [];
     magneticLines.forEach((points, index) => { const fitted = points.map(point => [point[0], point[1] * 0.4]); path(context, s, fitted, color, index === 11 ? 0.88 : 0.57, index === 11 ? 1.35 : 0.96, reducedMotion ? 1 : ease((frame.intro - index * 0.014) / 0.7));
       if (!reducedMotion) { const start = Math.floor(((elapsed / 3300 + index / 23) % 1) * Math.max(1, fitted.length - 14)); path(context, s, fitted.slice(start, start + 14), color, 1, 2.4); }
       nodes.push(fitted[Math.floor(fitted.length * (0.25 + index % 4 * 0.12))]);
